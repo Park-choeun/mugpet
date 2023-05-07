@@ -1,4 +1,4 @@
-package model;
+package domain;
 
 public class Buy {
 	private int buy_id;		//primary key

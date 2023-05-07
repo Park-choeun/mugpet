@@ -1,4 +1,4 @@
-package model;
+package domain;
 
 public class Item {
 	private int item_id;		//primary key

@@ -1,4 +1,4 @@
-package model;
+package domain;
 
 public class Wish {
 	private int w_id;		//primary key
