@@ -1,6 +1,5 @@
 package controller.item;
 
-//주석
 public class BuyItemCommand {
 	
 	private int item_id;	//구매한 item의 id
