@@ -7,7 +7,7 @@ public class Buy {
 	private int buyQty;		//구매하는 개수
 	private int u_id;
 	
-//	public Buy() {}
+	public Buy() {}
 
 	public Buy(int buy_id, int item_id, int r_id, int buyQty, int u_id) {
 		this.buy_id = buy_id;
