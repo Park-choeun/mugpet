@@ -1,5 +1,6 @@
 package controller.item;
 
+//주석
 public class BuyItemCommand {
 	private int buy_id;
 	private int item_id;
