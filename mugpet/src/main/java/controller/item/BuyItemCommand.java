@@ -9,8 +9,6 @@ public class BuyItemCommand {
 	
 	public BuyItemCommand() {}
 	
-	//주석
-	
 	public BuyItemCommand(int buy_id, int item_id, int r_id, int buyQty, int u_id) {
 		this.buy_id = buy_id;
 		this.item_id = item_id;
