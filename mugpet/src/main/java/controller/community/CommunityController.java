@@ -58,5 +58,6 @@ public class CommunityController {
 	public String submit(NewCommunityCommand comCommand) {
 		
 		return "~~~~";
+		
 	}
 }

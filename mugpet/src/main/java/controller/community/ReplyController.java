@@ -20,6 +20,7 @@ public class ReplyController {
 	//댓글 등록 -> SpringMvcExample의 search controller처럼 변경해야할 듯함
 	@RequestMapping("필요하다면 사용")
 	public String submit(NewReplyCommand chatCommand) {
+		
 		return "~~~~";
 	}
 	

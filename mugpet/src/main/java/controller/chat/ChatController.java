@@ -31,7 +31,6 @@ public class ChatController {
 	@RequestMapping("필요하다면 사용")
 	public String viewChat(int receiver_id) {
 		//채팅 상세보기
-		
 		return "~~~~";
 	}
 }
