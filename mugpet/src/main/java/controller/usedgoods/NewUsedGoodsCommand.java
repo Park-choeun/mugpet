@@ -1,5 +1,7 @@
 package controller.usedgoods;
 
+import java.util.Date;
+
 public class NewUsedGoodsCommand {
 	private String memberId;
 	private String memebrPasswd;
