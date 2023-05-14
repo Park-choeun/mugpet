@@ -2,22 +2,20 @@ package com.spring.mugpet.controller.chat;
 
 import java.util.Date;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class NewChatCommand {
-	@NotEmpty
+//	@NotEmpty
 	private int chat_id;
 	
-	@NotEmpty
+//	@NotEmpty
 	private int sender_id;
 	
-	@NotEmpty
+//	@NotEmpty
 	private int receiver_id;
 	
-	@NotEmpty
+//	@NotEmpty
 	private String message;
 	
-	@NotEmpty
+//	@NotEmpty
 	private Date chatDt;
 	
 	public NewChatCommand() {
