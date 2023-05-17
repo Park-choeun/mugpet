@@ -1,17 +1,17 @@
 package com.spring.mugpet.domain;
 
-public class Order {
+public class OrderItem {
 	private int o_id;		//primary key
 	private int item_id;	//구매한 item의 id
-	private int buyQty;		//구매하는 개수
+	private int orderQty;	//구매하는 개수
 	private int u_id;		//로그인한 사용자 id
 	
-	public Order() {}
+	public OrderItem() {}
 
-	public Order(int o_id, int item_id, int buyQty, int u_id) {
+	public OrderItem(int o_id, int item_id, int orderQty, int u_id) {
 		this.o_id = o_id;
 		this.item_id = item_id;
-		this.buyQty = buyQty;
+		this.orderQty = orderQty;
 		this.u_id = u_id;
 	}
 
@@ -31,12 +31,12 @@ public class Order {
 		this.item_id = item_id;
 	}
 
-	public int getBuyQty() {
-		return buyQty;
+	public int getOrderQty() {
+		return orderQty;
 	}
 
-	public void setBuyQty(int buyQty) {
-		this.buyQty = buyQty;
+	public void setOrderQty(int orderQty) {
+		this.orderQty = orderQty;
 	}
 
 	public int getU_id() {
