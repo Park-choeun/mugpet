@@ -1,33 +1,31 @@
 package com.spring.mugpet.domain;
 
-/*MemberInfo Domain 클래스*/
 public class MemberInfo {
-	private int u_id;
-	private String nickname;
-	private String name;
-	private String email;
-	private String pwd;
-	private String address;
-	private String imageURL;
-	private int point;
-	private Pet pet;
+	private int u_id;			//primary key(userId)
+	private String nickname;	//닉네임
+	private String name;		//이름
+	private String email;		//이메일(로그인할 아이디)
+	private String pwd;			//비밀번호
+	private String phoneNum;	//전화번호
+	private String address;		//주소
+	private String imageUrl;	//이미지 경로
+	private int point;			//적립포인트
+	private int pet_id;			//본인이 소유한 펫
 	
-	public MemberInfo() {
+	public MemberInfo() {}
 
-	}
-
-	public MemberInfo(int u_id, String nickname, String name, String email, String pwd, String address, String imageURL,
-			int point, Pet pet) {
-		super();
+	public MemberInfo(int u_id, String nickname, String name, String email, String pwd, String phoneNum, String address,
+			String imageUrl, int point, int pet_id) {
 		this.u_id = u_id;
 		this.nickname = nickname;
 		this.name = name;
 		this.email = email;
 		this.pwd = pwd;
+		this.phoneNum = phoneNum;
 		this.address = address;
-		this.imageURL = imageURL;
+		this.imageUrl = imageUrl;
 		this.point = point;
-		this.pet = pet;
+		this.pet_id = pet_id;
 	}
 
 	public int getU_id() {
@@ -70,6 +68,14 @@ public class MemberInfo {
 		this.pwd = pwd;
 	}
 
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -78,12 +84,12 @@ public class MemberInfo {
 		this.address = address;
 	}
 
-	public String getImageURL() {
-		return imageURL;
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public int getPoint() {
@@ -94,11 +100,11 @@ public class MemberInfo {
 		this.point = point;
 	}
 
-	public Pet getPet() {
-		return pet;
+	public int getPet_id() {
+		return pet_id;
 	}
 
-	public void setPet(Pet pet) {
-		this.pet = pet;
+	public void setPet_id(int pet_id) {
+		this.pet_id = pet_id;
 	}
 }
