@@ -1,9 +1,9 @@
 package com.spring.mugpet.controller.item;
 
-public class OrderCommand {
+public class OrderItemCommand {
 	
 	private int item_id;
-	private int orderCnt;
+	private int orderQty;
 	private int u_id;
 	
 	public int getItem_id() {
@@ -12,11 +12,11 @@ public class OrderCommand {
 	public void setItem_id(int item_id) {
 		this.item_id = item_id;
 	}
-	public int getOrderCnt() {
-		return orderCnt;
+	public int getOrderQty() {
+		return orderQty;
 	}
-	public void setOrderCnt(int orderCnt) {
-		this.orderCnt = orderCnt;
+	public void setOrderQty(int orderQty) {
+		this.orderQty = orderQty;
 	}
 	public int getU_id() {
 		return u_id;

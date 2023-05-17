@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 //@RequestMapping()
-public class OrderController {
+public class OrderItemController {
 	//@Autowired private BuyService buyservice;
 	
 //	@GetMapping()

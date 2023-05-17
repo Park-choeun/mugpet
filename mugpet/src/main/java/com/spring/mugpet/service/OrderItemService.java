@@ -1,5 +1,5 @@
 package com.spring.mugpet.service;
 
-public class BuyService {
+public class OrderItemService {
 
 }
