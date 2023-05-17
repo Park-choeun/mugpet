@@ -7,6 +7,7 @@ public class MemberInfo {
 	private String name;
 	private String email;
 	private String pwd;
+	private String phoneNum;
 	private String address;
 	private String imageURL;
 	private int point;
@@ -16,7 +17,7 @@ public class MemberInfo {
 
 	}
 
-	public MemberInfo(int u_id, String nickname, String name, String email, String pwd, String address, String imageURL,
+	public MemberInfo(int u_id, String nickname, String name, String email, String pwd, String phoneNum, String address, String imageURL,
 			int point, Pet pet) {
 		super();
 		this.u_id = u_id;
@@ -24,6 +25,7 @@ public class MemberInfo {
 		this.name = name;
 		this.email = email;
 		this.pwd = pwd;
+		this.phoneNum = phoneNum;
 		this.address = address;
 		this.imageURL = imageURL;
 		this.point = point;
@@ -68,6 +70,14 @@ public class MemberInfo {
 
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+	
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
 	}
 
 	public String getAddress() {
