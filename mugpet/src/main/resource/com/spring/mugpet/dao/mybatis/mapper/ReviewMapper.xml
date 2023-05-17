@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybaits.mapper">
+	<cache />
+	<sql id="reviewCols">
+		r_id, review, item_id, u_id
+	</sql>
+	
+	<select id="getReivew" parameterType="com.spring.mugpet.domain.Review">
+		SELECT <include refid="reviewCols" />
+		FROM Review
+		WHERE r_id=#{r_id}
+	</select>
+	
+	<select id="getMyReviewList" parameterType="com.spring.mugpet.domain.Review">
+		SELECT <include refid="reviewCols" />
+		FROM Review
+		WHERE u_id=#{u_id}
+	</select>
+	
+	<insert id="insertReview" parameterType="com.spring.mugpet.domain.Review">
+		INSERT INTO Review (<include refid="reviewCols" />)
+		VALUES (#{r_id), #{review}, #{item_id}, #{u_id})
+	</insert> 
+	
+	<update id="updateReivew" parameterType="com.spring.mugpet.domain.Review">
+		UPDATE Review
+		SET review=#{review},
+		u_id=#{u_id} 
+		WHERE r_id=#{r_id} AND item_id=#{item_id}
+	</update>
+
+	<delete id="deleteReview" parameterType="com.spring.mugpet.domain.Review">
+		DELETE FROM Review
+		WHERE r_id=#{r_id}
+	</delete>
+</mapper>
