@@ -6,16 +6,6 @@ public class NewPetCommand {
 	private String species;
 	private String birth;
 	
-	
-	
-	
-	public NewPetCommand(String name, String species, String birth) {
-		super();
-		this.name = name;
-		this.species = species;
-		this.birth = birth;
-	}
-	
 	public String getName() {
 		return name;
 	}

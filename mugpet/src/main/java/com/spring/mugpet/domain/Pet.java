@@ -1,18 +1,14 @@
 package com.spring.mugpet.domain;
 
-/*Pet Domain 클래스*/
 public class Pet {
-	private int pet_id;
-	private String name;
-	private String species;
-	private String birth;
+	private int pet_id;			//primary key
+	private String name;		//반려동물 이름
+	private String species;		//반려동물 종(강아지 or 고양이 or 소동물)
+	private String birth;		//반려동물 생일
 	
-	public Pet() {
-		
-	}
+	public Pet() {}
 
 	public Pet(int pet_id, String name, String species, String birth) {
-		super();
 		this.pet_id = pet_id;
 		this.name = name;
 		this.species = species;

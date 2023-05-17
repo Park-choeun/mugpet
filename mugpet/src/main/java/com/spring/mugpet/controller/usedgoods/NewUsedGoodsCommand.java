@@ -3,26 +3,20 @@ package com.spring.mugpet.controller.usedgoods;
 import java.util.Date;
 
 public class NewUsedGoodsCommand {
-	private String memberId;
-	private String memebrPasswd;
+	
+	private String imgUrl;
 	private String title;
 	private String content;
-	private Date date;
+	private Date enroillDt;
 	private int price;
-	private String imgUrl;
+	private int likes;
+	private int replyCnt;
 	
-	
-	public String getMemberId() {
-		return memberId;
+	public String getImgUrl() {
+		return imgUrl;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-	public String getMemebrPasswd() {
-		return memebrPasswd;
-	}
-	public void setMemebrPasswd(String memebrPasswd) {
-		this.memebrPasswd = memebrPasswd;
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 	public String getTitle() {
 		return title;
@@ -36,11 +30,11 @@ public class NewUsedGoodsCommand {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getDate() {
-		return date;
+	public Date getEnroillDt() {
+		return enroillDt;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setEnroillDt(Date enroillDt) {
+		this.enroillDt = enroillDt;
 	}
 	public int getPrice() {
 		return price;
@@ -48,10 +42,16 @@ public class NewUsedGoodsCommand {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getImgUrl() {
-		return imgUrl;
+	public int getLikes() {
+		return likes;
 	}
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
 	}
 }

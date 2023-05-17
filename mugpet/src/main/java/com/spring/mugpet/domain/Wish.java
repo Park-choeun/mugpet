@@ -4,7 +4,7 @@ public class Wish {
 	private int w_id;		//primary key
 	private int item_id;	//wish에 담은 item의 id
 	private boolean want;	//wish에 담겨있으면 true, 삭제하려면 false
-	private int u_id;
+	private int u_id;		//로그인한 사용자 id
 	
 	public Wish() {}
 
