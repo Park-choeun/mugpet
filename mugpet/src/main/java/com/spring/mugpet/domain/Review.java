@@ -2,7 +2,6 @@ package com.spring.mugpet.domain;
 
 public class Review {
 	
-	
 	private int r_id;
 	private String review;
 	private int item_id;
