@@ -8,15 +8,18 @@ public interface ItemMapper {
 	
 	//하나의 상품정보 가져오기
 	Item getItem(int item_id);
+	
+	//상품 전체목록 가져오기(펫 종에 따라 default 필터링)
+	List<Item> getALLItemList(int spe_id);
 		
 	//각 카테고리에 해당하는 상품목록가져오기
-	List<Item> getItemList(int category_id);
-		
-	//상품 전체목록 가져오기
-	List<Item> getALLItemList();
+	List<Item> getItemList(int spe_id, int category_id);
 		
 	//필터링(검색)한 상품정보목록 가져오기
-	List<Item> getSearchItemList(int filter);
+	List<Item> getSearchItemList(int spe_id, int filter);
+	
+	//상품 정렬하기
+	List<Item> orderByItem(String standard, String order);
 		
 	//상품 추가하기
 	void insertItem(Item item);

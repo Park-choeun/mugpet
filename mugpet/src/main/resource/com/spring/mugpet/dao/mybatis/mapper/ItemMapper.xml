@@ -1,51 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mybaits.mapper"> <!-- com.spring.mugpet.dao.mybatis.mapper로 경로 변경해야함 = interface랑 경로 일치시키는 게 좋음 -->
+<mapper namespace="ItemMapper">
 	<cache />
 	<sql id="itemCols">
-		item_id, category_id,
+		item_id, category_id, spe_id,
 		itemName, price, brand,
-		imgURL, comments, filter
+		imgUrl, comments
 	</sql>
 	
-	<select id="getItem" parameterType="com.spring.mugpet.domain.Item">
+	<select id="getItem" parameterType="int">
 		SELECT <include refid="itemCols" />
 		FROM Item
 		WHERE item_id=#{item_id}
 	</select>
 	
-	<select id="getItemList" parameterType="com.spring.mugpet.domain.Item">
-		SELECT <include refid="itemCols" />
-		FROM Item
-		WHERE category_id=#{category_id}
-	</select>
-	
 	<select id="getALLItemList" parameterType="com.spring.mugpet.domain.Item">
 		SELECT <include refid="itemCols" />
 		FROM Item
+		WHERE spe_id=#{spe_id}
 	</select>
 	
-	<select id="getSearchItemList"  parameterType="com.spring.mugpet.domain.Item">
+	<select id="getItemList" parameterType="com.spring.mugpet.domain.Item">
 		SELECT <include refid="itemCols" />
 		FROM Item
-		WHERE filter=#{filter}
+		WHERE spe_id=#{spe_id} AND category_id=#{category_id}
+	</select>
+	
+	<select id="getSearchItemList" parameterType="com.spring.mugpet.domain.Item">
+		SELECT <include refid="itemCols" />
+		FROM Item
+		WHERE spe_id=#{spe_id} AND filter=#{filter}
+	</select>
+	
+	<select id="orderByItem" parameterType="com.spring.mugpet.domain.Item">
+		SELECT <include refid="itemCols" />
+		FROM Item
+		WHERE spe_id=#{spe_id}
+		ORDER BY #{0} #{1}
 	</select>
 	
 	<insert id="insertItem" parameterType="com.spring.mugpet.domain.Item">
 		INSERT INTO Item (<include refid="itemCols" />)
-		VALUES (#{item_id}, #{category_id}, #{itemName}, #{price}, #{brand}, #{imgURL}, #{filter})
+		VALUES (#{item_id}, #{category_id}, #{spe_id}, #{itemName}, #{price}, #{brand}, #{imgUrl})
 	</insert>
 	
 	<update id="updateItem" parameterType="com.spring.mugpet.domain.Item">
 		UPDATE Item
 		SET category_id=#{category_id},
+		spe_id=#{spe_id}
 		itemName=#{ItemName},
 		price=#{price},
 		brand=#{brand},
-		imgURL=#{imgURL},
+		imgUrl=#{imgUrl},
 		comments=#{comments},
-		filter=#{filter}
 		WHERE item_id=#{item_id}
 	</update>
 		
