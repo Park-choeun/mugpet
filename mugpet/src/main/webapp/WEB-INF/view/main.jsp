@@ -167,7 +167,7 @@
 				모두 함께 지켜나가요!
 			</div>
 			<div id="bannerImg">
-				<img id="walk" src="../images/walk.png" />
+				<img id="walk" src="images/walk.png" />
 			</div>
 		</div>
 	</div>
