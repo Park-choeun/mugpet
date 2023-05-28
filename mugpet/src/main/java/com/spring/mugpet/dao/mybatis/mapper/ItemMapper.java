@@ -1,6 +1,7 @@
 package com.spring.mugpet.dao.mybatis.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.mugpet.domain.Item;
 
@@ -19,7 +20,7 @@ public interface ItemMapper {
 	List<Item> getSearchItemList(int spe_id, int filter);
 	
 	//상품 정렬하기
-	List<Item> orderByItem(String standard, String order);
+	List<Item> orderByItem(Map<String, Object> param);
 		
 	//상품 추가하기
 	void insertItem(Item item);

@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,54 +51,62 @@
 	}
 	#searchbtn {
 		height:35px;
-		width:50px;
+		width:75px;
 		background-color:#FFE593;
 		border-color:#FFE593;
 		color:white;
 		font-weight:bold;
 	}
+	#body {
+		display:flex;
+	}
 	#category {
-		width:15%;
-		height:100vh;
+		display:inline-block;
+		posigion:flex;
+		width:200px;
+		height:630px;
 		text-align:center;
 		padding:10px 0;
 		float:left;
 		border-right:1px solid black;
 	}
 	#category_name {
+		posigion:flex;
+		width:200px;
 		line-height:250%;
 		font-weight:bold;
 	}
-	#body {
-		display:flex;
+	#subBody {
+		display:inline-block;
+		width:90%;
 	}
 	#banner {
-		display:inline-block;
 		display:flex;
 		background-color:#FDFCE4;
 		height:275px;
-		width:85%;
 		border-bottom:1px solid black;
 	}
 	#comment {
+		border:1px solid black;
+		width:400px;
 		font-size:18px;
 		line-height:230%;
 		display:inline-block;
-		padding:70px 60px 0 60px;
-		border:1px solid black;
+		padding:70px 0 0 60px;
 	}
 	#comment_big {
 		font-size:30px;
 		font-weight:bold;
 	}
-	#bannerImg {
-		display:inline-block;
-	}
 	#walk {
 		width:250px;
 		height:250px;
 		border:1px solid black;
-		margin: 10px 0 0 500px;
+		margin-left:auto;
+		margin-right:50px;
+	}
+	#itemList {
+		border:1px solid black;
 	}
 	a {
 		text-decoration: none;
@@ -113,15 +122,15 @@
 	<div id="top">
 		<div id="inline">
 			<div id="title">
-				<a href="main.jsp">MugPet <img id="logo" src="images/foot.png" /></a>
+				<a href="main.jsp">MugPet <img id="logo" src="../images/foot.png" /></a>
 			</div>
 			<div id="menu">
 				회원가입 | 로그인
 			</div>
 		</div>
 		<div id="search">
-			<input id="searchInput" type="text" name="searchInput" value="${searchItemCommand.searchInput}" />
-			<input type="submit" value="검색" class="btn btn-primary btn-sm" id="searchbtn"/>
+			<%-- <input id="searchInput" type="text" name="searchInput" value="${searchItemCommand.searchInput}" /> --%>
+			<input type="submit" value="필터링" class="btn btn-primary btn-sm" id="searchbtn"/>
 				<%-- <form:form modelAttribute="searchItemCommand">
 				<form:label path="searchInput">검색</form:label>
 				<form:input path="searchInput" />
@@ -134,16 +143,16 @@
 		<div id="category">
 			<div class="btn-group">
   				<button type="button" class="btn btn-danger dropdown-toggle" 
-  					style="background-color:#FFD1FF; border-color:#FFD1FF; font-weight:bold;"
+  					style="background-color:#FFD1FF; border-color:#FFD1FF; font-weight:bold; posigion:flex;"
   					data-bs-toggle="dropdown" aria-expanded="false">
   				강아지
-   				<%-- 	${pet.species}  --%> 	
+   				<%-- 	${spe_id}  --%> 	
    				<%-- 비로그인시 spe_id를 어떻게 참조할 것인지 경로로 참조한다면 변수 이름을 어떻게 해야할지!!!! --%>	 
    				</button>
   				<ul class="dropdown-menu">
-    				<li><a class="dropdown-item" href="/main?species=<%=1%>">강아지</a></li>
-    				<li><a class="dropdown-item" href="/main?species=<%=2%>">고양이</a></li>
-	   				<li><a class="dropdown-item" href="/main?species=<%=3%>">기타</a></li>
+    				<li><a class="dropdown-item" href="/main?spe_id=<%=1%>">강아지</a></li>
+    				<li><a class="dropdown-item" href="/main?spe_id=<%=2%>">고양이</a></li>
+	   				<li><a class="dropdown-item" href="/main?spe_id=<%=3%>">기타</a></li>
   				</ul>
 			</div>
 			<div id=category_name> <%-- jsp연결하기!!! --%>
@@ -158,7 +167,8 @@
 				<a href="main.jsp">중고거래</a><br/>
 			</div>
 		</div>
-		<div id="banner">
+		<div id="subBody">
+			<div id="banner">
 			<div id="comment">
 				<span id="comment_big">
 					반려동물과 함께만드는<br/>
@@ -166,9 +176,21 @@
 				</span>
 				모두 함께 지켜나가요!
 			</div>
-			<div id="bannerImg">
-				<img id="walk" src="images/walk.png" />
-			</div>
+			<img id="walk" src="../images/walk.png" />
+		</div>
+		<div id="itemList">
+			<%-- <c:forEach items="${itemList}" var="mi" varStatus="i"> --%>
+				<div class="card" style="width: 18rem;">
+  					<%-- <img src="${imageUrl}" class="card-img-top" alt="..."> --%>
+  					<img src="..." class="card-img-top" id="itemImg" alt="...">
+  					<div class="card-body">
+  						<p class="card-text">
+  							<span id="itemName">${i.itemName}</span>
+  						</p>
+ 					</div>
+				</div>
+			<%-- </c:forEach> --%>
+		</div>
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" 

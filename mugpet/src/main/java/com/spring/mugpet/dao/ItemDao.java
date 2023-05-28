@@ -16,7 +16,7 @@ public interface ItemDao {
 	
 	List<Item> getSearchItemList(int spe_id, int filter) throws DataAccessException;
 	
-	List<Item> orderByItem(String standard, String order) throws DataAccessException;
+	List<Item> orderByItem(int spe_id, String standard, String order) throws DataAccessException;
 	
 	void insertItem(Item item) throws DataAccessException;
 	
