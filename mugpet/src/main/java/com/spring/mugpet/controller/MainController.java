@@ -33,7 +33,6 @@ public class MainController {
 	//main화면
 	//@ModelAttribute("u_id") int u_id
 	//petService.getSpe_id로 불러오기
-	//제발..
 	@RequestMapping("/main")
 	public ModelAndView viewMain(String spe_id) {
 		ModelAndView mav = new ModelAndView();
@@ -47,9 +46,10 @@ public class MainController {
 		}
 		System.out.println(">>>>>>>>>>>>" + spe);
 		List<Item> itemList = new ArrayList<Item>();
-		itemList = itemService.getALLItemList(1);
+//		itemList = itemService.getALLItemList(1);
 		
-		System.out.println(">>>>>>>>>>>>" + itemList.get(0).getItemName());
+		
+//		System.out.println(">>>>>>>>>>>>" + itemList.get(0).getItemName());
 		
 		mav.addObject("spe", spe);
 		mav.addObject("itemList", itemList);
