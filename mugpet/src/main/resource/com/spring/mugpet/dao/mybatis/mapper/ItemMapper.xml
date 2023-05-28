@@ -6,7 +6,7 @@
 	<sql id="itemCols">
 		item_id, category_id, spe_id,
 		itemName, price, brand,
-		imgUrl, comments
+		imageUrl, comments
 	</sql>
 	
 	<select id="getItem" parameterType="int" resultType="Item">
@@ -42,7 +42,7 @@
 	
 	<insert id="insertItem">
 		INSERT INTO Item (<include refid="itemCols" />)
-		VALUES (#{item_id}, #{category_id}, #{spe_id}, #{itemName}, #{price}, #{brand}, #{imgUrl})
+		VALUES (#{item_id}, #{category_id}, #{spe_id}, #{itemName}, #{price}, #{brand}, #{imageUrl})
 	</insert>
 	
 	<update id="updateItem">
@@ -52,7 +52,7 @@
 		itemName=#{ItemName},
 		price=#{price},
 		brand=#{brand},
-		imgUrl=#{imgUrl},
+		imageUrl=#{imageUrl},
 		comments=#{comments},
 		WHERE item_id=#{item_id}
 	</update>

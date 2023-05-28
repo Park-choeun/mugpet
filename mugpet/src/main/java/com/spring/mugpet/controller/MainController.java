@@ -46,8 +46,9 @@ public class MainController {
 		}
 		System.out.println(">>>>>>>>>>>>" + spe);
 		List<Item> itemList = new ArrayList<Item>();
-//		itemList = itemService.getALLItemList(1);
-		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>111");
+		itemList = itemService.getALLItemList(1);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>222");
 		
 //		System.out.println(">>>>>>>>>>>>" + itemList.get(0).getItemName());
 		
