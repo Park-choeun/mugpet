@@ -33,7 +33,7 @@ public class MainController {
 	//main화면
 	//@ModelAttribute("u_id") int u_id
 	//petService.getSpe_id로 불러오기
-	//제발...
+	//제발...!
 	@RequestMapping("/main")
 	public ModelAndView viewMain(String spe_id) {
 		ModelAndView mav = new ModelAndView();
