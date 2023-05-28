@@ -9,12 +9,11 @@ public class Item {
 	private String brand;				//브랜드
 	private String imgUrl;				//이미지 경로
 	private String comments;			//상품 설명글
-	private int filter;					//검색할 때 사용할 필터값
 
 	public Item() {}
 
 	public Item(int item_id, int category_id, int spe_id, String itemName, int price, String brand, String imgUrl,
-			String comments, int filter) {
+			String comments) {
 		this.item_id = item_id;
 		this.category_id = category_id;
 		this.spe_id = spe_id;
@@ -22,8 +21,6 @@ public class Item {
 		this.price = price;
 		this.brand = brand;
 		this.imgUrl = imgUrl;
-		this.comments = comments;
-		this.filter = filter;
 	}
 
 	public int getItem_id() {
@@ -88,13 +85,5 @@ public class Item {
 
 	public void setComments(String comments) {
 		this.comments = comments;
-	}
-
-	public int getFilter() {
-		return filter;
-	}
-
-	public void setFilter(int filter) {
-		this.filter = filter;
 	}
 }
