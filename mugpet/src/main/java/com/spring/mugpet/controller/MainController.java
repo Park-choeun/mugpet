@@ -5,14 +5,8 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.mugpet.domain.Item;
@@ -31,27 +25,24 @@ public class MainController {
 	}
 	
 	//main화면
-	//@ModelAttribute("u_id") int u_id
-	//petService.getSpe_id로 불러오기
 	@RequestMapping("/main")
-	public ModelAndView viewMain(String spe_id) {
+	public ModelAndView viewMain(@RequestParam(value="spe_id", defaultValue="1") int spe_id) {
 		ModelAndView mav = new ModelAndView();
 		String spe;
-		if (spe_id.equals("1")) {
+		if (spe_id == 1) {
 			spe = "강아지";
-		} else if (spe_id.equals("2")) {
+		} else if (spe_id == 2) {
 			spe = "고양이";
 		} else {
 			spe = "소동물";
 		}
-		System.out.println(">>>>>>>>>>>>" + spe);
+		System.out.println(">>>>>>>>>>>>>>" + spe_id);
+		
 		List<Item> itemList = new ArrayList<Item>();
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>111");
-		itemList = itemService.getALLItemList(1);
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>222");
+		itemList = itemService.getALLItemList(spe_id);
 		
-//		System.out.println(">>>>>>>>>>>>" + itemList.get(0).getItemName());
-		
+		mav.setViewName("main");
+		mav.addObject("spe_id", spe_id);
 		mav.addObject("spe", spe);
 		mav.addObject("itemList", itemList);
 		
