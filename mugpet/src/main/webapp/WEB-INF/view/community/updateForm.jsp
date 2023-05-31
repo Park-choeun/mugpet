@@ -6,7 +6,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/foot.png" />
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <script>
@@ -40,7 +39,7 @@ function communityUpdate() {
 				<br>
   		<input class="form-control form-control-sm" id="formFileSm" type="file" style="width: 90%;">
   		<br>
-  		<button type="button" class="btn btn-danger" style="background-color: #FFD1FF; border-color: #FFD1FF;" type="submit" onClick="CommunityUpdate()">등록</button>&nbsp;
+  		<button type="button" class="btn btn-danger" style="background-color: #FFD1FF; border-color: #FFD1FF; color:white;" type="submit" onClick="CommunityUpdate()">등록</button>&nbsp;
   		<button type="button" class="btn btn-outline-danger" style="background-color: #FFD1FF; border-color: #FFD1FF;" onclick="javascript:history.back()">취소</button>
 				</div>
 	</form>		

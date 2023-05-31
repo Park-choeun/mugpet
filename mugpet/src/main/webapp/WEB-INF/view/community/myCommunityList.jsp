@@ -21,7 +21,7 @@
 <div style=" width: 75%; float: right; padding: 30px 60px 20px 20px;">
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<input type="hidden"/>
-		<c:forEach var="community" items="${comList }">
+		<c:forEach var="community" items="${myComList }">
   				<div class="col">
     				<div class="card h-100">
       					<img src="<c:url value='/upload/${community.imageUrl}'/>" class="card-img-top" alt="" onerror="">
