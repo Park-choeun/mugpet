@@ -10,12 +10,12 @@ public class MemberInfo {
 	private String address;		//주소
 	private String imageUrl;	//이미지 경로
 	private int point;			//적립포인트
-	private int pet_id;			//본인이 소유한 펫
+	private Pet pet;			//본인이 소유한 펫
 	
 	public MemberInfo() {}
 
 	public MemberInfo(int u_id, String nickname, String name, String email, String pwd, String phoneNum, String address,
-			String imageUrl, int point, int pet_id) {
+			String imageUrl, int point, Pet pet) {
 		this.u_id = u_id;
 		this.nickname = nickname;
 		this.name = name;
@@ -25,7 +25,7 @@ public class MemberInfo {
 		this.address = address;
 		this.imageUrl = imageUrl;
 		this.point = point;
-		this.pet_id = pet_id;
+		this.pet = pet;
 	}
 
 	public int getU_id() {
@@ -100,11 +100,11 @@ public class MemberInfo {
 		this.point = point;
 	}
 
-	public int getPet_id() {
-		return pet_id;
+	public Pet getPet() {
+		return pet;
 	}
 
-	public void setPet_id(int pet_id) {
-		this.pet_id = pet_id;
+	public void setPet(Pet pet) {
+		this.pet = pet;
 	}
 }

@@ -9,6 +9,9 @@ public interface ReivewMapper {
 	//하나의 리뷰 불러오기
 	Review getReview(int r_id);
 	
+	//각 아이템의 리뷰목록 불러오기
+	List<Review> getItemReivewList(int item_id);
+	
 	//본인이 작성한 리뷰목록 불러오기
 	List<Review> getMyReviewList(int u_id);
 	

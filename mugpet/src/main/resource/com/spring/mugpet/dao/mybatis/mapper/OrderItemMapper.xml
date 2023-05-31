@@ -1,1 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.mugpet.dao.mybatis.mapper.OrderItemMapper">
+	<sql id="orderItemCols">
+		o_id, item_id, orderQty,
+		orderAddr, orderPhoneNum, u_id 
+	</sql>
+	
+	<select id="getOrderItemList" parameterType="OrderItem" resultType="OrderItem">
+		SELECT <include refid="orderItemCols" />
+		FROM OrderItem
+		WHERE o_id=#{o_id}
+	</select>
+	
+	<select id="getAllOrderItemList" parameterType="OrderItem" resultType="OrderItem">
+		SELECT <include refid="orderItemCols" />
+		FROM OrderItem
+		WHERE u_id=#{u_id}
+	</select>
+	
+	<insert id="insertOrderItem" parameterType="OrderItem">
+		INSERT INTO OrderItem (<include refid="orderItemCols" />)
+		VALUES (#{o_id}, #{item_id}, #{orderQty}, #{orderAddr}, #{orderPhoneNum}, #{u_id})
+	</insert>
+	
+	<update id="updateOrderItem" parameterType="OrderItem">
+		UPDATE OrderItem
+		SET o_id=#{o_id}, 
+		item_id=#{item_id},
+		orderQty=#{orderQty},
+		orderAddr=#{orderAddr},
+		orderPhoneNum=#{orderPhoneNum},
+		u_id=#{u_id}
+		WHERE item_id=#{item_id}
+	</update>
+	
+	<delete id="deleteOrderItem" parameterType="com.spring.mugpet.domain.OrderItem">
+		DELETE FROM OrderItem
+		WHERE item_id=#{item_id}
+	</delete>
+	
+
+
+
+</mapper>
