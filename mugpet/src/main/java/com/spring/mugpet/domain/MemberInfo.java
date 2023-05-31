@@ -12,6 +12,7 @@ public class MemberInfo implements Serializable {
 	private String address;		//주소
 	private String imageUrl;	//이미지 경로
 	private int point;			//적립포인트		//본인이 소유한 펫
+
 	
 	public MemberInfo() {}
 
@@ -99,6 +100,5 @@ public class MemberInfo implements Serializable {
 	public void setPoint(int point) {
 		this.point = point;
 	}
-
 
 }
