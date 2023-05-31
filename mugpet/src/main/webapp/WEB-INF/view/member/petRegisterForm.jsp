@@ -184,9 +184,9 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
         <h4 class="mb-3">펫 등록</h4>
    
         <div class="frame">
-			<input type="radio" name="species" value="강아지" />강아지
-			<input type="radio" name="species" value="고양이" />고양이 
-			<input type="radio" name="species" value="소동물" />소동물
+			<input type="radio" name="species" value="1" />강아지
+			<input type="radio" name="species" value="2" />고양이 
+			<input type="radio" name="species" value="3" />소동물
 		</div>
 
           <div class="mb-3">
