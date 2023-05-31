@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.spring.mugpet.domain.MemberInfo"     			alias="MemberInfo" />
+		<typeAlias type="com.spring.cms.goods.dto.ColorDto"     			alias="ColorDto" />
+		<typeAlias type="com.spring.cms.goods.dto.SizeDto"     				alias="SizeDto" />
+		<typeAlias type="com.spring.cms.goods.dto.SizeDto"     				alias="FileDto" />
+		<typeAlias type="com.spring.cms.member.dto.MemberDto"   			alias="MemberDto" />
+		<typeAlias type="com.spring.cms.admin.member.dto.AdminDto"   		alias="AdminDto" />
+		<typeAlias type="com.spring.cms.myPage.dto.CartDto"   				alias="CartDto" />
+		<typeAlias type="com.spring.cms.order.dto.OrderDto"   				alias="OrderDto" />	
+	</typeAliases>
+	
+</configuration>
