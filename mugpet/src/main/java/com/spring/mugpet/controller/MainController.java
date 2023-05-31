@@ -13,10 +13,8 @@ import com.spring.mugpet.domain.Item;
 import com.spring.mugpet.service.ItemService;
 
 @Controller
-//@SessionAttributes("u_id")
 public class MainController {
 //로그인 후, 회원의 이름 or 펫의 이름 띄울거면 수정!!!!!!
-//spe_id requestParam으로 입력받았을 땐 어디에서 처리..?	
 	
 	@Autowired
 	private ItemService itemService;
@@ -36,7 +34,6 @@ public class MainController {
 		} else {
 			spe = "소동물";
 		}
-		System.out.println(">>>>>>>>>>>>>>" + spe_id);
 		
 		List<Item> itemList = new ArrayList<Item>();
 		itemList = itemService.getALLItemList(spe_id);
@@ -44,6 +41,31 @@ public class MainController {
 		mav.setViewName("main");
 		mav.addObject("spe_id", spe_id);
 		mav.addObject("spe", spe);
+		mav.addObject("itemList", itemList);
+		
+		return mav;
+	}
+	
+	@RequestMapping("/main/orderItem")
+	public ModelAndView orderItem(@RequestParam("spe_id") int spe_id, @RequestParam("standard") String standard, @RequestParam("order") String order) {
+		ModelAndView mav = new ModelAndView();
+		String spe;
+		if (spe_id == 1) {
+			spe = "강아지";
+		} else if (spe_id == 2) {
+			spe = "고양이";
+		} else {
+			spe = "소동물";
+		}
+		System.out.println(">>>>>>>>>>>>데이터 못가져옴");
+		List<Item> itemList = new ArrayList<Item>();
+		itemList = itemService.orderByItem(spe_id, standard, order);
+		System.out.println(">>>>>>>>>>>>>데이터 가져옴");
+		
+		mav.setViewName("main");
+		mav.addObject("spe_id", spe_id);
+		mav.addObject("spe", spe);
+		mav.addObject("standard", standard);
 		mav.addObject("itemList", itemList);
 		
 		return mav;

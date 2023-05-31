@@ -5,6 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 
@@ -57,7 +58,7 @@
 	margin-left: auto;
 }
 
-#searchbtn {
+#searchBtn {
 	height: 35px;
 	width: 75px;
 	background-color: #FFE593;
@@ -74,7 +75,7 @@
 	display: inline-block;
 	position: fixed;
 	width: 200px;
-	height: 630px;
+	height:628px;
 	text-align: center;
 	padding: 10px 0;
 	float: left;
@@ -126,12 +127,23 @@
 	margin: 10px 120px 0 auto;
 }
 
-#itemList {
-	padding: 35px 45px;
-	display:flex;
+#orderBy {
+	text-align:right;
+	padding:4px 28px 0 0;
 }
 
-#item {
+#orderBtn {
+	background-color:white;
+	border-color:white;
+	color:black;
+}
+
+#itemList {
+	padding:0 45px;
+	display:flex;	
+}
+
+#itemCard {
 	display:inline-block;
 	width:200px; 
 	height:350px;
@@ -170,13 +182,13 @@ a:visited, a:hover, a:active {
 	<div id="top">
 		<div id="inline">
 			<div id="title">
-				<a href="main.jsp">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
+				<a href="main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
 			</div>
 			<div id="menu">회원가입 | 로그인</div>
 		</div>
 		<div id="search">
 			<%-- <input id="searchInput" type="text" name="searchInput" value="${searchItemCommand.searchInput}" /> --%>
-			<input type="submit" value="필터링" class="btn btn-primary btn-sm" id="searchbtn" />
+			<input type="submit" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
 		</div>
 	</div>
 
@@ -194,15 +206,16 @@ a:visited, a:hover, a:active {
 				</ul>
 			</div>
 			<div id=category_name>
-				<%-- jsp연결하기!!! --%>
-				<a href="main/itemList?speid=${spe_id}&category_id=<%=1%>">사료</a><br /> 
-				<a href="main/itemList?speid=${spe_id}&category_id=<%=2%>">간식</a><br /> 
-				<a href="main/itemList?speid=${spe_id}&category_id=<%=3%>">건강관리</a><br /> 
-				<a href="main/itemList?speid=${spe_id}&category_id=<%=4%>">하우스/이동장</a><br /> 
-				<a href="main/itemList?speid=${spe_id}&category_id=<%=5%>">화장실/위생</a><br /> 
-				<a href="main/itemList?speid=${spe_id}&category_id=<%=6%>">의류/리드줄</a><br /> 
-				<a href="main/itemList?speid=${spe_id}&category_id=<%=7%>">장난감</a><br /> 
-				<a href="main">커뮤니티</a><br /> 
+				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=1%>">사료</a><br /> 
+				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=2%>">간식</a><br /> 
+				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=3%>">건강관리</a><br /> 
+				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=4%>">하우스/이동장</a><br /> 
+				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=5%>">화장실/위생</a><br /> 
+				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=6%>">의류/리드줄</a><br /> 
+				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=7%>">장난감</a><br />
+				 
+				<%-- jsp연결하기!!!!!!!!!!!!!!!!!!! --%>
+				<a href="item">커뮤니티</a><br /> 
 				<a href="main">중고거래</a><br />
 			</div>
 		</div>
@@ -218,10 +231,24 @@ a:visited, a:hover, a:active {
 				<img id="walk" src="${contextPath}/resources/images/walk.png" />
 			</div>
 			
+			<div id="orderBy">
+				<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="orderBtn" 
+						data-bs-toggle="dropdown" aria-expanded="false">
+    				기본순
+ 				</button>
+ 				<ul class="dropdown-menu" style="font-size:14px;">
+ 					<li><a class="dropdown-item" href="main?spe_id=${spe_id}">기본순</a></li>
+					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=itemName&order=ASC">이름순</a></li>
+					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=price&order=ASC">가격낮은순</a></li>
+					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=price&order=DESC">가격높은순</a></li>
+				</ul>
+			</div>
+			
 			<div id="itemList">
 				<div id="itemCards">
 					<c:forEach var="item" items="${itemList}" varStatus="i">
-						<div class="card" id="item">
+						<a href="item/itemDetail?item_id=${item.item_id}">
+						<div class="card" id="itemCard">
 							<img src="${item.imageUrl}" class="card-img-top" id="itemImg">
 							<div class="card-body">
 								<p class="card-text">
@@ -236,10 +263,11 @@ a:visited, a:hover, a:active {
 										</c:choose>
 									</span><br/>
   									<span id="brand">${item.brand}</span><br/>
-  									<span id="price">${item.price}원</span>
+  									<span id="price"><fmt:formatNumber value="${item.price}" pattern="#,###"/>원</span>
 								</p>
 							</div>
 						</div>
+						</a>
 					</c:forEach>
 				</div>
 			</div>

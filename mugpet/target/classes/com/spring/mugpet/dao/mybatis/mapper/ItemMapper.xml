@@ -33,7 +33,7 @@
 		WHERE spe_id=#{spe_id} AND filter=#{filter}
 	</select>
 	
-	<select id="orderByItem" parameterType="map" resultType="Item">
+	<select id="orderByItem" parameterType="HashMap" resultType="Item">
 		SELECT <include refid="itemCols" />
 		FROM Item
 		WHERE spe_id=#{spe_id}
