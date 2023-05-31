@@ -18,7 +18,7 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
 <meta charset="UTF-8">
-<title>상품목록</title>
+<title>상품정보</title>
 <style>
 #top {
 	border-bottom: 1px solid black;
@@ -99,36 +99,87 @@
 	display: inline-block;
 	margin-left:200px;
 	border-left:1px solid black;
+	width:87%;
 }
 
-#itemList {
-	padding: 35px 45px;
-	display:flex;
+.itemInfo {
+	margin: auto;
 }
 
-#itemCard {
-	display:inline-block;
-	width:200px; 
-	height:350px;
-	margin:20px;
+#itemImgBox {
+	width: 450px;
+	height: 450px;
 }
 
 #itemImg {
-	width:198px;
-	height:198px;
+	width:370px;
+	height:370px;
 }
 
-#itemName {
-	font-weight: bold;
-	font-size: 15px;
+#info1 {
+	width:500px;
+	height:140px;
+	line-height: 150%;
+	vertical-align : top;
+}
+
+#spe {
+	padding:2px 6px;
+	background-color:#FFD1FF;
+	color:white;
+	font-size:13px;
+	border-radius: 30px;
 }
 
 #brand {
-	font-size: 10px;
+	font-size:13px;
+}
+
+#itemName {
+	font-size:27px;
+	font-weight:bold;
 }
 
 #price {
-	font-size: 13px;
+	font-size:20px;
+	font-weight:bold;
+	vertical-align : top;
+	height:30px;
+}
+
+#comments {
+	font-size:17px;
+	width:500px;
+	padding-top:7px;
+	vertical-align : top;
+	line-height:120%;
+}
+
+#btnBox {
+	text-align:right;
+}
+
+#wishBtn {
+	width:40px;
+	height:40px;
+	margin-right: 10px;
+}
+
+#cartBtn {
+	background-color:white;
+	color:black;
+	font-weight:bold;
+	border-color: black;
+	margin-right: 10px;
+	padding:8px 35px;
+}
+
+#buyBtn {
+	background-color:#FFE593;
+	font-weight:bold;
+	border-color: #FFE593;
+	padding:8px 35px;
+	margin-right:10px;
 }
 
 a {
@@ -150,7 +201,7 @@ a:visited, a:hover, a:active {
 			<div id="menu">회원가입 | 로그인</div>
 		</div>
 		<div id="search">
-			<input type="submit" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
+			<input type="button" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
 		</div>
 	</div>
 
@@ -162,19 +213,19 @@ a:visited, a:hover, a:active {
 					${spe}
 				</button>
 				<ul class="dropdown-menu">
-					<li><a class="dropdown-item" href="itemList?spe_id=1&category_id=${category_id}">강아지</a></li>
-					<li><a class="dropdown-item" href="itemList?spe_id=2&category_id=${category_id}">고양이</a></li>
-					<li><a class="dropdown-item" href="itemList?spe_id=3&category_id=${category_id}">소동물</a></li>
+					<li><a class="dropdown-item" href="/mugpet/main?spe_id=<%=1%>">강아지</a></li>
+					<li><a class="dropdown-item" href="/mugpet/main?spe_id=<%=2%>">고양이</a></li>
+					<li><a class="dropdown-item" href="/mugpet/main?spe_id=<%=3%>">소동물</a></li>
 				</ul>
 			</div>
 			<div id=category_name>
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=1%>">사료</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=2%>">간식</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=3%>">건강관리</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=4%>">하우스/이동장</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=5%>">화장실/위생</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=6%>">의류/리드줄</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=7%>">장난감</a><br />
+				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=1%>">사료</a><br /> 
+				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=2%>">간식</a><br /> 
+				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=3%>">건강관리</a><br /> 
+				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=4%>">하우스/이동장</a><br /> 
+				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=5%>">화장실/위생</a><br /> 
+				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=6%>">의류/리드줄</a><br /> 
+				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=7%>">장난감</a><br />
 				 
 				<%-- jsp연결하기!!!!!!!!!!!!!!!!!!! --%>
 				<a href="item">커뮤니티</a><br /> 
@@ -182,33 +233,36 @@ a:visited, a:hover, a:active {
 			</div>
 		</div>
 		<div id="subBody">
-			<div id="itemList">
-				<div id="itemCards">
-					<c:forEach var="item" items="${itemList}" varStatus="i">
-						<a href="itemDetail?item_id=${item.item_id}">
-						<div class="card" id="itemCard">
-							<img src="${item.imageUrl}" class="card-img-top" id="itemImg">
-							<div class="card-body">
-								<p class="card-text">
-									<span id="itemName">
-										<c:choose>
-											<c:when test="${fn:length(item.itemName) > 26}">
-												<c:out value="${fn:substring(item.itemName,0,25)}" />...
-											</c:when>
-											<c:otherwise>
-												${item.itemName}
-											</c:otherwise>
-										</c:choose>
-									</span><br/>
-  									<span id="brand">${item.brand}</span><br/>
-  									<span id="price"><fmt:formatNumber value="${item.price}" pattern="#,###"/>원</span>
-								</p>
-							</div>
-						</div>
-						</a>
-					</c:forEach>
-				</div>
-			</div>
+			<table class="itemInfo">
+				<tr>
+					<td rowspan="4" id="itemImgBox">
+						<img src="${item.imageUrl}" class="card-img-top" id="itemImg">
+					</td>
+					<td colspan="2" style="height:60px;"></td>
+				</tr>
+				<tr>
+					<td id="info1">
+						<span id="spe">${spe}</span><br/>
+						<span id="brand">${item.brand}</span><br/>
+						<span id="itemName">${item.itemName}</span><br/>
+					</td>
+				</tr>
+				<tr>
+					<td id="price">
+						<fmt:formatNumber value="${item.price}" pattern="#,###"/>원
+					</td>
+				</tr>
+				<tr>
+					<td id="comments">${item.comments}</td>
+				</tr>
+				<tr>
+					<td colspan="2" id="btnBox">
+						<img id="wishBtn" src="${contextPath}/resources/images/wish.png" />
+						<input type="button" value="장바구니" class="btn btn-primary" id="cartBtn" />
+						<input type="button" value="구매하기" class="btn btn-primary" id="buyBtn" />
+					</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 	<script
