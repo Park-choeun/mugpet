@@ -1,7 +1,6 @@
 package com.spring.mugpet.dao.mybatis.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -22,7 +21,7 @@ public interface ItemMapper {
 	List<Item> getSearchItemList(int spe_id, int filter);
 	
 	//상품 정렬하기
-	List<Item> orderByItem(@Param("param") Map<String, Object> param);
+	List<Item> orderByItem(@Param("spe_id")int spe_id, @Param("stand")String stand, @Param("od")String od);
 		
 	//상품 추가하기
 	void insertItem(Item item);

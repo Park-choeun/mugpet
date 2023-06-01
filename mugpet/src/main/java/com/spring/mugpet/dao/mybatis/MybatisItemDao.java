@@ -1,8 +1,6 @@
 package com.spring.mugpet.dao.mybatis;
 
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -39,13 +37,8 @@ public class MybatisItemDao implements ItemDao {
 	}
 
 	@Override
-	public List<Item> orderByItem(int spe_id, String standard, String order) throws DataAccessException {
-		Map<String,Object> param = new HashMap<String, Object>(3);
-		param.put("spe_id", spe_id);
-		param.put("standard", standard);
-		param.put("order", order);
-		
-		return itemMapper.orderByItem(param);
+	public List<Item> orderByItem(int spe_id, String stand, String od) throws DataAccessException {
+		return itemMapper.orderByItem(spe_id, stand, od);
 	}
 
 	@Override

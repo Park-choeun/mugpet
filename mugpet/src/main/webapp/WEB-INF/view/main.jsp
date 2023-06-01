@@ -200,9 +200,9 @@ a:visited, a:hover, a:active {
 					${spe}
 				</button>
 				<ul class="dropdown-menu">
-					<li><a class="dropdown-item" href="main?spe_id=<%=1%>">강아지</a></li>
-					<li><a class="dropdown-item" href="main?spe_id=<%=2%>">고양이</a></li>
-					<li><a class="dropdown-item" href="main?spe_id=<%=3%>">소동물</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main?spe_id=<%=1%>">강아지</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main?spe_id=<%=2%>">고양이</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main?spe_id=<%=3%>">소동물</a></li>
 				</ul>
 			</div>
 			<div id=category_name>
@@ -234,13 +234,13 @@ a:visited, a:hover, a:active {
 			<div id="orderBy">
 				<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="orderBtn" 
 						data-bs-toggle="dropdown" aria-expanded="false">
-    				기본순
+    				${stand}
  				</button>
  				<ul class="dropdown-menu" style="font-size:14px;">
- 					<li><a class="dropdown-item" href="main?spe_id=${spe_id}">기본순</a></li>
-					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=itemName&order=ASC">이름순</a></li>
-					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=price&order=ASC">가격낮은순</a></li>
-					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=price&order=DESC">가격높은순</a></li>
+ 					<li><a class="dropdown-item" href="${contextPath}/main?spe_id=${spe_id}">기본순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&stand=itemName&od=ASC">이름순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&stand=price&od=ASC">가격낮은순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&stand=price&od=DESC">가격높은순</a></li>
 				</ul>
 			</div>
 			
