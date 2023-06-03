@@ -3,17 +3,13 @@ package com.spring.mugpet.domain;
 public class Pet {
 	private int pet_id;			//primary key
 	private String name;		//반려동물 이름
-	private String species;		//반려동물 종(강아지 or 고양이 or 소동물)
+	private int spe_id;			//반려동물 종(강아지 or 고양이 or 소동물)
 	private String birth;		//반려동물 생일
+	private int u_id;
 	
-	public Pet() {}
+	
+	public Pet() {};
 
-	public Pet(int pet_id, String name, String species, String birth) {
-		this.pet_id = pet_id;
-		this.name = name;
-		this.species = species;
-		this.birth = birth;
-	}
 
 	public int getPet_id() {
 		return pet_id;
@@ -31,12 +27,12 @@ public class Pet {
 		this.name = name;
 	}
 
-	public String getSpecies() {
-		return species;
+	public int getSpe_id() {
+		return spe_id;
 	}
 
-	public void setSpecies(String species) {
-		this.species = species;
+	public void setSpe_id(int spe_id) {
+		this.spe_id = spe_id;
 	}
 
 	public String getBirth() {
@@ -45,5 +41,12 @@ public class Pet {
 
 	public void setBirth(String birth) {
 		this.birth = birth;
+	}
+	public int getU_id() {
+		return u_id;
+	}
+	
+	public void setU_id(int u_id) {
+		this.u_id = u_id;
 	}
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.spring.mugpet.controller.community.NewCommunityCommand;
 import com.spring.mugpet.dao.CommunityDao;
 import com.spring.mugpet.dao.mybatis.mapper.CommunityMapper;
-import com.spring.mugpet.dao.mybatis.mapper.MemberInfoMapper;
 import com.spring.mugpet.domain.Community;
 
 @Repository
