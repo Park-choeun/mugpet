@@ -3,16 +3,16 @@
 
 <mapper namespace="com.spring.mugpet.dao.mybatis.mapper.PetMapper">
 
-	<sql id="petColumns">NAME,SPECIES,BIRTH,U_ID</sql>
+	<sql id="petColumns">NAME,SPE_ID,BIRTH,U_ID</sql>
 	<insert id="insertPet" parameterType="Pet">
 	<selectKey resultType="Integer" keyProperty="pet_id" order="BEFORE">
-    	SELECT MAX(pet_id) + 1
+		SELECT NVL(MAX(pet_id), 1)
     	FROM PET
 	</selectKey>
 		INSERT INTO PET
 			(PET_ID,<include refid="petColumns" />)
 		VALUES
-			(#{pet_id},#{name},#{species},#{birth},#{u_id})
+			(#{pet_id},#{name},#{spe_id},#{birth},#{u_id})
 	</insert>
 
 

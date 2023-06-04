@@ -182,7 +182,9 @@ a:visited, a:hover, a:active {
 			<div id="title">
 				<a href="${contextPath}/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
 			</div>
-			<div id="menu">회원가입 | 로그인</div>
+			<div id="menu">
+				<a href="${contextPath}/member/register">회원가입</a> | 
+				<a href="${contextPath}/member/login">로그인</a></div>
 		</div>
 		<div id="search">
 			<%-- <input id="searchInput" type="text" name="searchInput" value="${searchItemCommand.searchInput}" /> --%>
@@ -204,17 +206,15 @@ a:visited, a:hover, a:active {
 				</ul>
 			</div>
 			<div id=category_name>
-				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=1%>">사료</a><br /> 
-				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=2%>">간식</a><br /> 
-				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=3%>">건강관리</a><br /> 
-				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=4%>">하우스/이동장</a><br /> 
-				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=5%>">화장실/위생</a><br /> 
-				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=6%>">의류/리드줄</a><br /> 
-				<a href="item/itemList?spe_id=${spe_id}&category_id=<%=7%>">장난감</a><br />
-				 
-				<%-- jsp연결하기!!!!!!!!!!!!!!!!!!! --%>
-				<a href="item">커뮤니티</a><br /> 
-				<a href="main">중고거래</a><br />
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=1%>">사료</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=2%>">간식</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=3%>">건강관리</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=4%>">하우스/이동장</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=5%>">화장실/위생</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=6%>">의류/리드줄</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=7%>">장난감</a><br />
+				<a href="${contextPath}/community/communityList?spe_id=${spe_id}">커뮤니티</a><br /> 
+				<a href="${contextPath}/usedGoods/usedGoodsList?spe_id=${spe_id}">중고거래</a><br />
 			</div>
 		</div>
 		<div id="subBody">
@@ -245,7 +245,7 @@ a:visited, a:hover, a:active {
 			<div id="itemList">
 				<div id="itemCards">
 					<c:forEach var="item" items="${itemList}" varStatus="i">
-						<a href="item/itemDetail?item_id=${item.item_id}">
+						<a href="${contextPath}/item/itemDetail?item_id=${item.item_id}">
 						<div class="card" id="itemCard">
 							<img src="${item.imageUrl}" class="card-img-top" id="itemImg">
 							<div class="card-body">

@@ -46,7 +46,7 @@ public class PetController {
 		petRegisterForm.getPet().setSpe_id(Integer.parseInt(request.getParameter("species")));
 		petService.addPet(petRegisterForm.getPet());
 		
-		return "redirect: /member/login";
+		return "member/loginForm";
 
 	}
 	
