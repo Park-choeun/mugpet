@@ -182,7 +182,7 @@ a:visited, a:hover, a:active {
 	<div id="top">
 		<div id="inline">
 			<div id="title">
-				<a href="main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
+				<a href="${contextPath}/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
 			</div>
 			<div id="menu">회원가입 | 로그인</div>
 		</div>
@@ -234,7 +234,7 @@ a:visited, a:hover, a:active {
 			<div id="orderBy">
 				<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="orderBtn" 
 						data-bs-toggle="dropdown" aria-expanded="false">
-    				${stand}
+    				${standard}
  				</button>
  				<ul class="dropdown-menu" style="font-size:14px;">
  					<li><a class="dropdown-item" href="${contextPath}/main?spe_id=${spe_id}">기본순</a></li>
