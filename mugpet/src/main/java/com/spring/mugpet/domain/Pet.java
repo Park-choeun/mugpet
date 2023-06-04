@@ -8,9 +8,16 @@ public class Pet {
 	private int u_id;
 	
 	
-	public Pet() {};
+	public Pet() {};	
 
-
+	public Pet(int pet_id, String name, int spe_id, String birth, int u_id) {
+		this.pet_id = pet_id;
+		this.name = name;
+		this.spe_id = spe_id;
+		this.birth = birth;
+		this.u_id = u_id;
+	}
+	
 	public int getPet_id() {
 		return pet_id;
 	}

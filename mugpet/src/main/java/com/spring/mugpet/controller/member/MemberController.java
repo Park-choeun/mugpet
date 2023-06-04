@@ -87,7 +87,7 @@ public class MemberController {
 				return new ModelAndView("redirect:" + forwardAction);
 			}
 			else {
-				return new ModelAndView("main");
+				return new ModelAndView("/main");
 			}
 		}
 	

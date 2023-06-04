@@ -18,7 +18,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
 	private MemberDao memberDao;
-	private final String CURR_IMAGE_REPO_PATH = "/Users/hyouzl/test/";
+	private final String CURR_IMAGE_REPO_PATH = "D:\\mugpet\\imgTest";
 	
 	@Override
 	public boolean login(String email,String pwd) {

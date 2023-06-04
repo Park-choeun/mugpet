@@ -42,12 +42,13 @@ public class MainController {
 		mav.addObject("spe_id", spe_id);
 		mav.addObject("spe", spe);
 		mav.addObject("itemList", itemList);
+		mav.addObject("standard", "기본순");
 		
 		return mav;
 	}
 	
 	@RequestMapping("/main/orderItem")
-	public ModelAndView orderItem(@RequestParam("spe_id") int spe_id, @RequestParam("standard") String standard, @RequestParam("order") String order) {
+	public ModelAndView orderItem(@RequestParam("spe_id") int spe_id, @RequestParam("stand") String stand, @RequestParam("od") String od) {
 		ModelAndView mav = new ModelAndView();
 		String spe;
 		if (spe_id == 1) {
@@ -57,10 +58,20 @@ public class MainController {
 		} else {
 			spe = "소동물";
 		}
-		System.out.println(">>>>>>>>>>>>데이터 못가져옴");
+		
+		String standard;
+		if (stand.equals("itemName")) {
+			standard = "이름순";
+		} else {
+			if (od.equals("ASC")) {
+				standard = "가격낮은순";
+			} else {
+				standard = "가격높은순";
+			}
+		}
+		
 		List<Item> itemList = new ArrayList<Item>();
-		itemList = itemService.orderByItem(spe_id, standard, order);
-		System.out.println(">>>>>>>>>>>>>데이터 가져옴");
+		itemList = itemService.orderByItem(spe_id, stand, od);
 		
 		mav.setViewName("main");
 		mav.addObject("spe_id", spe_id);

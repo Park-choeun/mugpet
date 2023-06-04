@@ -14,7 +14,7 @@ public interface ItemService {
 	
 	List<Item> getSearchItemList(int spe_id, int filter);
 	
-	List<Item> orderByItem(int spe_id, String standard, String order);
+	List<Item> orderByItem(int spe_id, String stand, String od);
 	
 	void insertItem(Item item);
 	

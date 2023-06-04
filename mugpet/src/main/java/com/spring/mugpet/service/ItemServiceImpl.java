@@ -37,8 +37,8 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<Item> orderByItem(int spe_id, String standard, String order) {
-		return itemDao.orderByItem(spe_id, standard, order);
+	public List<Item> orderByItem(int spe_id, String stand, String od) {
+		return itemDao.orderByItem(spe_id, stand, od);
 	}
 
 	@Override
