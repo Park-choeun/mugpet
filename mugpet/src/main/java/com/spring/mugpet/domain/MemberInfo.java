@@ -1,6 +1,8 @@
 package com.spring.mugpet.domain;
 
-public class MemberInfo {
+import java.io.Serializable;
+
+public class MemberInfo implements Serializable {
 	private int u_id;			//primary key(userId)
 	private String nickname;	//닉네임
 	private String name;		//이름
@@ -9,13 +11,13 @@ public class MemberInfo {
 	private String phoneNum;	//전화번호
 	private String address;		//주소
 	private String imageUrl;	//이미지 경로
-	private int point;			//적립포인트
-	private Pet pet;			//본인이 소유한 펫
+	private int point;			//적립포인트		//본인이 소유한 펫
+
 	
 	public MemberInfo() {}
 
 	public MemberInfo(int u_id, String nickname, String name, String email, String pwd, String phoneNum, String address,
-			String imageUrl, int point, Pet pet) {
+			String imageUrl, int point) {
 		this.u_id = u_id;
 		this.nickname = nickname;
 		this.name = name;
@@ -25,7 +27,6 @@ public class MemberInfo {
 		this.address = address;
 		this.imageUrl = imageUrl;
 		this.point = point;
-		this.pet = pet;
 	}
 
 	public int getU_id() {
@@ -100,11 +101,4 @@ public class MemberInfo {
 		this.point = point;
 	}
 
-	public Pet getPet() {
-		return pet;
-	}
-
-	public void setPet(Pet pet) {
-		this.pet = pet;
-	}
 }

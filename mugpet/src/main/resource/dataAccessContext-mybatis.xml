@@ -36,8 +36,13 @@
     <!-- define the SqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
+        <property name="configuration">
+            <bean class="org.apache.ibatis.session.Configuration">
+                <property name="mapUnderscoreToCamelCase" value="true" />
+            </bean>
+        </property> 
         <property name="typeAliasesPackage" value="com.spring.mugpet.domain" />
-    </bean>
+     </bean>
 
     <!-- scan for mappers and let them be autowired -->
     <mybatis:scan base-package="com.spring.mugpet.dao.mybatis.mapper" />
