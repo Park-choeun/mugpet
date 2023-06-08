@@ -1,17 +1,25 @@
 package com.spring.mugpet.controller;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import com.spring.mugpet.domain.Item;
+import com.spring.mugpet.domain.MemberInfo;
+import com.spring.mugpet.domain.Pet;
 import com.spring.mugpet.service.ItemService;
+import com.spring.mugpet.service.PetService;
 
 @Controller
 public class MainController {
@@ -23,6 +31,9 @@ public class MainController {
 	public void setItemService(ItemService itemService) {
 		this.itemService = itemService;
 	}
+	
+	@Autowired
+	private PetService petService;
 	public void setPetService(PetService petService) {
 		this.petService = petService;
 	}
@@ -36,8 +47,8 @@ public class MainController {
 		else return userSession;
 		
 	}
-
-	//main 수정
+	
+	//수정
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String viewMain(HttpServletRequest request,
 						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
