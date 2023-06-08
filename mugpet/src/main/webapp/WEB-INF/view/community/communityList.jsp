@@ -25,7 +25,8 @@
       					<img src="<c:url value='/upload/${community.imageUrl}'/>" class="card-img-top" alt="" onerror="">
       						<div class="card-body">
         						<h6 style="font-weight: bold;" class="card-title">${community.title }</h6>
-        						<p class="card-text">${community.u_id }</p>
+        						<p class="card-text">u_id 확인용: ${community.u_id }</p>
+        						<p class="card-text">com_id 확인용: ${community.com_id }</p>
         						<a href="<c:url value='/community/view'>
 						   			<c:param name='com_id' value='${community.com_id}'/>
 				 				 	</c:url>" class="btn btn-outline-danger" style="background-color: #FFD1FF; border-color: #FFD1FF; color:white;">자세히보기</a>

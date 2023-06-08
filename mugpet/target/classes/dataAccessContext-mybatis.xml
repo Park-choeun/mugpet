@@ -38,7 +38,7 @@
         <property name="dataSource" ref="dataSource" />
         <property name="configuration">
             <bean class="org.apache.ibatis.session.Configuration">
-                <property name="mapUnderscoreToCamelCase" value="true" />
+                <property name="mapUnderscoreToCamelCase" value="false" />
             </bean>
         </property> 
         <property name="typeAliasesPackage" value="com.spring.mugpet.domain" />
