@@ -16,6 +16,7 @@ import com.spring.mugpet.service.ItemService;
 public class MainController {
 //로그인 후, 회원의 이름 or 펫의 이름 띄울거면 수정!!!!!!
 	
+	//메인 tiles 설정 
 	@Autowired
 	private ItemService itemService;
 	public void setItemService(ItemService itemService) {
