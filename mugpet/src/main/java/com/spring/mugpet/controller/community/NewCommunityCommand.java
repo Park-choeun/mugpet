@@ -2,12 +2,25 @@ package com.spring.mugpet.controller.community;
 
 import java.util.Date;
 
+import com.spring.mugpet.domain.Community;
+
 public class NewCommunityCommand {
-	
+	private int com_id;
 	private String imageUrl;
 	private String title;
 	private String content;
 	private Date enrollDt;
+	private int likse;
+	private int replyCnt;
+	private int u_id;
+
+	public int getCom_id() {
+		return com_id;
+	}
+
+	public void setCom_id(int com_id) {
+		this.com_id = com_id;
+	}
 
 	public String getImageUrl() {
 		return imageUrl;
@@ -40,4 +53,29 @@ public class NewCommunityCommand {
 	public void setEnrollDt(Date enrollDt) {
 		this.enrollDt = enrollDt;
 	}
+
+	public int getLikse() {
+		return likse;
+	}
+
+	public void setLikse(int likse) {
+		this.likse = likse;
+	}
+
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
+
+	public int getU_id() {
+		return u_id;
+	}
+
+	public void setU_id(int u_id) {
+		this.u_id = u_id;
+	}
+	
 }
