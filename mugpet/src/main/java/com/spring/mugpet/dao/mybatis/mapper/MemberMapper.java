@@ -10,4 +10,8 @@ public interface MemberMapper {
 	void insertAccount(MemberInfo account);
 	MemberInfo getMemberInfoByEmailandPwd(String email,String pwd);
 	void updatePoints(@Param("point")int point, @Param("email")String email, @Param("pwd") String pwd);
+
+	//Community, UsedGoods에서 사용
+	String getNickNameByU_Id(int u_id);
+
 }

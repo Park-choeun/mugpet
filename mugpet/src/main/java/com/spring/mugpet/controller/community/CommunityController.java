@@ -1,44 +1,66 @@
 package com.spring.mugpet.controller.community;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.WebUtils;
 
 import com.spring.mugpet.domain.Community;
+import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.Reply;
 import com.spring.mugpet.service.CommunityServiceImpl;
+import com.spring.mugpet.service.MemberServiceImpl;
 import com.spring.mugpet.service.ReplyServiceImpl;
 
 @Controller
 @RequestMapping(method=RequestMethod.GET)
-@SessionAttributes("u_id")
+//@SessionAttributes("userSession")
 /*form 사용시, Command 객체 사용*/
 public class CommunityController {
-	/*진행 상황에 따라 코드 수정 必*/
+	
 	@Autowired
 	private CommunityServiceImpl comService;
 	
 	@Autowired
 	private ReplyServiceImpl replyService;
 	
+	@Autowired
+	private MemberServiceImpl memberService;
+	
 	@RequestMapping("/community/view")
-	public String getCom(Model model, @RequestParam(value = "com_id") int com_id) {
+	public String getCom(Model model, @RequestParam(value = "com_id") Integer com_id) {
 		//게시글 상세보기
 		Community com = null;
 		com = comService.getCom(com_id);
 		
 		List<Reply> replyList = replyService.getCommunityReplyList(com_id);
 		
+		int u_id = comService.getU_IdByCommunity(com_id);
+		//int u_id = com.getU_id();
+		String nickname = memberService.getNickNameByU_Id(u_id);
+		
 		model.addAttribute("community", com);
 		model.addAttribute("replyList", replyList);
+		model.addAttribute("nickname", nickname);
 		
 		return "/community/view";
 	}
@@ -47,8 +69,23 @@ public class CommunityController {
 	public String getComList(Model model) {
 		//게시글 목록 보기
 		List<Community> comList = comService.getComList();
+		//ArrayList<String> nicknameList = new ArrayList<String>();
+		/*
+		for(Community coms : comList) {
+			int u_id = coms.getU_id();
+			//int u_id = comService.getU_IdByCommunity(com_id);
+			String nickname = memberService.getNickNameByU_Id(u_id);
+			nicknameList.add(nickname);
+		}*/
+				
+		for(Community com : comList) {
+			System.out.println(com.getTitle());
+			System.out.println(com.getCom_id());
+		}
 		
 		model.addAttribute("comList", comList);
+		
+		//model.addAttribute("nicknameList", nicknameList);
 		
 		return "/community/communityList";
 	}
@@ -92,16 +129,31 @@ public class CommunityController {
 	
 	//글 작성 버튼 누르면 폼으로 이동
 	@RequestMapping(value = "/community/writeForm", method = RequestMethod.GET)
-	public String form() {
+	public String form(@ModelAttribute NewCommunityCommand comCommand) {
 
 		return "/community/writeForm";
 	}
 	
 	//폼에서 작성 완료 버튼을 누르면 해당 글과 관련된 내용을 db에 저장 후 목록or상세보기 페이지로 이동
 	@RequestMapping(value = "/community/write", method = RequestMethod.POST)
-	public String submit(NewCommunityCommand comCommand) {
-		comService.insertCom(comCommand);
+	public String submit(@ModelAttribute NewCommunityCommand comCommand, BindingResult result, HttpServletRequest request,
+						@RequestPart(value="imgFile", required=false) MultipartFile file) throws Exception {
 		
+		//UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		//int u_id = userSession.getMemberInfo().getU_id();
+		//System.out.println(u_id);
+		
+		comCommand.setU_id(2);
+		comCommand.setCom_id(1);
+		
+		comService.insertCom(comCommand, file);
+	
 		return "redirect:/community/view";		
 	}
+	
+	/*@ModelAttribute("u_id")
+	public int user(HttpServletRequest request) throws Exception{
+		System.out.println(request.getSession().getAttribute("u_id"));
+		return (int)request.getSession().getAttribute("u_id");
+	}*/
 }

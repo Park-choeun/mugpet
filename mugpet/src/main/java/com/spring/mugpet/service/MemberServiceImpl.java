@@ -77,6 +77,9 @@ public class MemberServiceImpl implements MemberService{
 		memberDao.updatePoints(point, email, pwd);
 	}
 	
-	
-
+	//Community, UsedGoods에서 사용
+	@Override
+	public String getNickNameByU_Id(int u_id) {
+		return memberDao.getNickNameByU_Id(u_id);
+	}
 }

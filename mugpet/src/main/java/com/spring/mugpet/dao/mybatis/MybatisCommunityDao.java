@@ -13,6 +13,7 @@ import com.spring.mugpet.domain.Community;
 
 @Repository
 public class MybatisCommunityDao implements CommunityDao{
+	
 	@Autowired
 	private CommunityMapper comMapper;
 	
@@ -60,5 +61,10 @@ public class MybatisCommunityDao implements CommunityDao{
 		//댓글 수
 		comMapper.updateReplyCnt(com_id, amount);
 		
+	}
+
+	@Override
+	public int getU_IdByCommunity(int com_id) {
+		return comMapper.getU_IdByCommunity(com_id);
 	}	
 }
