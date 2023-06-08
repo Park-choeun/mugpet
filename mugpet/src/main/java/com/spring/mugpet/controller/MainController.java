@@ -1,37 +1,24 @@
 package com.spring.mugpet.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.WebUtils;
 
 import com.spring.mugpet.domain.Item;
-import com.spring.mugpet.domain.MemberInfo;
-import com.spring.mugpet.domain.Pet;
 import com.spring.mugpet.service.ItemService;
-import com.spring.mugpet.service.PetService;
 
 @Controller
-@SessionAttributes("memberInfo")
 public class MainController {
 //로그인 후, 회원의 이름 or 펫의 이름 띄울거면 수정!!!!!!
 	
 	//메인 tiles 설정 
 	@Autowired
 	private ItemService itemService;
-	@Autowired
-	private PetService petService;
 	public void setItemService(ItemService itemService) {
 		this.itemService = itemService;
 	}
@@ -48,10 +35,8 @@ public class MainController {
 		else return userSession;
 		
 	}
-	
-	
+
 	//main 수정
-	//main화면
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String viewMain(HttpServletRequest request,
 						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
@@ -83,10 +68,7 @@ public class MainController {
 		return "tiles/main";
 
 	}
-	
-	
-
-	
+  
 	
 	@RequestMapping("/main/orderItem")
 	public ModelAndView orderItem(@RequestParam("spe_id") int spe_id, @RequestParam("stand") String stand, @RequestParam("od") String od) {

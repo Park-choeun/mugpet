@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.mugpet.domain.Reply;
@@ -22,9 +23,18 @@ public class ReplyController {
 	 * @RequestMapping("/reply/insert") public String form() { return "~~~~"; }
 	 */
 	
+	//test용
+	@RequestMapping(value = "/community/replyForm")
+	public String comReplyForm() {
+		return "/community/replyForm";
+	}
+	
 	//댓글 등록 -> SpringMvcExample의 search controller처럼 변경해야할 듯함
-	@RequestMapping(value = "/community/reply/insert")
+	@RequestMapping(value = "/community/replyInsert")
 	public String comSubmit(NewReplyCommand replyCommand) {
+		replyCommand.setRp_id(1);
+		replyCommand.setU_id(2);
+		replyCommand.setCom_id(1);
 		replyService.insertComReply(replyCommand);
 		
 		return "redirect:/community/view";

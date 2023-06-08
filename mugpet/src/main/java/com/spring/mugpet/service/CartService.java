@@ -28,4 +28,5 @@ public interface CartService {
 
 	//Cart 목록에 item 삭제하기
 	void removeCart(int item_id);
+	
 }

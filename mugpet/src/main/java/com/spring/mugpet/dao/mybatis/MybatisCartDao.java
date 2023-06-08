@@ -48,4 +48,5 @@ public class MybatisCartDao implements CartDao{
 	public void removeCart(int item_id) throws DataAccessException{
 		cartMapper.removeCart(item_id);
 	}
+	//주석
 }
