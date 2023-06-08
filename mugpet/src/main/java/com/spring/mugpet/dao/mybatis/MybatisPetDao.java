@@ -20,6 +20,12 @@ public class MybatisPetDao implements PetDao{
 		petMapper.insertPet(pet);
 		
 	}
+
+	@Override
+	public Pet getPetByU_id(int u_id) throws DataAccessException {
+		return petMapper.getPetByU_id(u_id);
+		
+	}
 	
 	
 	

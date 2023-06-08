@@ -72,6 +72,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.getMemberInfoByEmailandPwd(email,pwd);
 	}
 	
+	@Override
+	public void updatePoints(int point, String email, String pwd) {
+		memberDao.updatePoints(point, email, pwd);
+	}
+	
 	
 
 }

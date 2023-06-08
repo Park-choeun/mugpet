@@ -14,4 +14,5 @@ public interface MemberService {
 	public void creatAccountWithoutImgFile(MemberInfo account) throws Exception;
 	public void updateAccount(MemberInfo account);
 	public MemberInfo checkAccount(String email, String pwd);
+	public void updatePoints(int point, String email, String pwd);
 }
