@@ -33,11 +33,11 @@
 		WHERE spe_id=#{spe_id} AND filter=#{filter}
 	</select>
 	
-	<select id="orderByItem" parameterType="map" resultType="Item">
+	<select id="orderByItem" resultType="Item">
 		SELECT <include refid="itemCols" />
 		FROM Item
-		WHERE spe_id=#{spe_id}
-		ORDER BY #{standard} #{order}
+		WHERE spe_id=${spe_id}
+		ORDER BY ${stand} ${od}
 	</select>
 	
 	<insert id="insertItem">

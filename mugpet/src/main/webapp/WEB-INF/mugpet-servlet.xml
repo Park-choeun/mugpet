@@ -5,6 +5,7 @@
   -->
 	<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:beans="http://www.springframework.org/schema/beans"
 		xmlns:context="http://www.springframework.org/schema/context" 
 		xmlns:p="http://www.springframework.org/schema/p"
 		xmlns:mvc="http://www.springframework.org/schema/mvc" 	
@@ -18,13 +19,47 @@
 	<context:component-scan base-package="com.spring.mugpet.controller" />
 
 	<mvc:annotation-driven/>		<!-- create RequestMappingHandlerMapping -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
-	<mvc:view-controller path="/main" view-name="main" />
+	
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    	<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+   		 <beans:property name="order" value="1" />
+	</beans:bean>
+	
+    <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <beans:property name="definitions" value="classpath:tiles/*.xml" />	
+    </beans:bean>
 
+		
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	
+
+    <beans:bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+       <beans:property name="maxUploadSize"   value="52428800" />
+       <beans:property name="maxInMemorySize" value="52428800" />
+       <beans:property name="defaultEncoding" value="utf-8" />
+    </beans:bean>
+    
+   	<mvc:interceptors>
+		<mvc:interceptor>
+    	    <mvc:mapping path="/myPage/myOrderList"/>
+    	    <mvc:exclude-mapping path="/member/login"/>
+        	<bean class="com.spring.mugpet.controller.member.LoginCheckInterceptor" />
+    	</mvc:interceptor>
+	</mvc:interceptors>
+	
+ <!--   	<mvc:interceptors>
+		<mvc:interceptor>
+    	    <mvc:mapping path="/main"/>
+        	<bean class="com.spring.mugpet.controller.MainLoginCheckInterceptor" />
+    	</mvc:interceptor>
+	</mvc:interceptors> -->
+	
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 </beans>

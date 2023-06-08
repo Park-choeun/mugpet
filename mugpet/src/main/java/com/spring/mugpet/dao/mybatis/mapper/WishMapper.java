@@ -15,8 +15,8 @@ public interface WishMapper {
 		Item getWishItemInfo(int item_id) throws DataAccessException;
 		
 		//Wish 목록에 item 추가하기
-		Void insertWish(Item item) throws DataAccessException; 
+		void insertWish(Item item) throws DataAccessException; 
 
 		//Wish 목록에 item 삭제하기
-		Void deleteWish(int item_id) throws DataAccessException;
+		void deleteWish(int item_id) throws DataAccessException;
 }

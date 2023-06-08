@@ -1,8 +1,8 @@
 package com.spring.mugpet.domain;
 
 import java.io.Serializable;
+public class Item implements Serializable {
 
-public class Item implements Serializable{
 	private int item_id;				//primary key
 	private int category_id;			//item이 속한 category id
 	private int spe_id;					//반려동물 종 id
@@ -77,7 +77,7 @@ public class Item implements Serializable{
 		return imageUrl;
 	}
 
-	public void setImageURL(String imageUrl) {
+	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 

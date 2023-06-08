@@ -12,7 +12,7 @@
 	</select>
 
 	<select id="getWishItemInfo" parameterType="int" resultType="Item">
-		SELECT itemName, price, imageUrl
+		SELECT item_id, itemName, price, imageUrl
 		FROM Item
 		WHERE item_id=#{item_id}
 	</select>
@@ -24,6 +24,6 @@
 	
 	<delete id="deleteWish" parameterType="Wish">
 		DELETE FROM Wish
-		WHERE u_id=#{u_id} AND want=#{false}
+		WHERE item_id=#{item_id}
 	</delete>
 </mapper>

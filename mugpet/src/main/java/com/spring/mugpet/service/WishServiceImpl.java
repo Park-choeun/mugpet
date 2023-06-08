@@ -25,4 +25,14 @@ public class WishServiceImpl implements WishService{
 	public Item getWishItemInfo(int item_id) {
 		return wishDao.getWishItemInfo(item_id);
 	}
+	
+	//Wish 목록에 item 추가하기
+	public void insertWish(Item item) {
+		wishDao.insertWish(item);
+	}
+
+	//Wish 목록에 item 삭제하기
+	public void deleteWish(int item_id) {
+		wishDao.deleteWish(item_id);
+	}
 }
