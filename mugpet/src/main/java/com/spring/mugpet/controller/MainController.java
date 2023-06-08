@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -94,7 +95,7 @@ public class MainController {
 		}
 		
 		List<Item> itemList = new ArrayList<Item>();
-		itemList = itemService.orderByItem(spe_id, stand, od);
+		itemList = itemService.orderByALLItem(spe_id, stand, od);
 		
 		mav.setViewName("main");
 		mav.addObject("spe_id", spe_id);
@@ -104,4 +105,7 @@ public class MainController {
 		
 		return mav;
 	}
+
+
 }
+

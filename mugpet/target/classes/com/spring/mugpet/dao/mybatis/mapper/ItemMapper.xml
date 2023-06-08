@@ -27,16 +27,25 @@
 		WHERE spe_id=#{spe_id} AND category_id=#{category_id}
 	</select>
 	
-	<select id="getSearchItemList" parameterType="int" resultType="Item">
+	<select id="getFilterItemList" resultType="Item">
 		SELECT <include refid="itemCols" />
-		FROM Item
-		WHERE spe_id=#{spe_id} AND filter=#{filter}
+		FROM Item i JOIN Filter f ON i.item_id = f.item_id 
+		WHERE i.spe_id=${spe_id} AND f.age = ${age} 
+		AND f.stuff like '%' || ${stuff} || '%' 
+		AND f.feature like '%' || ${feature} || '%'
 	</select>
 	
-	<select id="orderByItem" resultType="Item">
+	<select id="orderByALLItem" resultType="Item">
 		SELECT <include refid="itemCols" />
 		FROM Item
 		WHERE spe_id=${spe_id}
+		ORDER BY ${stand} ${od}
+	</select>
+	
+	<select id="orderByCategoryItem" resultType="Item">
+		SELECT <include refid="itemCols" />
+		FROM Item
+		WHERE spe_id=${spe_id} AND category_id=${category_id}
 		ORDER BY ${stand} ${od}
 	</select>
 	

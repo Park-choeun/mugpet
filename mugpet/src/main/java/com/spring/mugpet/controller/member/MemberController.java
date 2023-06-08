@@ -28,6 +28,13 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	
+	
+	@ModelAttribute("memberInfo")
+	public MemberInfo loginFormData() {
+			return new MemberInfo();
+	}
+	
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
 		return "member/loginForm";
@@ -53,12 +60,9 @@ public class MemberController {
 				return new ModelAndView("redirect:" + forwardAction);
 			}
 			else {
-
 				return new ModelAndView("redirect:/main");
 			}
 		}
-	
-		
 	}
 	
 	
