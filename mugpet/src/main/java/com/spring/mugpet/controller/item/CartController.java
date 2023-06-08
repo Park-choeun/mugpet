@@ -31,7 +31,7 @@ public class CartController {
 	private MemberService memberService;
 	@Autowired
 	private OrderItemService orderItemService;
-	private int resetPoint;
+	private int resetPoints;
 	
 	public void setCartService(CartService cartService) {
 		this.cartService = cartService;
@@ -48,7 +48,7 @@ public class CartController {
 	@RequestMapping(value="/cart/myCartList", method=RequestMethod.GET)
 	public ModelAndView getCart() throws Exception{
 		List<Cart> cartItems = cartService.getMyCartList(1);	//장바구니에 담긴 아이템 조회
-		System.out.println("카트 정보 : " + cartItems.get(0));
+		//System.out.println("카트 정보 : " + cartItems.get(0).getItem_id() +", " + cartItems.get(1).getItem_id() +", " +cartItems.get(2).getItem_id());
 		List<Item> cartItemsInfo = new ArrayList<Item>();		//Item 객체를 담을 list 생성
 		List<Integer> cartItemsPrice = new ArrayList<Integer>();		//cartItem들의 각 가격을 담은 list 생성
 		List<Integer> cartItemsQty = new ArrayList<Integer>();		//cartItem들의 각 개수를 담은 list 생성
@@ -69,7 +69,7 @@ public class CartController {
 			totalPrice += cartItemsPrice.get(idx);
 			idx++;
 		}
-
+		
 		ModelAndView mav = new ModelAndView("/cart/myCartList");
 		
 		System.out.println("카트 아이템 개수" + cartItemSize);
@@ -78,6 +78,7 @@ public class CartController {
 		mav.addObject("cartItemsPrice", cartItemsPrice);
 		mav.addObject("cartItemsQty", cartItemsQty);
 		mav.addObject("totalPrice", totalPrice);
+		
 		return mav;
 	}
 	
@@ -109,6 +110,7 @@ public class CartController {
 		}
 		ModelAndView mav = getCart();
 		return mav;
+		//return new ModelAndView("redirect:/cart/myCartList");
 	}
 	
 	//각각의 물품 삭제할 수 있는 메소드 =>-버튼 클릭시 사라짐
@@ -143,9 +145,11 @@ public class CartController {
 			cartItemsPrice.add(cartItemQty * info.getPrice());
 			totalPrice += cartItemsPrice.get(idx);
 			idx++;
-		}	
-
+		}
+		
 		MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd("som@naver.com", "123456");
+		resetPoints = memberInfo.getPoint();
+		
 		ModelAndView mav = new ModelAndView("/cart/order");
 		
 		System.out.println("카트 아이템 개수" + cartItemSize);
@@ -156,137 +160,71 @@ public class CartController {
 		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("memberInfo", memberInfo);
 		mav.addObject("applyPoints", applyPoints);
-		//mav.addObject("resetPoint", resetPoint);
+		mav.addObject("resetPoints", resetPoints);
+		
 		return mav;
 	}
 	
 	
-//	@RequestMapping(value="/cart/updatePoints.jsp")
-//	public ModelAndView applyPoint(HttpServletRequest request) throws Exception {
-//		ModelAndView mav = new ModelAndView();
-//		MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd("som@naver.com", "123456");
-//		int allPoints = memberInfo.getPoint();
-//		int applyPoints = Integer.parseInt(request.getParameter("point"));
-//		try {
-//			if(allPoints > 0 && allPoints > applyPoints) {
-//				resetPoint = allPoints - applyPoints;
-//			}
-//			else {
-//				applyPoints = 0;
-//				resetPoint = allPoints;
-//			}
-//		}catch(Exception ex) {
-//			
-//		}
-//		
-//		mav.addObject("applyPoints", applyPoints);
-//		mav.setViewName("/cart/order");
-//		
-//		List<Cart> cartItems = cartService.getMyCartList(1);	//장바구니에 담긴 아이템 조회
-//		List<Item> cartItemsInfo = new ArrayList<Item>();		//Item 객체를 담을 list 생성
-//		List<Integer> cartItemsPrice = new ArrayList<Integer>();		//cartItem들의 각 가격을 담은 list 생성
-//		List<Integer> cartItemsQty = new ArrayList<Integer>();		//cartItem들의 각 개수를 담은 list 생성
-//		int cartItemSize = cartItems.size();	//장바구니에 담긴 아이템의 개수
-//		int cartItemQty = 0;
-//		int totalPrice = 0;
-//		int idx = 0;
-//		for(Cart items : cartItems) {
-//			int item_id = items.getItem_id();
-//			Item info = cartService.getCartItemInfo(item_id);
-//			cartItemQty = cartService.getMyCartItemQty(item_id);
-//			System.out.println("카트 첫번째 아이템 이름: " + info.getItemName());
-//			cartItemsInfo.add(info);
-//			cartItemQty = items.getCartQty();
-//			cartItemsQty.add(cartItemQty);
-//			cartItemsPrice.add(cartItemQty * info.getPrice());
-//			totalPrice += cartItemsPrice.get(idx);
-//			idx++;
-//		}		
-//		System.out.println("카트 아이템 개수" + cartItemSize);
-//		mav.addObject("cartItemsInfo", cartItemsInfo);
-//		mav.addObject("cartItemSize", cartItemSize);
-//		mav.addObject("cartItemsPrice", cartItemsPrice);
-//		mav.addObject("cartItemsQty", cartItemsQty);
-//		mav.addObject("totalPrice", totalPrice);
-//		mav.addObject("memberInfo", memberInfo);
-//		mav.addObject("resetPoint", resetPoint);
-//		return mav;
-//	}
-	
-	@ModelAttribute("orderInfo")
-	@RequestMapping(value="/cart/ordering", method=RequestMethod.POST)
-	public ModelAndView submit(HttpServletRequest request) throws Exception{ //매개변수 설정해야 함
+	@RequestMapping(value="/cart/order", method=RequestMethod.POST)
+	public ModelAndView pointUpdate(HttpServletRequest request, @ModelAttribute("command") CartCommand command) throws Exception{ //매개변수 설정해야 함
 		//System.out.println("결과: " + request.getParameter("point"));
-		if(request.getParameter("point").isEmpty() == false) {
-			ModelAndView mav = new ModelAndView("/cart/order");
-			MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd("som@naver.com", "123456");
+			ModelAndView mav = cartToOrder();
+			MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd("som@naver.com", "123456");		
+			
 			int allPoints = memberInfo.getPoint();
-			int applyPoints = Integer.parseInt(request.getParameter("point"));
-			try {
-				if(allPoints > 0 && allPoints > applyPoints) {
-					resetPoint = allPoints - applyPoints;
+			int applyPoints;
+			if(request.getParameter("point") == "" || request.getParameter("point") == "0") { //숫자가 아니라면은 어떻게?
+				return mav;
+			}
+			else {
+				applyPoints = Integer.parseInt(request.getParameter("point"));
+				try {
+					if(allPoints > 0 && allPoints > applyPoints) {
+						resetPoints = allPoints - applyPoints;
+					}
+					else {
+						applyPoints = 0;
+						resetPoints = allPoints;
+					}
+				}catch(Exception ex) {
+					
 				}
-				else {
-					applyPoints = 0;
-					resetPoint = allPoints;
-				}
-			}catch(Exception ex) {
+				
+				mav.addObject("applyPoints", applyPoints);
+				mav.addObject("resetPoints", resetPoints);
 				
 			}
-			
-			mav.addObject("applyPoints", applyPoints);
-			mav.setViewName("/cart/order");
-			
-			List<Cart> cartItems = cartService.getMyCartList(1);	//장바구니에 담긴 아이템 조회
-			List<Item> cartItemsInfo = new ArrayList<Item>();		//Item 객체를 담을 list 생성
-			List<Integer> cartItemsPrice = new ArrayList<Integer>();		//cartItem들의 각 가격을 담은 list 생성
-			List<Integer> cartItemsQty = new ArrayList<Integer>();		//cartItem들의 각 개수를 담은 list 생성
-			int cartItemSize = cartItems.size();	//장바구니에 담긴 아이템의 개수
-			int cartItemQty = 0;
-			int totalPrice = 0;
-			int idx = 0;
-			for(Cart items : cartItems) {
-				int item_id = items.getItem_id();
-				Item info = cartService.getCartItemInfo(item_id);
-				cartItemQty = cartService.getMyCartItemQty(item_id);
-				System.out.println("카트 첫번째 아이템 이름: " + info.getItemName());
-				cartItemsInfo.add(info);
-				cartItemQty = items.getCartQty();
-				cartItemsQty.add(cartItemQty);
-				cartItemsPrice.add(cartItemQty * info.getPrice());
-				totalPrice += cartItemsPrice.get(idx);
-				idx++;
-			}		
-			System.out.println("카트 아이템 개수" + cartItemSize);
-			mav.addObject("cartItemsInfo", cartItemsInfo);
-			mav.addObject("cartItemSize", cartItemSize);
-			mav.addObject("cartItemsPrice", cartItemsPrice);
-			mav.addObject("cartItemsQty", cartItemsQty);
-			mav.addObject("totalPrice", totalPrice);
-			mav.addObject("memberInfo", memberInfo);
-			mav.addObject("resetPoint", resetPoint);
 			return mav;
-		}
-		else {
+	}
+	
+
+	@RequestMapping(value="/cart/ordering", method=RequestMethod.POST)
+	public ModelAndView submit(HttpServletRequest request, @ModelAttribute("command") CartCommand command) throws Exception{ //매개변수 설정해야 함
 			ModelAndView mav = new ModelAndView("/cart/orderCompleted");
-			MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd("som@naver.com", "123456");				
-			memberService.updatePoints(resetPoint,"som@naver.com", "123456");
-			
-			//	orderItem에 item_id 넣는것도.
-			OrderItem orderItem = new OrderItem();
-			String DEFAULT = "DEFAULT";
-			List<Cart> cartItems = cartService.getMyCartList(1);
-			for(Cart items : cartItems) {
-				orderItem.setItem_id(items.getItem_id());
-				orderItem.setOrderQty(items.getCartQty());
-				orderItem.setOrderAddr(memberInfo.getAddress() + request.getParameter("addressDetail"));
-				orderItem.setOrderPhoneNum(memberInfo.getPhoneNum());
-				orderItem.setU_id(1);
-				orderItemService.insertOrderItem(orderItem);
-			}
+			MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd("som@naver.com", "123456");
+			//멤버의 전화번호, 주소 얻어옴
+			String phoneNum = memberInfo.getPhoneNum();
+			String addr = memberInfo.getAddress() + " " + request.getParameter("addrDetail");
+			String req = request.getParameter("req");
+			System.out.println("phoneNum : " + phoneNum);
+			System.out.println("addr : " + addr);
+			System.out.println("req : " + req);
+//			memberService.updatePoints(resetPoint,"som@naver.com", "123456");
+//			
+//			//	orderItem에 item_id 넣는것도.
+//			OrderItem orderItem = new OrderItem();
+//			String DEFAULT = "DEFAULT";
+//			List<Cart> cartItems = cartService.getMyCartList(1);
+//			for(Cart items : cartItems) {
+//				orderItem.setItem_id(items.getItem_id());
+//				orderItem.setOrderQty(items.getCartQty());
+//				orderItem.setOrderAddr(memberInfo.getAddress() + request.getParameter("addressDetail"));
+//				orderItem.setOrderPhoneNum(memberInfo.getPhoneNum());
+//				orderItem.setU_id(1);
+//				orderItemService.insertOrderItem(orderItem);
+//			}
 			return mav;
 		}
 
 	}
-}
-
