@@ -23,6 +23,7 @@ public class MainController {
 		this.itemService = itemService;
 	}
 	
+	//main 수정
 	//main화면
 	@RequestMapping("/main")
 	public ModelAndView viewMain(@RequestParam(value="spe_id", defaultValue="1") int spe_id) {
