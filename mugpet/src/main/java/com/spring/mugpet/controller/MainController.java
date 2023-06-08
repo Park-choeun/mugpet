@@ -38,8 +38,7 @@ public class MainController {
 	public void setPetService(PetService petService) {
 		this.petService = petService;
 	}
-	
-	
+
 	@ModelAttribute("memberInfo")
 	public MemberInfo userSession(HttpServletRequest request) {
 		MemberInfo userSession = (MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
@@ -84,6 +83,7 @@ public class MainController {
 		return "tiles/main";
 
 	}
+	
 	
 
 	
