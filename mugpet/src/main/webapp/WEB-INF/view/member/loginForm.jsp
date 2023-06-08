@@ -12,143 +12,112 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>
-	#top {
-		border-bottom:1px solid black;
-	}
-	#inline {
-		display:flex;
-	}
-	#title {
-		text-align:center;
-		font-size:40px;
-		font-weight:bold;
-		width:50%;
-		display:inline-block;
-		margin:1% 20% 0 35%;
-	}
-	#logo {
-		width:40px;
-		height:40px;
-	}
-	#menu {
-		text-align:right;
-		font-size:15px;
-		width:15%;
-		display:inline-block;
-		float:right;
-		margin:10px;
-	}
-	#search {
-		text-align:right;
-		padding:0 10px 5px 0;
-		width:400px;
-		margin-left:auto;
-	}
-	#searchInput {
-		width:300px;
-		height:33px;
-		margin-top:2px;
-	}
-	#searchbtn {
-		height:35px;
-		width:50px;
-		background-color:#FFFF53;
-		border-color:black;
-		color:black;
-	}
-	#category {
-		width:15%;
-		height:200vh;
-		text-align:center;
-		padding:10px 0;
-		float:left;
-		border-right:1px solid black;
-	}
-    body {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --padding: 60px;
+}
+.box {
+  position: relative;
+  margin: 50px auto;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--padding);
+  background-color: #c4dfff;
+  border-radius: 7px;
+}
 
-      background: -webkit-gradient(linear, left bottom, right top, from(#ffe9f4), to(#f9c6cf));
-      background: -webkit-linear-gradient(bottom left, #ffe9f4 0%, #f9c6cf 100%);
-      background: -moz-linear-gradient(bottom left, #ffe9f4 0%, #f9c6cf 100%);
-      background: -o-linear-gradient(bottom left, #ffe9f4 0%, #f9c6cf 100%);
-      background: linear-gradient(to top right, #ffe9f4 0%, #f9c6cf 100%);
-    }
+.box input,
+.box button {
+  padding: 15px;
+  font-size: 1.2em;
+  border: none;
+}
+.box input {
+  margin-bottom: 25px;
+}
+.box button {
+  background-color: #ffe4c4;
+  color: #547fb2;
+  border-radius: 4px;
+}
 
-    .input-form {
-      max-width: 680px;
+.sign-up-box {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #86acd9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: var(--padding);
+  right: -35px;
+  cursor: pointer;
+  transition: all 500ms ease-in-out;
+}
+.sign-up-box i {
+  font-size: 1.9em;
+  color: #fff;
+}
 
-      margin-top: 40px;
-      margin-bottom: 40px;
-      
-      padding: 32px;
-	  float:right;
-      background: #fff;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
-      
-	}
-     .profileplace{
-    	display: flex;
-     	justify-content: center;
-		height:200px; 
-		margin:0; 
-		padding:0;
-	}
-    
-   
-	a {
-		text-decoration: none;
-		color: inherit;
-	}
+/*.active*/
+
+.sign-up-box.active {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  padding: 30px;
+  cursor: default;
+  border-radius: 7px;
+}
+
+.sign-up-box.active input,
+.sign-up-box.active button {
+  padding: 15px;
+  font-size: 1.2em;
+  border: none;
+  margin: 0;
+}
+.sign-up-box.active input {
+  margin-bottom: 10px;
+}
+
+.sign-up-box.active > span {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 5px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #547fb2;
+  font-weight: 700;
+  cursor: pointer;
+}
 </style>
 
 </head>
 <body>
 
-	<div id="top">
-		<div id="inline">
-			<div id="title">
-				<a href="main.jsp">MugPet <img id="logo" src="${contextPath }/resources/images/foot.png" /></a>
-			</div>
-			<div id="menu">
-				회원가입 | 로그인
-			</div>
-		</div>
-		<div id="search">
-			<input id="searchInput" type="text" name="searchInput" value="${searchItemCommand.searchInput}" />
-			<input type="submit" value="검색" class="btn btn-primary btn-sm" id="searchbtn"/>
-				<%-- <form:form modelAttribute="searchItemCommand">
-				<form:label path="searchInput">검색</form:label>
-				<form:input path="searchInput" />
-				<input type="submit" value="검색" />
-			</form:form> --%>
-		</div>
-	</div>
-	<div id="category">
-		<div class="btn-group">
-  		<button type="button" class="btn btn-danger dropdown-toggle" 
-  			style="background-color:#FFD1FF; border-color:#FFD1FF;"
-  			data-bs-toggle="dropdown" aria-expanded="false">
-  		강아지
-   		<%-- 	${pet.species}  --%> 		 
-   		</button>
-   		<!-- 강아지 고양이 그 외 소동물 li에 넣기 -->
-  		<!-- <ul class="dropdown-menu">
-    		<li><a class="dropdown-item" href="#">Action</a></li>
-    		<li><a class="dropdown-item" href="#">Another action</a></li>
-	   		<li><a class="dropdown-item" href="#">Something else here</a></li>
-	   	 	<li><hr class="dropdown-divider"></li>
-   	 		<li><a class="dropdown-item" href="#">Separated link</a></li>
-  		</ul> -->
-		</div>
-	</div>
 
-	<form:form modelAttribute="registerForm" method="post" enctype="multipart/form-data" class="validation-form" action="${contextPath}/member/login">
-    <div class="input-form-backgroud row">
-      <div class="input-form col-md-12 mx-auto">
+
+	<form:form method="post" class="validation-form" action="${contextPath}/member/login">
+    <div class="box">
 		<h1>LOGIN</h1>
 	   	 <c:if test="${!empty signonForwardAction}">
 	      	<input type="hidden" name="forwardAction"
@@ -156,8 +125,7 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 	    	</c:if>
 			email : <input type="text" id="email" name="email"><br>
 			PASSWORD : <input type="password" id="pwd" name="pwd"><br>
-			<input type="submit" value="Login">
-		</div>
+			<button type="submit" value="Login">Login</button>
 	  </div>
 	</form:form>
 

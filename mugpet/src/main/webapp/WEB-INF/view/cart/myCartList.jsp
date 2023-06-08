@@ -255,9 +255,9 @@ function add(item){
 			</c:forEach>
 		</table>
 	<div class="bottom">
-	  <div>
-	  	<button style="float:right;">카트 업데이트</button> 
-	  </div>
+	<%-- <a href='<c:url value="/cart/updateItemQty"><c:param name="item_id" value="${item.item_id}"/></c:url>'> --%>
+	  <button style="float:right;">카트 업데이트</button> 
+	 <%-- </a>  --%>
 </form>	
 	 <br/>
 		<fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원 + 배송비 무료 = <fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원

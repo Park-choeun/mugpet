@@ -3,6 +3,7 @@ package com.spring.mugpet.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.spring.mugpet.dao.CartDao;
@@ -48,5 +49,6 @@ public class CartServiceImpl implements CartService{
 	public void removeCart(int item_id) {
 		cartDao.removeCart(item_id);
 	}
-	
+
+	//주석
 }

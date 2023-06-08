@@ -116,23 +116,23 @@
      </ul> -->
    </div>
 </div>
-<form id="orderForm" action='<c:url value="/cart/ordering"/>' method="post">
+<form>
 	<div class="content">
 		<p class="title">주문 결제</p>
 		<p class="semiTitle">주문 고객 정보</p>
-		<p class="userInfo">${memberInfo.name}, ${memberInfo.phoneNum}</p> <%-- memberService에서 전달받아 사용 --%>
+		<p class="userInfo">이름, 전화번호</p> <%-- memberService에서 전달받아 사용 --%>
 		<hr>
 		<p class="semiTitle">배송지</p>
-		${memberInfo.address} <br /><%-- memberService에서 전달받아 사용 --%>
-		<input type="text" placeholder=" 상세주소 입력란" class="userInfo" name="addressDetail" style="margin-Top:10px; width:300px;" /> <%--왜 width 속성이 안먹는가 --%>
+		서울특별시 성북구 화랑로 13길 60 <br /><%-- memberService에서 전달받아 사용 --%>
+		<input type="text" placeholder=" 상세주소 입력란" class="userInfo" name="address" style="margin-Top:10px; width:300px;" /> <%--왜 width 속성이 안먹는가 --%>
 		<br/>
 		<br/>
 		<hr>
 		<p class="semiTitle">배송 요청사항</p>
-		<input type="radio" name="req" value="문 앞에 놔주세요."/><span class="userInfo"> 문 앞에 놔주세요.</span><br />
-		<input type="radio" name="req" value="배송 전 연락주세요."/><span class="userInfo"> 배송 전 연락주세요.</span><br />
-		<input type="radio" name="req" value="부재 시 경비실에 맡겨주세요."/><span class="userInfo"> 부재 시 경비실에 맡겨주세요.</span><br />
-		<input type="radio"/><input type="text" placeholder=" 직접 입력" name="req" class="userInfo" style="width:200px"/><br />
+		<input type="radio" name="req"/><span class="userInfo"> 문 앞에 놔주세요.</span><br />
+		<input type="radio" name="req"/><span class="userInfo"> 배송 전 연락주세요.</span><br />
+		<input type="radio" name="req"/><span class="userInfo"> 부재 시 경비실에 맡겨주세요.</span><br />
+		<input type="radio" name="req"/><input type="text" placeholder=" 직접 입력" name="req" class="userInfo" style="width:200px"/><br />
 		<br/>
 		<hr>
 		<p class="semiTitle">주문 상품</p>
@@ -156,37 +156,25 @@
 		</table>
 		<br/>		
 		<p class="semiTitle">적립금 적용</p>
-<%-- 		<form name="point" action='<c:url value="/cart/updatePoints"/>' method="post"> --%>
-			<input type="text" name="point" placeholder=" 직접 입력" class="userInfo" style="width:200px"/>
-				<button onclick="apply" style="margin-Left:30px">적용</button>
-			<span class="userInfo detail">총 적립금:<fmt:formatNumber value="${memberInfo.point}" pattern="#,###"/>원</span> <%-- memberService에서 전달받아 사용 --%>
-			<br/>
-			<span class="userInfo detail">
-				적용 후 남은 적립금:
-				<c:if test="${resetPoint == null}">
-					<fmt:formatNumber value="${memberInfo.point}" pattern="#,###"/>원
-				</c:if>
-				<c:if test="${resetPoint != null}">
-					<fmt:formatNumber value="${resetPoint}" pattern="#,###"/>원
-				</c:if>
-			</span> 
-			 <%--button 클릭하면 모든 적립금이 text에 나타나도록 --%>
+		<input type="text" name="point" placeholder=" 직접 입력" class="userInfo" style="width:200px"/>
+		<span class="userInfo detail" name="point">적립금:<fmt:formatNumber value="${850}" pattern="#,###"/>원</span> <%-- memberService에서 전달받아 사용 --%>
+		<button style="margin-Left:30px">적용</button> <%--button 클릭하면 모든 적립금이 text에 나타나도록 --%>
 		<br/>
 		<hr>
 		<p class="semiTitle">결제 금액</p>
 		<span class="userInfo">총 상품액</span><span class="userInfo detail"><fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원</span><br/>
 		<span class="userInfo">배송비</span><span class="userInfo detail">0원 </span><br/>
-		<span class="userInfo">적립금 적용</span><span class="userInfo detail">- <fmt:formatNumber value="${applyPoints}" pattern="#,###"/>원 </span><br/> <%-- memberService에서 전달받아 사용 --%>
+		<span class="userInfo">적립금 적용</span><span class="userInfo detail">-700원 </span><br/> <%-- memberService에서 전달받아 사용 --%>
 		<br/>
 		<hr>
-		<span class="userInfo">총 결제 금액</span><span class="userInfo detail"><fmt:formatNumber value="${totalPrice - applyPoints}" pattern="#,###"/>원</span><br/>
-		<span class="userInfo">포인트 적립: <fmt:formatNumber  value="${100}" pattern="#,###"/>원</span>
+		<span class="userInfo">총 결제 금액</span><span class="userInfo detail"><fmt:formatNumber value="${totalPrice - 700}" pattern="#,###"/>원</span><br/>
+		<span class="userInfo">포인트 적립: <fmt:formatNumber value="${100}" pattern="#,###"/>원</span>
 		<br/>
 		<br/>
 		<input type="checkbox" name="allowPermission"/>주문상품 및 결제대행 이용약관에 모두 동의합니다.<br/><br/>
 		<button class="btnSubmit">결제하기</button>
-</form>
 		<br/><br/>
 	</div>
+</form>
 </body>
 </html>

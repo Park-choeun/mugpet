@@ -17,16 +17,39 @@ import com.spring.mugpet.service.ItemService;
 public class MainController {
 //로그인 후, 회원의 이름 or 펫의 이름 띄울거면 수정!!!!!!
 	
+	//메인 tiles 설정 
 	@Autowired
 	private ItemService itemService;
 	public void setItemService(ItemService itemService) {
 		this.itemService = itemService;
 	}
-	
-	//main화면
-	@RequestMapping("/main")
-	public ModelAndView viewMain(@RequestParam(value="spe_id", defaultValue="1") int spe_id) {
-		ModelAndView mav = new ModelAndView();
+	public void setPetService(PetService petService) {
+		this.petService = petService;
+	}
+
+	@ModelAttribute("memberInfo")
+	public MemberInfo userSession(HttpServletRequest request) {
+		MemberInfo userSession = (MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
+		if ( userSession == null) {
+			return new MemberInfo();
+		}
+		else return userSession;
+		
+	}
+
+	//main 수정
+	@RequestMapping(value="/main", method=RequestMethod.GET)
+	public String viewMain(HttpServletRequest request,
+						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
+						ModelMap model) throws Exception{
+		
+		MemberInfo userSession = (MemberInfo) request.getSession().getAttribute("userSession");
+		if(userSession !=null) {
+			Pet pet = petService.getPetByU_id(userSession.getU_id());
+			System.out.println(pet);
+			spe_id = pet.getSpe_id();
+			System.out.println(spe_id);
+		}
 		String spe;
 		if (spe_id == 1) {
 			spe = "강아지";
@@ -37,19 +60,16 @@ public class MainController {
 		}
 		
 		List<Item> itemList = new ArrayList<Item>();
-		itemList = itemService.getALLItemList(spe_id);
-		
-		
-		System.out.println(itemList);
-		
-		mav.setViewName("main");
-		mav.addObject("spe_id", spe_id);
-		mav.addObject("spe", spe);
-		mav.addObject("itemList", itemList);
-		mav.addObject("standard", "기본순");
-		
-		return mav;
+
+		itemList = itemService.getALLItemList(spe_id);	
+		model.put("itemList", itemList);
+		model.put("sep_id", spe_id);
+		model.put("spe", spe);
+		model.put("standard", "기본순");
+		return "tiles/main";
+
 	}
+  
 	
 	@RequestMapping("/main/orderItem")
 	public ModelAndView orderItem(@RequestParam("spe_id") int spe_id, @RequestParam("stand") String stand, @RequestParam("od") String od) {
@@ -85,6 +105,7 @@ public class MainController {
 		
 		return mav;
 	}
-	
+
 
 }
+

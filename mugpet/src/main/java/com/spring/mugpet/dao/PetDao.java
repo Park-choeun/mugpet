@@ -8,4 +8,7 @@ public interface PetDao {
 
 
 	public void insertPet(Pet pet)throws DataAccessException;
+	public Pet getPetByU_id(int u_id) throws DataAccessException;
+
+	
 }

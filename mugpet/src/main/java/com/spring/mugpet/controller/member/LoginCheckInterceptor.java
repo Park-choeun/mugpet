@@ -8,14 +8,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 import org.springframework.web.util.WebUtils;
 
+import com.spring.mugpet.domain.MemberInfo;
+
 public class LoginCheckInterceptor implements HandlerInterceptor  {
 
 	
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 	throws Exception {
 		
-		UserSession userSession =
-				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		MemberInfo userSession =
+				(MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
 		
 		if (userSession == null) { //로그인 안되어있으면..
 			String url = request.getRequestURL().toString();

@@ -6,7 +6,7 @@
 	<sql id="petColumns">NAME,SPE_ID,BIRTH,U_ID</sql>
 	<insert id="insertPet" parameterType="Pet">
 	<selectKey resultType="Integer" keyProperty="pet_id" order="BEFORE">
-		SELECT NVL(MAX(pet_id), 1)
+    	SELECT NVL(MAX(pet_id),0) + 1
     	FROM PET
 	</selectKey>
 		INSERT INTO PET
@@ -14,6 +14,13 @@
 		VALUES
 			(#{pet_id},#{name},#{spe_id},#{birth},#{u_id})
 	</insert>
+	
+	
+	<select id="getPetByU_id" resultType="Pet">
+		SELECT *
+		FROM PET
+		WHERE U_ID = #{u_id}
+	</select>
 
 
 

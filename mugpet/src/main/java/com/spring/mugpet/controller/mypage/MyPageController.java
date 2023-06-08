@@ -1,13 +1,8 @@
 package com.spring.mugpet.controller.mypage;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.spring.mugpet.controller.member.UserSession;
 
 @Controller
 @RequestMapping("/myPage")

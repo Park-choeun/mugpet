@@ -27,6 +27,19 @@ public class MybatisMemberDao implements MemberDao{
 		
 	}
 	
+	@Override
+	public void updatePoints(int point, String email, String pwd) {
+		memberMapper.updatePoints(point, email, pwd);
+	}
+	
+
+	//Community, UsedGoods에서 사용
+	@Override
+	public String getNickNameByU_Id(int u_id) {
+		return memberMapper.getNickNameByU_Id(u_id);
+		
+	}
+
 	
 	
 }

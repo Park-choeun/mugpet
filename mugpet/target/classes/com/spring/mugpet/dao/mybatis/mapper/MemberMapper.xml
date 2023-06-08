@@ -23,4 +23,17 @@
 		WHERE EMAIL = #{param1}
 		AND PWD = #{param2}
 	</select>
+	
+	<select id="getNickNameByU_Id" parameterType="int" resultType="String">
+		SELECT nickname
+		FROM MEMBERINFO
+		WHERE u_id=#{u_id}
+	</select>
+	
+	<update id="updatePoints">
+		UPDATE MEMBERINFO
+		SET POINT=#{point}
+		WHERE EMAIL = #{param1}
+		AND PWD = #{param2}
+	</update>
 </mapper>
