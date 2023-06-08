@@ -21,4 +21,6 @@ public interface CommunityDao {
 	public void deleteCom(int com_id) throws DataAccessException; /*커뮤니티 글 삭제*/
 
 	public void updateReplyCnt(int com_id, int amount);
+	
+	public int getU_IdByCommunity(int com_id);
 }

@@ -1,8 +1,10 @@
 package com.spring.mugpet.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Community {
+@SuppressWarnings("serial")
+public class Community implements Serializable {
 	private int com_id;					//primary key
 	private String imageUrl;			//이미지 경로
 	private String title;				//제목

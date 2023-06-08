@@ -34,17 +34,17 @@ function communityCreate() {
 </div>
  <div style="width: 70%; padding: 30px; float: right;">
 		    <form name="write" action="<c:url value='/community/write' />" enctype="multipart/form-data" method="post">
-					<div class="input-group mb-3" style="width: 90%;">
+						<div class="input-group mb-3" style="width: 90%;">
   						<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
  	 					<input name="title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 					</div>                	                	
                 	<div class="mb-3">
                 	<div class="input-group" style="width: 90%;">
   						<span class="input-group-text">본문</span>
- 						<textarea name="postContent" class="form-control" rows="6" aria-label="With textarea" name=""></textarea>
+ 						<textarea name="content" class="form-control" rows="6" aria-label="With textarea" name=""></textarea>
 					</div>
 					<br>
-  <input name="imageUrl" class="form-control form-control-sm" type="file" style="width: 90%;">
+  <input name="imgFile" multiple="multiple" accept=".jpg, .jpeg, .png" class="form-control form-control-sm" type="file" style="width: 90%;">
   <br>
   <button type="submit" class="btn btn-danger" style="background-color: #FFD1FF; border-color: #FFD1FF; color:white;" type="submit" onClick="communityCreate()">등록</button>&nbsp;
   <button type="button" class="btn btn-outline-danger" style="background-color: #FFD1FF; border-color: #FFD1FF;" onclick="javascript:history.back()">취소</button>

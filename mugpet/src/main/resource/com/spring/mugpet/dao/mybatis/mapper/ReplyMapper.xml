@@ -32,7 +32,7 @@
 		INSERT INTO Reply (<include refid="replyForComCols" />)
 		VALUES (#{rp_id}, #{content}, SYSDATE, #{u_id}, #{com_id})
 		<selectKey resultType="int" keyProperty="rp_id" order="BEFORE">
-			SELECT SEQ_Reply_rp_id FROM DUAL
+			SELECT NVL(MAX(rp_id), 1) FROM Reply
 		</selectKey>
 	</insert>
 	
@@ -40,7 +40,7 @@
 		INSERT INTO Reply (<include refid="replyForGoodsCols" />)
 		VALUES (#{rp_id}, #{content}, SYSDATE, #{u_id}, #{g_id})
 		<selectKey resultType="int" keyProperty="rp_id" order="BEFORE">
-			SELECT SEQ_Reply_rp_id FROM DUAL
+			SELECT NVL(MAX(rp_id), 1) FROM Reply
 		</selectKey>
 	</insert>
 	
