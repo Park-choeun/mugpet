@@ -51,6 +51,7 @@ public class MainController {
 	}
 	
 	
+	//main 수정
 	//main화면
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String viewMain(HttpServletRequest request,
