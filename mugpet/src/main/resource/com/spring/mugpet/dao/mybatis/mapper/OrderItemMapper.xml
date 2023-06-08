@@ -20,8 +20,11 @@
 	</select>
 	
 	<insert id="insertOrderItem" parameterType="OrderItem">
-		INSERT INTO OrderItem 
-		VALUES (SEQ_ORDERITEM_O_ID, #{item_id}, #{orderQty}, #{orderAddr}, #{orderPhoneNum}, #{u_id})
+		<selectKey keyProperty="o_id" resultType="int" order="BEFORE">
+			SELECT SEQ_ORDERITEM_O_ID AS o_id FROM ORDERITEM
+		</selectKey>
+		INSERT INTO OrderItem (<include refid="orderItemCols" />)
+		VALUES (#{o_id}, #{item_id}, #{orderQty}, #{orderAddr}, #{orderPhoneNum}, #{u_id})
 	</insert>
 	
 	<update id="updateOrderItem" parameterType="OrderItem">

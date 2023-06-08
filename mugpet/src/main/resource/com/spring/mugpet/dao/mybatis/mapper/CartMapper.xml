@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!-- 주석 -->
 <mapper namespace="com.spring.mugpet.dao.mybatis.mapper.CartMapper">
 	<sql id="cartCols">
 		item_id, total,
@@ -32,7 +32,7 @@
 	</select>
 	
 	<insert id="addCart" parameterType="Cart">
-		INSERT INTO Cart
+		INSERT INTO Cart (<include refid="cartCols" />)
 		VALUES (#{item_id}, #{total}, #{cartQty}, #{u_id})
 	</insert>
 	

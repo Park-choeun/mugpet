@@ -8,7 +8,7 @@ import com.spring.mugpet.domain.OrderItem;
 public interface OrderItemDao {
 	
 	//member의 주문 아이템 목록 가져오기
-	List<OrderItem> getOrderItemList(int o_id) throws DataAccessException; 
+	OrderItem getOrderItemList(int o_id) throws DataAccessException; 
 
 	//member의 모든 주문 아이템 목록 가져오기
 	List<OrderItem> getAllOrderItemList(int u_id) throws DataAccessException;

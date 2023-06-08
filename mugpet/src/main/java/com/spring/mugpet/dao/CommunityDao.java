@@ -8,6 +8,7 @@ import com.spring.mugpet.controller.community.NewCommunityCommand;
 import com.spring.mugpet.domain.Community;
 
 public interface CommunityDao {
+	
 	public List<Community> getComList() throws DataAccessException; /*커뮤니티 전체 글 목록*/
 	
 	public List<Community> getMemberComList(int u_id) throws DataAccessException; /*member가 쓴 글 목록*/
@@ -21,4 +22,7 @@ public interface CommunityDao {
 	public void deleteCom(int com_id) throws DataAccessException; /*커뮤니티 글 삭제*/
 
 	public void updateReplyCnt(int com_id, int amount);
+	
+	public int getU_IdByCommunity(int com_id);
 }
+

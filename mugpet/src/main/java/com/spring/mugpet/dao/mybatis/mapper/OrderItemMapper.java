@@ -2,14 +2,15 @@ package com.spring.mugpet.dao.mybatis.mapper;
 
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.mugpet.domain.OrderItem;
 
+@Mapper
 public interface OrderItemMapper {
 
-	//member의 주문 아이템 목록 가져오기
-	List<OrderItem> getOrderItemList(int o_id); 
+	//member의 주문 아이디에 해당하는 아이템 목록 가져오기
+	OrderItem getOrderItemList(int o_id); 
 
 	//member의 모든 주문 아이템 목록 가져오기
 	List<OrderItem> getAllOrderItemList(int u_id);
