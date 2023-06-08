@@ -9,6 +9,7 @@ import com.spring.mugpet.controller.community.NewCommunityCommand;
 import com.spring.mugpet.domain.Community;
 
 public interface CommunityMapper {
+	
 	public List<Community> getComList(); /*커뮤니티 전체 글 목록*/
 	
 	public List<Community> getMemberComList(int u_id); /*member가 쓴 글 목록*/

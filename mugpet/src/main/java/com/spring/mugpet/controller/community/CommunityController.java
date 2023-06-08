@@ -37,7 +37,7 @@ import com.spring.mugpet.service.ReplyServiceImpl;
 //@SessionAttributes("userSession")
 /*form 사용시, Command 객체 사용*/
 public class CommunityController {
-	/*진행 상황에 따라 코드 수정 必*/
+	
 	@Autowired
 	private CommunityServiceImpl comService;
 	

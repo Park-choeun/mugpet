@@ -16,6 +16,7 @@ import com.spring.mugpet.dao.mybatis.mapper.ReplyMapper;
 
 @Repository
 public class MybatisReplyDao implements ReplyDao{
+	
 	@Autowired
 	private ReplyMapper replyMapper;
 	

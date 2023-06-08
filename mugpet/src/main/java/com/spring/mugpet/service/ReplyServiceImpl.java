@@ -12,7 +12,6 @@ import com.spring.mugpet.domain.Reply;
 
 @Service
 public class ReplyServiceImpl implements ReplyService{
-
 	@Autowired
 	private ReplyDao replyDAO;
 	

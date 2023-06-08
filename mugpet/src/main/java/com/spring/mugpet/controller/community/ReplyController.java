@@ -23,6 +23,7 @@ public class ReplyController {
 	 * @RequestMapping("/reply/insert") public String form() { return "~~~~"; }
 	 */
 	
+	//test용
 	@RequestMapping(value = "/community/replyForm")
 	public String comReplyForm() {
 		return "/community/replyForm";

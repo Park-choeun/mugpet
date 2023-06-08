@@ -5,7 +5,6 @@ import java.util.Date;
 import com.spring.mugpet.domain.Community;
 
 public class NewCommunityCommand {
-	
 	private int com_id;
 	private String imageUrl;
 	private String title;

@@ -9,6 +9,7 @@ import com.spring.mugpet.domain.Reply;
 
 
 public interface ReplyDao { 
+	
 	public List<Reply> getCommunityReplyList(int com_id) throws DataAccessException; //각 커뮤니티 글에 대한 댓글 목록
   
 	public List<Reply> getUsedGoodsReplyList(int g_id) throws DataAccessException;

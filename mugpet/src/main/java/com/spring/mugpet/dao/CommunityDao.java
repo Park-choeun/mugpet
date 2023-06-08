@@ -8,6 +8,7 @@ import com.spring.mugpet.controller.community.NewCommunityCommand;
 import com.spring.mugpet.domain.Community;
 
 public interface CommunityDao {
+	
 	public List<Community> getComList() throws DataAccessException; /*커뮤니티 전체 글 목록*/
 	
 	public List<Community> getMemberComList(int u_id) throws DataAccessException; /*member가 쓴 글 목록*/

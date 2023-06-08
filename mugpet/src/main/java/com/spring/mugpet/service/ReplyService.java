@@ -6,6 +6,7 @@ import com.spring.mugpet.controller.community.NewReplyCommand;
 import com.spring.mugpet.domain.Reply;
 
 public interface ReplyService {
+	
 	public List<Reply> getCommunityReplyList(int com_id);
 	
 	public List<Reply> getUsedGoodsReplyList(int g_id);

@@ -14,6 +14,7 @@ import com.spring.mugpet.domain.Community;
 
 @Service
 public class CommunityServiceImpl implements CommunityService{
+	
 	@Autowired
 	private CommunityDao communityDAO;
 	//각자 path에서 맞게 수정

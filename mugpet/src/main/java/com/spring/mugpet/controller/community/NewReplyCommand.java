@@ -1,7 +1,6 @@
 package com.spring.mugpet.controller.community;
 
 public class NewReplyCommand {
-	
 	private int rp_id;
 	private String content;
 	private int u_id;

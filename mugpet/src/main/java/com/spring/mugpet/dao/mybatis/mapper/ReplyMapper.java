@@ -6,6 +6,7 @@ import com.spring.mugpet.controller.community.NewReplyCommand;
 import com.spring.mugpet.domain.Reply;
 
 public interface ReplyMapper {
+	
 	public List<Reply> getCommunityReplyList(int com_id); /*각 커뮤니티 글에 대한 댓글 목록*/
 	
 	public List<Reply> getUsedGoodsReplyList(int g_id);

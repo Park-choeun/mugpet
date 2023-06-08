@@ -13,6 +13,7 @@ import com.spring.mugpet.domain.Community;
 
 @Repository
 public class MybatisCommunityDao implements CommunityDao{
+	
 	@Autowired
 	private CommunityMapper comMapper;
 	

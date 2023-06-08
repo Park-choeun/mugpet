@@ -8,6 +8,7 @@ import com.spring.mugpet.controller.community.NewCommunityCommand;
 import com.spring.mugpet.domain.Community;
 
 public interface CommunityService {
+	
 	public List<Community> getComList();
 	
 	public List<Community> getMemberComList(int u_id);
