@@ -27,6 +27,11 @@ public class MybatisMemberDao implements MemberDao{
 		
 	}
 	
+	@Override
+	public void updatePoints(int point, String email, String pwd) {
+		memberMapper.updatePoints(point, email, pwd);
+	}
+	
 	
 	
 }

@@ -23,4 +23,11 @@
 		WHERE EMAIL = #{param1}
 		AND PWD = #{param2}
 	</select>
+	
+	<update id="updatePoints">
+		UPDATE MEMBERINFO
+		SET POINT=#{point}
+		WHERE EMAIL = #{param1}
+		AND PWD = #{param2}
+	</update>
 </mapper>

@@ -2,19 +2,22 @@ package com.spring.mugpet.controller.item;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.spring.mugpet.service.OrderItemService;
 
 @Controller
-//@RequestMapping()
 public class OrderItemController {
-	//@Autowired private BuyService buyservice;
+	//form 보여주기
+	//mypage에서 연결되는 것들도 처리(나의 주문 목록 보기)
 	
-//	@GetMapping()
-	public String form() {
-		return "a";
-	}
+	@Autowired 
+	private OrderItemService orderItemService;
 	
-//	@PostMapping()
-	public String submit() { //매개변수 설정해야 함
-		return "a";
+	public void setOrderItemService(OrderItemService orderItemService) {
+		this.orderItemService = orderItemService;
 	}
 }
+

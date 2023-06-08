@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    
+    <definition name="default" template="/WEB-INF/view/member/layout/layout.jsp">		
+		<put-attribute name="header" value="/WEB-INF/view/common/layout/header.jsp" /> 
+	</definition>
+	
+	<definition name="member/loginForm" extends="default">		
+		<put-attribute name="body" value="/WEB-INF/view/member/loginForm.jsp" /> 
+	</definition>
+	
+	<definition name="member/registerForm" extends="default">		
+		<put-attribute name="body" value="/WEB-INF/view/member/registerForm.jsp" /> 
+	</definition>
+	<definition name="member/petRegisterForm" extends="default">		
+		<put-attribute name="body" value="/WEB-INF/view/member/petRegisterForm.jsp" /> 
+	</definition>
+	
+	
+	
+</tiles-definitions>
+	

@@ -21,8 +21,17 @@
 	<mvc:annotation-driven/>		<!-- create RequestMappingHandlerMapping -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
-	<mvc:view-controller path="/main" view-name="main" />
+	
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    	<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+   		 <beans:property name="order" value="1" />
+	</beans:bean>
+	
+    <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <beans:property name="definitions" value="classpath:tiles/*.xml" />	
+    </beans:bean>
 
+		
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
@@ -43,6 +52,13 @@
         	<bean class="com.spring.mugpet.controller.member.LoginCheckInterceptor" />
     	</mvc:interceptor>
 	</mvc:interceptors>
+	
+ <!--   	<mvc:interceptors>
+		<mvc:interceptor>
+    	    <mvc:mapping path="/main"/>
+        	<bean class="com.spring.mugpet.controller.MainLoginCheckInterceptor" />
+    	</mvc:interceptor>
+	</mvc:interceptors> -->
 	
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />

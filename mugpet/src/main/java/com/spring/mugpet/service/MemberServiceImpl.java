@@ -18,7 +18,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
 	private MemberDao memberDao;
-	private final String CURR_IMAGE_REPO_PATH = "D:\\mugpet\\imgTest";
+	private final String CURR_IMAGE_REPO_PATH = "/Users/hyouzl/test/";
 	
 	@Override
 	public boolean login(String email,String pwd) {
@@ -70,6 +70,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberInfo getMemberInfoByEmailandPwd(String email, String pwd) {
 		return memberDao.getMemberInfoByEmailandPwd(email,pwd);
+	}
+	
+	@Override
+	public void updatePoints(int point, String email, String pwd) {
+		memberDao.updatePoints(point, email, pwd);
 	}
 	
 	
