@@ -32,13 +32,18 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<Item> getSearchItemList(int spe_id, int filter) {
-		return itemDao.getSearchItemList(spe_id, filter);
+	public List<Item> getFilterItemList(int spe_id, int age, String stuff, String feature) {
+		return itemDao.getFilterItemList(spe_id, age, stuff, feature);
 	}
 
 	@Override
-	public List<Item> orderByItem(int spe_id, String stand, String od) {
-		return itemDao.orderByItem(spe_id, stand, od);
+	public List<Item> orderByALLItem(int spe_id, String stand, String od) {
+		return itemDao.orderByALLItem(spe_id, stand, od);
+	}
+	
+	@Override
+	public List<Item> orderByCategoryItem(int spe_id, int category_id, String stand, String od) {
+		return itemDao.orderByCategoryItem(spe_id, category_id, stand, od);
 	}
 
 	@Override
@@ -55,5 +60,4 @@ public class ItemServiceImpl implements ItemService {
 	public void deleteItem(int item_id) {
 		itemDao.deleteItem(item_id);
 	}
-	
 }

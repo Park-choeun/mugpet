@@ -39,6 +39,7 @@
         <property name="configuration">
             <bean class="org.apache.ibatis.session.Configuration">
                 <property name="mapUnderscoreToCamelCase" value="true" />
+                <property name="cacheEnabled" value="false" />
             </bean>
         </property> 
         <property name="typeAliasesPackage" value="com.spring.mugpet.domain" />

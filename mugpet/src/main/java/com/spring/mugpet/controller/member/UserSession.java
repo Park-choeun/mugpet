@@ -18,10 +18,5 @@ public class UserSession{
 	public void setMemberInfo(MemberInfo memberInfo) {
 		this.memberInfo = memberInfo;
 	}
-	
-	
-	
-	
-	
-	
+
 }

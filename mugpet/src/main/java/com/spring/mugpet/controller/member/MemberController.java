@@ -20,7 +20,8 @@ import com.spring.mugpet.service.MemberService;
 
 @Controller
 @RequestMapping("/member")
-@SessionAttributes("userSession")
+//@SessionAttributes("userSession")
+@SessionAttributes("memberInfo")
 public class MemberController {
 	
 	
@@ -63,6 +64,13 @@ public class MemberController {
 		
 	}
 	
+	
+	@ModelAttribute("memberInfo")
+	public MemberInfo loginFormData() {
+			return new MemberInfo();
+	}
+	
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
 		return "/member/loginForm";
@@ -81,17 +89,15 @@ public class MemberController {
 					"Invalid username or password.  Signon failed.");
 		}
 		else {
-			UserSession userSession = new UserSession(memberInfo);
-			model.addAttribute("userSession",userSession);
+//			UserSession userSession = new UserSession(memberInfo);
+//			model.addAttribute("userSession",userSession);
 			if(forwardAction != null) {
 				return new ModelAndView("redirect:" + forwardAction);
 			}
 			else {
-				return new ModelAndView("/main");
+				return new ModelAndView("redirect:/main");
 			}
 		}
-	
-		
 	}
 	
 	

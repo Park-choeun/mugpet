@@ -85,6 +85,13 @@ public class Item implements Serializable {
 		return comments;
 	}
 
+	@Override
+	public String toString() {
+		return "Item [item_id=" + item_id + ", category_id=" + category_id + ", spe_id=" + spe_id + ", itemName="
+				+ itemName + ", price=" + price + ", brand=" + brand + ", imageUrl=" + imageUrl + ", comments="
+				+ comments + "]";
+	}
+
 	public void setComments(String comments) {
 		this.comments = comments;
 	}

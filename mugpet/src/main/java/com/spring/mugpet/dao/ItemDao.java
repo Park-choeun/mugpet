@@ -1,7 +1,6 @@
 package com.spring.mugpet.dao;
 
 import java.util.List;
-
 import org.springframework.dao.DataAccessException;
 
 import com.spring.mugpet.domain.Item;
@@ -14,9 +13,11 @@ public interface ItemDao {
 	
 	List<Item> getItemList(int spe_id, int category_id) throws DataAccessException;
 	
-	List<Item> getSearchItemList(int spe_id, int filter) throws DataAccessException;
+	List<Item> getFilterItemList(int spe_id, int age, String stuff, String feature) throws DataAccessException;
 	
-	List<Item> orderByItem(int spe_id, String standard, String od) throws DataAccessException;
+	List<Item> orderByALLItem(int spe_id, String standard, String od) throws DataAccessException;
+	
+	List<Item> orderByCategoryItem(int spe_id, int category_id, String stand, String od) throws DataAccessException;
 	
 	void insertItem(Item item) throws DataAccessException;
 	
