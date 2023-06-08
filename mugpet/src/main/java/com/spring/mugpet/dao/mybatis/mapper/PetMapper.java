@@ -6,6 +6,8 @@ public interface PetMapper {
 
 	
 	void insertPet(Pet pet);
+	Pet getPetByU_id(int u_id);
+	
 	
 	
 }
