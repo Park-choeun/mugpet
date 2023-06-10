@@ -17,6 +17,7 @@
 </head>
 <body>
 
+
 <div id="subBody">
 		<div id="banner">
 				<div id="comment">
@@ -30,15 +31,15 @@
 			</div>
 			
 			<div id="orderBy">
-				<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="orderBtn" 
+				<button class="btn btn-secondary btn-sm dropdown-toggle" role="button" id="orderBtn" 
 						data-bs-toggle="dropdown" aria-expanded="false">
     				기본순
  				</button>
- 				<ul class="dropdown-menu" style="font-size:14px;">
- 					<li><a class="dropdown-item" href="main?spe_id=${spe_id}">기본순</a></li>
-					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=itemName&order=ASC">이름순</a></li>
-					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=price&order=ASC">가격낮은순</a></li>
-					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=price&order=DESC">가격높은순</a></li>
+ 				<ul id="orderType" class="dropdown-menu" style="font-size:14px;">
+ 					<li><a class="dropdown-item" href="${contextPath}/main?spe_id=${spe_id}">기본순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&standard=itemName&order=ASC">이름순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&standard=price&order=ASC">가격낮은순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&standard=price&order=DESC">가격높은순</a></li>
 				</ul>
 			</div>
 			

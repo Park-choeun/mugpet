@@ -23,7 +23,7 @@ import com.spring.mugpet.service.ItemService;
 import com.spring.mugpet.service.PetService;
 
 @Controller
-@SessionAttributes("memberInfo")
+@SessionAttributes("userSession")
 public class MainController {
 //로그인 후, 회원의 이름 or 펫의 이름 띄울거면 수정!!!!!!
 	
@@ -39,14 +39,14 @@ public class MainController {
 		this.petService = petService;
 	}
 
-	@ModelAttribute("memberInfo")
+	@ModelAttribute("userSession")
 	public MemberInfo userSession(HttpServletRequest request) {
 		MemberInfo userSession = (MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
-		if ( userSession == null) {
+		if (userSession == null) {
 			return new MemberInfo();
 		}
-		else return userSession;
 		
+		return userSession;
 	}
 	
 	
@@ -55,10 +55,11 @@ public class MainController {
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String viewMain(HttpServletRequest request,
 						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
+						@ModelAttribute("userSession") MemberInfo userSession,
 						ModelMap model) throws Exception{
+		System.out.println(userSession.getU_id());
 		
-		MemberInfo userSession = (MemberInfo) request.getSession().getAttribute("userSession");
-		if(userSession !=null) {
+		if(userSession.getU_id() != 0) {
 			Pet pet = petService.getPetByU_id(userSession.getU_id());
 			System.out.println(pet);
 			spe_id = pet.getSpe_id();
@@ -74,12 +75,13 @@ public class MainController {
 		}
 		
 		List<Item> itemList = new ArrayList<Item>();
-
+		
 		itemList = itemService.getALLItemList(spe_id);	
 		model.put("itemList", itemList);
-		model.put("sep_id", spe_id);
+		model.put("spe_id", spe_id);
 		model.put("spe", spe);
 		model.put("standard", "기본순");
+		model.put("userId",userSession.getU_id());
 		return "tiles/main";
 
 	}
@@ -89,7 +91,7 @@ public class MainController {
 	
 	
 	@RequestMapping("/main/orderItem")
-	public ModelAndView orderItem(@RequestParam("spe_id") int spe_id, @RequestParam("stand") String stand, @RequestParam("od") String od) {
+	public ModelAndView orderItem(@RequestParam("spe_id") int spe_id, @RequestParam("standard") String stand, @RequestParam("order") String od) {
 		ModelAndView mav = new ModelAndView();
 		String spe;
 		if (spe_id == 1) {
@@ -114,7 +116,7 @@ public class MainController {
 		List<Item> itemList = new ArrayList<Item>();
 		itemList = itemService.orderByItem(spe_id, stand, od);
 		
-		mav.setViewName("main");
+		mav.setViewName("tiles/main");
 		mav.addObject("spe_id", spe_id);
 		mav.addObject("spe", spe);
 		mav.addObject("standard", standard);

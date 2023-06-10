@@ -12,9 +12,15 @@
 	<div id="top">
 		<div id="inline">
 			<div id="title">
-				<a href="main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
+				<a href="${contextPath }/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
 			</div>
-			<div id="menu"><a href="${contextPath }/member/register">회원가입</a> | <a href="${contextPath }/member/login">로그인</a></div>
+
+				<c:if test="${userId == 0 }">
+					<div id="menu"><a href="${contextPath }/member/register">회원가입</a> | <a href="${contextPath }/member/login">로그인</a></div>
+				</c:if>
+				<c:if test="${userId != 0}">
+					<div id="menu"><a href="${contextPath }/mypage/myCartList">마이페이지</a> | <a href="${contextPath }/member/logout">로그아웃</a></div>
+				</c:if>
 		</div>
 		<div id="search">
 			<%-- <input id="searchInput" type="text" name="searchInput" value="${searchItemCommand.searchInput}" /> --%>

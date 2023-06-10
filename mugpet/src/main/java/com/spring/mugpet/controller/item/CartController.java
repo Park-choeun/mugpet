@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import com.spring.mugpet.domain.Cart;
 import com.spring.mugpet.domain.Item;
@@ -22,7 +24,7 @@ import com.spring.mugpet.service.MemberService;
 import com.spring.mugpet.service.OrderItemService;
 
 @Controller
-//@SessionAttributes("sessionCart")
+@SessionAttributes("userSession")
 public class CartController {
 
 	@Autowired
@@ -44,10 +46,14 @@ public class CartController {
 		cartService.addCart(item);
 	}
 	
+	
 	//Cart(장바구니)에 담긴 아이템 조회 -> 장바구니 버튼 누르면 /cart/myCartList로 연결되는 방식
 	@RequestMapping(value="/cart/myCartList", method=RequestMethod.GET)
-	public ModelAndView getCart() throws Exception{
-		List<Cart> cartItems = cartService.getMyCartList(1);	//장바구니에 담긴 아이템 조회
+	public ModelAndView getCart(@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
+		if (userSession == null) {
+			return new ModelAndView("redirect:/member/login");
+		}
+		List<Cart> cartItems = cartService.getMyCartList(userSession.getU_id());	//장바구니에 담긴 아이템 조회
 		System.out.println("카트 정보 : " + cartItems.get(0));
 		List<Item> cartItemsInfo = new ArrayList<Item>();		//Item 객체를 담을 list 생성
 		List<Integer> cartItemsPrice = new ArrayList<Integer>();		//cartItem들의 각 가격을 담은 list 생성
@@ -89,8 +95,9 @@ public class CartController {
 	
 	//각 물품의 개수를 수정할 수 있는 메소드
 	@RequestMapping(value="/cart/updateCartQuantities", method=RequestMethod.POST)
-	public ModelAndView cartItemUpdate(HttpServletRequest request) throws Exception{
-		List<Cart> cartItems = cartService.getMyCartList(1); 
+	public ModelAndView cartItemUpdate(HttpServletRequest request,@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
+		
+		List<Cart> cartItems = cartService.getMyCartList(userSession.getU_id()); 
 		int num = 0;
 		for(Cart cartItem : cartItems){
 			int item_id = cartItem.getItem_id(); //아이템의 item_id를 가지고 옴
@@ -103,11 +110,11 @@ public class CartController {
 						cartService.removeCart(item_id);
 					}
 			}catch(NumberFormatException ex) {
-				
+				ex.printStackTrace();
 			}
 			num++;
 		}
-		ModelAndView mav = getCart();
+		ModelAndView mav = getCart(userSession);
 		return mav;
 	}
 	
