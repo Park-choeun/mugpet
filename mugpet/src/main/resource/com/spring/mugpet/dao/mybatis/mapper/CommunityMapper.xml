@@ -70,4 +70,5 @@
 		SET replyCnt=replyCnt+#{amount}
 		WHERE com_id=#{com_id}
 	</update>
+
 </mapper>

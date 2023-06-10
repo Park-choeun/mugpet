@@ -17,7 +17,7 @@ public class MybatisOrderItemDao implements OrderItemDao {
 	private OrderItemMapper orderItemMapper;
 	
 	//member의 주문 아이템 목록 가져오기
-	public List<OrderItem> getOrderItemList(int o_id) throws DataAccessException{
+	public OrderItem getOrderItemList(int o_id) throws DataAccessException{
 		return orderItemMapper.getOrderItemList(o_id);
 	}
 

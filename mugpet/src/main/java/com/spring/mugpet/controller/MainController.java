@@ -1,9 +1,10 @@
 package com.spring.mugpet.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,11 +31,11 @@ public class MainController {
 	//메인 tiles 설정 
 	@Autowired
 	private ItemService itemService;
-	@Autowired
-	private PetService petService;
 	public void setItemService(ItemService itemService) {
 		this.itemService = itemService;
 	}
+	@Autowired
+	private PetService petService;
 	public void setPetService(PetService petService) {
 		this.petService = petService;
 	}
@@ -48,10 +49,8 @@ public class MainController {
 		
 		return userSession;
 	}
-	
-	
+
 	//main 수정
-	//main화면
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String viewMain(HttpServletRequest request,
 						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
@@ -85,10 +84,7 @@ public class MainController {
 		return "tiles/main";
 
 	}
-	
-	
-
-	
+  
 	
 	@RequestMapping("/main/orderItem")
 	public ModelAndView orderItem(@RequestParam("spe_id") int spe_id, @RequestParam("standard") String stand, @RequestParam("order") String od) {
