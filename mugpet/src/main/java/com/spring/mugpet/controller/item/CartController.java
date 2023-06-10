@@ -31,6 +31,7 @@ public class CartController {
 	private CartService cartService;
 	@Autowired
 	private MemberService memberService;
+
 	@Autowired
 	private OrderItemService orderItemService;
 	private int resetPoints;
@@ -49,18 +50,12 @@ public class CartController {
 	
 	//Cart(장바구니)에 담긴 아이템 조회 -> 장바구니 버튼 누르면 /cart/myCartList로 연결되는 방식
 	@RequestMapping(value="/cart/myCartList", method=RequestMethod.GET)
-<<<<<<< HEAD
 	public ModelAndView getCart(@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
 		if (userSession == null) {
 			return new ModelAndView("redirect:/member/login");
 		}
 		List<Cart> cartItems = cartService.getMyCartList(userSession.getU_id());	//장바구니에 담긴 아이템 조회
 		System.out.println("카트 정보 : " + cartItems.get(0));
-=======
-	public ModelAndView getCart() throws Exception{
-		List<Cart> cartItems = cartService.getMyCartList(1);	//장바구니에 담긴 아이템 조회
-		//System.out.println("카트 정보 : " + cartItems.get(0).getItem_id() +", " + cartItems.get(1).getItem_id() +", " +cartItems.get(2).getItem_id());
->>>>>>> refs/remotes/origin/hyouzl
 		List<Item> cartItemsInfo = new ArrayList<Item>();		//Item 객체를 담을 list 생성
 		List<Integer> cartItemsPrice = new ArrayList<Integer>();		//cartItem들의 각 가격을 담은 list 생성
 		List<Integer> cartItemsQty = new ArrayList<Integer>();		//cartItem들의 각 개수를 담은 list 생성
@@ -81,6 +76,7 @@ public class CartController {
 			totalPrice += cartItemsPrice.get(idx);
 			idx++;
 		}
+
 		
 		ModelAndView mav = new ModelAndView("/cart/myCartList");
 		
@@ -123,17 +119,18 @@ public class CartController {
 		}
 		ModelAndView mav = getCart(userSession);
 		return mav;
+
 		//return new ModelAndView("redirect:/cart/myCartList");
 	}
 	
-	//각각의 물품 삭제할 수 있는 메소드 =>-버튼 클릭시 사라짐
-	@RequestMapping(value="/cart/removeItemFromCart", method=RequestMethod.GET)
-	public ModelAndView handleRequest(@RequestParam("item_id") int item_id) throws Exception{
-		cartService.removeCart(item_id);
-		ModelAndView mav = getCart();
-		
-		return mav;
-	}
+//	//각각의 물품 삭제할 수 있는 메소드 =>-버튼 클릭시 사라짐
+//	@RequestMapping(value="/cart/removeItemFromCart", method=RequestMethod.GET)
+//	public ModelAndView handleRequest(@RequestParam("item_id") int item_id) throws Exception{
+//		cartService.removeCart(item_id);
+//		ModelAndView mav = getCart();
+//		
+//		return mav;
+//	}
 	
 	//주문하기누르면 계산 페이지로 이동하는 메소드
 	@RequestMapping(value="/cart/order", method=RequestMethod.GET)
@@ -173,6 +170,7 @@ public class CartController {
 		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("memberInfo", memberInfo);
 		mav.addObject("applyPoints", applyPoints);
+
 		mav.addObject("resetPoints", resetPoints);
 		
 		return mav;

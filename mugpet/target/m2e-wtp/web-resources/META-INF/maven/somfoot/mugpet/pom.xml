@@ -127,12 +127,13 @@
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
-			<version>19.3.0.0</version>			
+			<version>19.18.0.0</version>
+			<scope>runtime</scope>			
 			<exclusions>
 				<exclusion>
-                    <groupId>com.oracle.database.jdbc</groupId>
-                    <artifactId>ucp</artifactId>
-                </exclusion>
+					<groupId>com.oracle.database.jdbc</groupId>
+					<artifactId>ucp</artifactId>
+				</exclusion>
 				<exclusion>
 					<groupId>com.oracle.database.ha</groupId>
 					<artifactId>simplefan</artifactId>
@@ -142,27 +143,21 @@
 					<artifactId>ons</artifactId>
 				</exclusion>
 			</exclusions>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-            <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ucp</artifactId>
-            <version>19.3.0.0</version>
-        </dependency>		
+		</dependency>		
 		<dependency>
 		    <groupId>com.oracle.database.security</groupId>
 		    <artifactId>oraclepki</artifactId>
-		    <version>${oracle.version}</version>
+		    <version>19.18.0.0</version>
 		</dependency>		
 		<dependency>
 		    <groupId>com.oracle.database.security</groupId>
 		    <artifactId>osdt_cert</artifactId>
-		    <version>${oracle.version}</version>
+		    <version>19.18.0.0</version>
 		</dependency>		
 		<dependency>
 		    <groupId>com.oracle.database.security</groupId>
 		    <artifactId>osdt_core</artifactId>
-		    <version>${oracle.version}</version>
+		    <version>19.18.0.0</version>
 		</dependency>
 
 		<!-- for javax.jaxws API -->

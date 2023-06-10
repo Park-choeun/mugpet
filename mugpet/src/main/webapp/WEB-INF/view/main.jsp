@@ -3,8 +3,8 @@
 <%@ page import="com.spring.mugpet.domain.*"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -184,11 +184,14 @@ a:visited, a:hover, a:active {
 			</div>
 			<div id="menu">
 				<a href="${contextPath}/member/register">회원가입</a> | 
-				<a href="${contextPath}/member/login">로그인</a></div>
+				<a href="${contextPath}/member/login">로그인</a>
+			</div>
 		</div>
 		<div id="search">
 			<%-- <input id="searchInput" type="text" name="searchInput" value="${searchItemCommand.searchInput}" /> --%>
-			<input type="submit" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
+			<a href="javascript:void(window.open('${contextPath}/item/filter', '_blank', 'width=500, height=650, left=530, top=50'))">
+				<input type="button" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
+			</a>
 		</div>
 	</div>
 

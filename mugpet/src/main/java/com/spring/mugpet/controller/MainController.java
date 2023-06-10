@@ -1,10 +1,9 @@
 package com.spring.mugpet.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,8 +48,8 @@ public class MainController {
 		
 		return userSession;
 	}
-
-	//main 수정
+	
+	//수정
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String viewMain(HttpServletRequest request,
 						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
@@ -110,7 +109,7 @@ public class MainController {
 		}
 		
 		List<Item> itemList = new ArrayList<Item>();
-		itemList = itemService.orderByItem(spe_id, stand, od);
+		itemList = itemService.orderByALLItem(spe_id, stand, od);
 		
 		mav.setViewName("tiles/main");
 		mav.addObject("spe_id", spe_id);
@@ -120,4 +119,7 @@ public class MainController {
 		
 		return mav;
 	}
+
+
 }
+

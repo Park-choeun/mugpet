@@ -27,6 +27,7 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
 		return "member/loginForm";
@@ -51,12 +52,9 @@ public class MemberController {
 				return new ModelAndView("redirect:" + forwardAction);
 			}
 			else {
-
 				return new ModelAndView("redirect:/main");
 			}
 		}
-	
-		
 	}
 	
 	

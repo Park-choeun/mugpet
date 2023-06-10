@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,6 @@
 			<div id="title">
 				<a href="${contextPath }/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
 			</div>
-
 				<c:if test="${userId == 0 }">
 					<div id="menu"><a href="${contextPath }/member/register">회원가입</a> | <a href="${contextPath }/member/login">로그인</a></div>
 				</c:if>
