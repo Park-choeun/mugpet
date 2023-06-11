@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +19,9 @@
 		margin: 0px 10px;
 		width: 300px;
 		height: 300px;
+	}
+	.wishImg{
+		margin-left: 170px;
 	}
 	.productImg {
 		margin:10px 20px;
@@ -122,6 +126,12 @@
 			<td>
 				<div class="item">
 					<span class="product">
+					<a href='<c:url value="/wish/removeItemFromWish"><c:param name="item_id" value="${wishItem.item_id}"/></c:url>'>
+						<button type="button">
+							<img src="${contextPath}/resources/images/wished.png" name="wishImg" width="20" height="20" alt="찜" class="wishImg"/> 
+						</button>
+					</a>
+						<br/>
 						<img src="${wishItem.imageUrl}"  width="150" height="150" alt="상품이미지" class="productImg"/>
 						<br/>
 					</span>
