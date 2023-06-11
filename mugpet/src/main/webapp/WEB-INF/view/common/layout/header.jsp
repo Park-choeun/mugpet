@@ -14,10 +14,10 @@
 			<div id="title">
 				<a href="${contextPath }/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
 			</div>
-				<c:if test="${userId == 0 }">
+				<c:if test="${userSession.u_id == 0 }">
 					<div id="menu"><a href="${contextPath }/member/register">회원가입</a> | <a href="${contextPath }/member/login">로그인</a></div>
 				</c:if>
-				<c:if test="${userId != 0}">
+				<c:if test="${userSession.u_id != 0}">
 					<div id="menu"><a href="${contextPath }/mypage/myCartList">마이페이지</a> | <a href="${contextPath }/member/logout">로그아웃</a></div>
 				</c:if>
 		</div>

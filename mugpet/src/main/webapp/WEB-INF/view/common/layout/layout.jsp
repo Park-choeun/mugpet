@@ -164,7 +164,7 @@
 }
 
 a {
-	text-decoration: none;
+	text-decoration-line: none;
 	color: inherit;
 }
 /* link, visited, hover, active 순서대로 맞춰 쓸 것 */

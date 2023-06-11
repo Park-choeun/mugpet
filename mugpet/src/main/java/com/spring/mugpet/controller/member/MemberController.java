@@ -27,9 +27,12 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	
+
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login() {
+	public String login(HttpSession session) {
+		MemberInfo userSession = (MemberInfo) session.getAttribute("userSession");
+		System.out.println(userSession + "," + userSession.getU_id() +"," + userSession.getName());
 		return "member/loginForm";
 	}
 	

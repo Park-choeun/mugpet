@@ -51,10 +51,7 @@ public class CartController {
 	//Cart(장바구니)에 담긴 아이템 조회 -> 장바구니 버튼 누르면 /cart/myCartList로 연결되는 방식
 	@RequestMapping(value="/cart/myCartList", method=RequestMethod.GET)
 	public ModelAndView getCart(@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
-		if (userSession == null) {
-			return new ModelAndView("redirect:/member/login");
-		}
-		List<Cart> cartItems = cartService.getMyCartList(userSession.getU_id());	//장바구니에 담긴 아이템 조회
+		List<Cart> cartItems = cartService.getMyCartList(1);	//장바구니에 담긴 아이템 조회
 		System.out.println("카트 정보 : " + cartItems.get(0));
 		List<Item> cartItemsInfo = new ArrayList<Item>();		//Item 객체를 담을 list 생성
 		List<Integer> cartItemsPrice = new ArrayList<Integer>();		//cartItem들의 각 가격을 담은 list 생성

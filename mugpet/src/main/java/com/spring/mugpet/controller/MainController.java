@@ -55,7 +55,7 @@ public class MainController {
 						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
 						@ModelAttribute("userSession") MemberInfo userSession,
 						ModelMap model) throws Exception{
-		System.out.println(userSession.getU_id());
+		System.out.println(userSession.getU_id() + "," + userSession.getEmail());
 		
 		if(userSession.getU_id() != 0) {
 			Pet pet = petService.getPetByU_id(userSession.getU_id());
@@ -79,7 +79,7 @@ public class MainController {
 		model.put("spe_id", spe_id);
 		model.put("spe", spe);
 		model.put("standard", "기본순");
-		model.put("userId",userSession.getU_id());
+		model.put("userSession",userSession);
 		return "tiles/main";
 
 	}
