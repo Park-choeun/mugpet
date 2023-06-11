@@ -67,6 +67,7 @@ public class CartController {
 		cartService.addCart(cart);
 	}
 	
+	
 	//Cart(장바구니)에 담긴 아이템 조회 -> 장바구니 버튼 누르면 /cart/myCartList로 연결되는 방식
 	@RequestMapping(value="/cart/myCartList", method=RequestMethod.GET)
 	public ModelAndView getCart(@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
@@ -120,8 +121,9 @@ public class CartController {
 	
 	//각 물품의 개수를 수정할 수 있는 메소드
 	@RequestMapping(value="/cart/updateCartQuantities", method=RequestMethod.POST)
-	public ModelAndView cartItemUpdate(HttpServletRequest request) throws Exception{
-		List<Cart> cartItems = cartService.getMyCartList(1); 
+	public ModelAndView cartItemUpdate(HttpServletRequest request,@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
+		
+		List<Cart> cartItems = cartService.getMyCartList(userSession.getU_id()); 
 		int num = 0;
 		for(Cart cartItem : cartItems){
 			int item_id = cartItem.getItem_id(); //아이템의 item_id를 가지고 옴
@@ -134,7 +136,7 @@ public class CartController {
 						cartService.removeCart(item_id);
 					}
 			}catch(NumberFormatException ex) {
-				
+				ex.printStackTrace();
 			}
 			num++;
 		}
@@ -151,7 +153,7 @@ public class CartController {
 		
 		return new ModelAndView("redirect:/cart/myCartList");
 	}
-	
+
 	//주문하기누르면 계산 페이지로 이동하는 메소드
 	@RequestMapping(value="/cart/order", method=RequestMethod.GET)
 	public ModelAndView cartToOrder() throws Exception{

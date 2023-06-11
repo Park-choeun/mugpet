@@ -1,15 +1,14 @@
 package com.spring.mugpet.controller.member;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,7 +17,7 @@ import com.spring.mugpet.service.MemberService;
 
 @Controller
 @RequestMapping("/member")
-@SessionAttributes("memberInfo")
+@SessionAttributes("userSession")
 public class MemberController {
 	
 	
@@ -28,15 +27,12 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	
-	
-	@ModelAttribute("memberInfo")
-	public MemberInfo loginFormData() {
-			return new MemberInfo();
-	}
-	
+
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login() {
+	public String login(HttpSession session) {
+		MemberInfo userSession = (MemberInfo) session.getAttribute("userSession");
+		System.out.println(userSession + "," + userSession.getU_id() +"," + userSession.getName());
 		return "member/loginForm";
 	}
 	
@@ -47,14 +43,13 @@ public class MemberController {
 						@RequestParam("pwd") String pwd,
 						@RequestParam(value="forwardAction", required=false) String forwardAction,
 						Model model) throws Exception {
-		MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd(email,pwd);
-		if(memberInfo==null) {
+		MemberInfo userSession = memberService.getMemberInfoByEmailandPwd(email,pwd);
+		model.addAttribute("userSession", userSession);
+		if(userSession==null) {
 			return new ModelAndView("error", "message", 
 					"Invalid username or password.  Signon failed.");
 		}
 		else {
-			MemberInfo userSession = new MemberInfo();
-			model.addAttribute("userSession",userSession);
 			
 			if(forwardAction != null) {
 				return new ModelAndView("redirect:" + forwardAction);
@@ -64,6 +59,7 @@ public class MemberController {
 			}
 		}
 	}
+	
 	
 	
 }

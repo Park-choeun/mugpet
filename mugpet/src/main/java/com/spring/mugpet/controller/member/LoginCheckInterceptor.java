@@ -12,7 +12,7 @@ import com.spring.mugpet.domain.MemberInfo;
 
 public class LoginCheckInterceptor implements HandlerInterceptor  {
 
-	
+	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 	throws Exception {
 		
@@ -23,7 +23,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor  {
 			String url = request.getRequestURL().toString();
 			String query = request.getQueryString();
 			
-			ModelAndView modelAndView = new ModelAndView("loginForm");
+			ModelAndView modelAndView = new ModelAndView("redirect:/member/login");
 			
 			if(query != null) {
 				modelAndView.addObject("signonForwardAction", url +"?" + query);

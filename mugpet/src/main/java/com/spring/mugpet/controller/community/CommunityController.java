@@ -1,37 +1,32 @@
 package com.spring.mugpet.controller.community;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.WebUtils;
 
 import com.spring.mugpet.domain.Community;
 import com.spring.mugpet.domain.MemberInfo;
+import com.spring.mugpet.domain.Pet;
 import com.spring.mugpet.domain.Reply;
 import com.spring.mugpet.service.CommunityServiceImpl;
 import com.spring.mugpet.service.MemberServiceImpl;
+import com.spring.mugpet.service.PetService;
 import com.spring.mugpet.service.ReplyServiceImpl;
 
 @Controller
+@SessionAttributes("userSession")
 @RequestMapping(method=RequestMethod.GET)
 //@SessionAttributes("userSession")
 /*form 사용시, Command 객체 사용*/
@@ -46,8 +41,11 @@ public class CommunityController {
 	@Autowired
 	private MemberServiceImpl memberService;
 	
+	@Autowired
+	private PetService petService;
+	
 	@RequestMapping("/community/view")
-	public String getCom(Model model, @RequestParam(value = "com_id") Integer com_id) {
+	public String getCom(Model model, @RequestParam(value = "com_id") int com_id) {
 		//게시글 상세보기
 		Community com = null;
 		com = comService.getCom(com_id);
@@ -66,9 +64,21 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/community/communityList")
-	public String getComList(Model model) {
+	public String getComList(Model model,@ModelAttribute("userSession")MemberInfo userSession) {
 		//게시글 목록 보기
+		
+		int spe_id = 1;
+		String petName = null;
 		List<Community> comList = comService.getComList();
+		if(userSession.getU_id() != 0) {
+			Pet pet = petService.getPetByU_id(userSession.getU_id());
+			
+			spe_id = pet.getSpe_id();
+			System.out.println(">>>>>>spe_id : " + spe_id);
+			petName = pet.getName();
+			System.out.println(">>>>>>>petName : " + petName);
+		
+		}
 		//ArrayList<String> nicknameList = new ArrayList<String>();
 		/*
 		for(Community coms : comList) {
@@ -77,17 +87,26 @@ public class CommunityController {
 			String nickname = memberService.getNickNameByU_Id(u_id);
 			nicknameList.add(nickname);
 		}*/
+	
+		String spe;
+		if (spe_id == 1) {
+			spe = "강아지";
+		} else if (spe_id == 2) {
+			spe = "고양이";
+		} else {
+			spe = "소동물";
+		}
 				
 		for(Community com : comList) {
 			System.out.println(com.getTitle());
 			System.out.println(com.getCom_id());
 		}
-		
 		model.addAttribute("comList", comList);
-		
+		model.addAttribute("petName", petName);
+		model.addAttribute("spe", spe);
 		//model.addAttribute("nicknameList", nicknameList);
 		
-		return "/community/communityList";
+		return "tiles/community/communityList";
 	}
 	
 	@RequestMapping("/community/myCommunityList")
