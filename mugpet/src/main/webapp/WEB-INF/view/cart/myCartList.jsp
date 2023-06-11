@@ -118,89 +118,11 @@ function add(item){
 		text-color: #5D5D5D;
 	}
 
-   #top {
-      display:flex;
-      vertical-align:top;
-      padding-bottom: 50px;
-      padding-top: 40px; /*추가*/
-      border-bottom: 1px solid #8C8C8C; /*추가*/
-   }
-   #title {
-      text-align:center;
-      font-size:40px;
-      font-weight:bold;
-      width:50%;
-      display:inline-block;
-      margin:0 25% 0 35%;
-      
-   }
-   #logo {
-      width:40px;
-      height:40px;
-   }
-   #menu {
-      text-align:right;
-      font-size:13px;
-      width:15%;
-      display:inline-block;
-      float:right;
-      
-   }
-   #category {
-      width:15%; /*width를 %로 주기*/
-      height:100vh;
-      text-align:center;
-      padding:10px 0;
-      float:left; /*추가*/
-      border-right: 1px solid #8C8C8C; /*추가*/
-   }
-   a {
-      text-decoration: none;
-      color: inherit;
-   }
-   
-   table{
-   		width: 100%;
-   
-   }
-   
-   td{
-   		border-bottom: 1px solid #A6A6A6;
-   		width: 100%;
-   }
-   
 </style>
 </head>
 <body>
-<div id="top">
-      <div id="title">
-         <a href="/main">MugPet <img id="logo" src="${contextPath}/resources/images/foot.png" /></a>
-      </div>
-      <div id="menu">
-         회원가입 | 로그인
-      </div>
-</div>
-<div id="category">
-   <div class="btn-group">
-     <button type="button" class="btn btn-danger dropdown-toggle" 
-        style="background-color:#FFD1FF; border-color:#FFD1FF;"
-        data-bs-toggle="dropdown" aria-expanded="false">
-     강아지
-      <%--    ${pet.species}  --%>        
-      </button>
-     <!-- <ul class="dropdown-menu">
-       <li><a class="dropdown-item" href="#">Action</a></li>
-       <li><a class="dropdown-item" href="#">Another action</a></li>
-         <li><a class="dropdown-item" href="#">Something else here</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Separated link</a></li>
-     </ul> -->
-   </div>
-</div>
 <!------------------------주문 결제 창-------------------->   
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" 
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <div class="content">
 	<h5>주문 결제</h5><br/>
 	<div>
@@ -255,9 +177,9 @@ function add(item){
 			</c:forEach>
 		</table>
 	<div class="bottom">
-	<%-- <a href='<c:url value="/cart/updateItemQty"><c:param name="item_id" value="${item.item_id}"/></c:url>'> --%>
-	  <button style="float:right;">카트 업데이트</button> 
-	 <%-- </a>  --%>
+	  <div>
+	  	<button style="float:right;">카트 업데이트</button> 
+	  </div>
 </form>	
 	 <br/>
 		<fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원 + 배송비 무료 = <fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원

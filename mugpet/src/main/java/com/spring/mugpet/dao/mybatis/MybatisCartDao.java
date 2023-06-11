@@ -35,8 +35,8 @@ public class MybatisCartDao implements CartDao{
 	}
 	
 	//Cart 목록에 item 추가하기
-	public void addCart(Item item) throws DataAccessException{
-		cartMapper.addCart(item);
+	public void addCart(Cart cart) throws DataAccessException{
+		cartMapper.addCart(cart);
 	}
 
 	//Cart 목록에 item 정보 수정하기

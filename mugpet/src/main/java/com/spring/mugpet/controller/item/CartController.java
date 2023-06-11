@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
+import com.spring.mugpet.controller.member.UserSession;
 import com.spring.mugpet.domain.Cart;
 import com.spring.mugpet.domain.Item;
 import com.spring.mugpet.domain.MemberInfo;
@@ -22,7 +26,7 @@ import com.spring.mugpet.service.MemberService;
 import com.spring.mugpet.service.OrderItemService;
 
 @Controller
-//@SessionAttributes("sessionCart")
+@SessionAttributes("userSession")
 public class CartController {
 
 	@Autowired
@@ -41,14 +45,39 @@ public class CartController {
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
 	}
-	public void addCart(Item item) throws Exception{
-		cartService.addCart(item);
+	
+//	@ModelAttribute("sessionCart")
+//	public Cart createCart(HttpSession session) {
+//		Cart cart = (Cart)session.getAttribute("sessionCart");
+//		if (cart == null) cart = new Cart();
+//		return cart;
+//	}
+	
+//	@ModelAttribute("userSession")
+//	public MemberInfo userSession(HttpServletRequest request) {
+//		MemberInfo userSession = (MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
+//		if ( userSession == null) {
+//			return new MemberInfo();
+//		}
+//		else return userSession;
+//		
+//	} 
+	
+	public void addCart(Cart cart) throws Exception{
+		cartService.addCart(cart);
 	}
+	
 	
 	//Cart(장바구니)에 담긴 아이템 조회 -> 장바구니 버튼 누르면 /cart/myCartList로 연결되는 방식
 	@RequestMapping(value="/cart/myCartList", method=RequestMethod.GET)
-	public ModelAndView getCart() throws Exception{
+	public ModelAndView getCart(@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
+	
+		int u_id = userSession.getU_id();
+		System.out.println("u_id: " + u_id);
+		
+		
 		List<Cart> cartItems = cartService.getMyCartList(1);	//장바구니에 담긴 아이템 조회
+		
 		//System.out.println("카트 정보 : " + cartItems.get(0).getItem_id() +", " + cartItems.get(1).getItem_id() +", " +cartItems.get(2).getItem_id());
 		List<Item> cartItemsInfo = new ArrayList<Item>();		//Item 객체를 담을 list 생성
 		List<Integer> cartItemsPrice = new ArrayList<Integer>();		//cartItem들의 각 가격을 담은 list 생성
@@ -92,8 +121,9 @@ public class CartController {
 	
 	//각 물품의 개수를 수정할 수 있는 메소드
 	@RequestMapping(value="/cart/updateCartQuantities", method=RequestMethod.POST)
-	public ModelAndView cartItemUpdate(HttpServletRequest request) throws Exception{
-		List<Cart> cartItems = cartService.getMyCartList(1); 
+	public ModelAndView cartItemUpdate(HttpServletRequest request,@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
+		
+		List<Cart> cartItems = cartService.getMyCartList(userSession.getU_id()); 
 		int num = 0;
 		for(Cart cartItem : cartItems){
 			int item_id = cartItem.getItem_id(); //아이템의 item_id를 가지고 옴
@@ -106,25 +136,24 @@ public class CartController {
 						cartService.removeCart(item_id);
 					}
 			}catch(NumberFormatException ex) {
-				
+				ex.printStackTrace();
 			}
 			num++;
 		}
-		ModelAndView mav = getCart();
-		return mav;
-
-		//return new ModelAndView("redirect:/cart/myCartList");
+		return new ModelAndView("redirect:/cart/myCartList");
 	}
 	
 	//각각의 물품 삭제할 수 있는 메소드 =>-버튼 클릭시 사라짐
 	@RequestMapping(value="/cart/removeItemFromCart", method=RequestMethod.GET)
 	public ModelAndView handleRequest(@RequestParam("item_id") int item_id) throws Exception{
 		cartService.removeCart(item_id);
-		ModelAndView mav = getCart();
+//		ModelAndView mav = getCart(userSession(null));
+//		
+//		return mav;
 		
-		return mav;
+		return new ModelAndView("redirect:/cart/myCartList");
 	}
-	
+
 	//주문하기누르면 계산 페이지로 이동하는 메소드
 	@RequestMapping(value="/cart/order", method=RequestMethod.GET)
 	public ModelAndView cartToOrder() throws Exception{
@@ -207,27 +236,29 @@ public class CartController {
 	public ModelAndView submit(HttpServletRequest request, @ModelAttribute("command") CartCommand command) throws Exception{ //매개변수 설정해야 함
 			ModelAndView mav = new ModelAndView("/cart/orderCompleted");
 			MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd("som@naver.com", "123456");
-			//멤버의 전화번호, 주소 얻어옴
-			String phoneNum = memberInfo.getPhoneNum();
-			String addr = memberInfo.getAddress() + " " + request.getParameter("addrDetail");
-			String req = request.getParameter("req");
-			System.out.println("phoneNum : " + phoneNum);
-			System.out.println("addr : " + addr);
-			System.out.println("req : " + req);
-//			memberService.updatePoints(resetPoint,"som@naver.com", "123456");
+//			//멤버의 전화번호, 주소 얻어옴
+//			String phoneNum = memberInfo.getPhoneNum();
+//			String addr = memberInfo.getAddress() + " " + request.getParameter("addrDetail");
+//			String req = request.getParameter("req");
+//			System.out.println("phoneNum : " + phoneNum);
+//			System.out.println("addr : " + addr);
+//			System.out.println("req : " + req);
+//			memberService.updatePoints(resetPoints,"som@naver.com", "123456");
 //			
 //			//	orderItem에 item_id 넣는것도.
-//			OrderItem orderItem = new OrderItem();
-//			String DEFAULT = "DEFAULT";
-//			List<Cart> cartItems = cartService.getMyCartList(1);
-//			for(Cart items : cartItems) {
+			OrderItem order = new OrderItem();
+			List<Cart> cartItems = cartService.getMyCartList(1);
+			order.setCartItemList(cartItems);
+			List<Cart> orderItems = order.getCartItemList();
+			for(Cart items : orderItems) {
 //				orderItem.setItem_id(items.getItem_id());
 //				orderItem.setOrderQty(items.getCartQty());
 //				orderItem.setOrderAddr(memberInfo.getAddress() + request.getParameter("addressDetail"));
 //				orderItem.setOrderPhoneNum(memberInfo.getPhoneNum());
 //				orderItem.setU_id(1);
-//				orderItemService.insertOrderItem(orderItem);
-//			}
+				System.out.println(items.getItem_id());
+				
+			}
 			return mav;
 		}
 

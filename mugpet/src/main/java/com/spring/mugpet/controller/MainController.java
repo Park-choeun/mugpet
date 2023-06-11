@@ -23,7 +23,7 @@ import com.spring.mugpet.service.ItemService;
 import com.spring.mugpet.service.PetService;
 
 @Controller
-@SessionAttributes("memberInfo")
+@SessionAttributes("userSession")
 public class MainController {
 	
 	@Autowired
@@ -31,48 +31,37 @@ public class MainController {
 	public void setItemService(ItemService itemService) {
 		this.itemService = itemService;
 	}
-	
 	@Autowired
 	private PetService petService;
 	public void setPetService(PetService petService) {
 		this.petService = petService;
 	}
 
-//	@ModelAttribute("userSession")
-//	public MemberInfo userSession(HttpServletRequest request) {
-//		MemberInfo userSession = (MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
-//		if (userSession == null) {
-//			return new MemberInfo();
-//		}
-//		else {
-//			return userSession;
-//		}
-//		
-//	}
-	
-//	@RequestMapping(value="/main", method=RequestMethod.GET)
-//	public String viewMain(HttpServletRequest request,
-//						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
-//						ModelMap model) throws Exception{
-	
+	@ModelAttribute("userSession")
+	public MemberInfo userSession(HttpServletRequest request) {
+		MemberInfo userSession = (MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
+		if (userSession == null) {
+			return new MemberInfo();
+		}
+		
+		return userSession;
+	}
+
 	@RequestMapping(value="/main", method=RequestMethod.GET)
-	@ModelAttribute("memberInfo")
-	public String viewMain(@RequestParam(value="spe_id", defaultValue="1") int spe_id, ModelMap model) {
-		
-//		MemberInfo userSession = (MemberInfo) request.getSession().getAttribute("userSession");
-	
-		MemberInfo userSession = new MemberInfo();
+	public String viewMain(HttpServletRequest request,
+						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
+						@ModelAttribute("userSession") MemberInfo userSession,
+						ModelMap model) throws Exception{
+		System.out.println(userSession.getU_id() + "," + userSession.getEmail());
 		String petName = null;
-		
-		System.out.println("<<펫 정보 출력>>");
-		System.out.println(">>>>>u_id : " + userSession.getU_id());
-		if (userSession.getEmail() != null) {
+		if(userSession.getU_id() != 0) {
+
 			Pet pet = petService.getPetByU_id(userSession.getU_id());
 			System.out.println(">>>>>>>pet : " + pet);
 			spe_id = pet.getSpe_id();
 			System.out.println(">>>>>>spe_id : " + spe_id);
 			petName = pet.getName();
-			System.out.println(">>>>>>petName : " + petName);
+			System.out.println(">>>>>>>petName : " + petName);
 		}
 		
 		String spe;
@@ -85,14 +74,16 @@ public class MainController {
 		}
 		System.out.println("<<<<<<<spe_id : " + spe_id);
 		List<Item> itemList = new ArrayList<Item>();
+
 		itemList = itemService.getALLItemList(spe_id);	
-		
+		model.put("itemList", itemList);
 		model.put("spe_id", spe_id);
 		model.put("spe", spe);
 		model.put("standard", "기본순");
 		model.put("petName", petName);
-		model.put("itemList", itemList);
-		return "main";
+		model.put("userSession",userSession);
+		return "tiles/main";
+
 	}
   
 	
@@ -122,7 +113,7 @@ public class MainController {
 		List<Item> itemList = new ArrayList<Item>();
 		itemList = itemService.orderByALLItem(spe_id, stand, od);
 		
-		mav.setViewName("main");
+		mav.setViewName("tiles/main");
 		mav.addObject("spe_id", spe_id);
 		mav.addObject("spe", spe);
 		mav.addObject("standard", standard);

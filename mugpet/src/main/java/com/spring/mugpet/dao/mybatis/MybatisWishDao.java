@@ -28,8 +28,8 @@ public class MybatisWishDao implements WishDao {
 	}
 	
 	//Wish 목록에 item 추가하기
-	public void insertWish(Item item) throws DataAccessException{
-		wishMapper.insertWish(item);
+	public void insertWish(Wish wish) throws DataAccessException{
+		wishMapper.insertWish(wish);
 	}
 
 	//Wish 목록에 item 삭제하기

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.mugpet.domain.Cart;
 import com.spring.mugpet.domain.Item;
 import com.spring.mugpet.domain.Wish;
 import com.spring.mugpet.service.WishService;
@@ -24,6 +25,11 @@ public class WishController {
 	public void setWishService(WishService wishService) {
 		this.wishService = wishService;
 	}
+	
+	public void insertWish(Wish wish) throws Exception{
+		wishService.insertWish(wish);
+	}
+	
 	
 	//Wish에 해당하는 아이템 조회
 	@RequestMapping(value="/myWishList", method=RequestMethod.GET)
@@ -52,13 +58,13 @@ public class WishController {
 //	}
 	
 	//각각의 물품 삭제할 수 있는 메소드 =>-버튼 클릭시 사라짐
-//	@RequestMapping(value="/wish/removeItemFromWish", method=RequestMethod.GET)
-//	public ModelAndView handleRequest(@RequestParam("item_id") int item_id) throws Exception{
-//		wishService.deleteWish(item_id);
-//		ModelAndView mav = getWishList();
-//		
-//		return mav;
-//	}
+	@RequestMapping(value="/removeItemFromWish", method=RequestMethod.GET)
+	public ModelAndView handleRequest(@RequestParam("item_id") int item_id) throws Exception{
+		wishService.deleteWish(item_id);
+		ModelAndView mav = getWishList();
+		
+		return mav;
+	}
 //	//Wish에 해당하는 아이템 하나 클릭 시 그 아이템 상세페이지로 이동하는 url을 반환하는 메소드
 //	@RequestMapping("/myWishList/{item_id}")
 //	public String wishItemDetail(int item_id) {
