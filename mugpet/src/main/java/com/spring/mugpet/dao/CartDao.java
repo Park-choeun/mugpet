@@ -22,7 +22,7 @@ public interface CartDao {
 	Cart getMyCartItemCartType(int item_id) throws DataAccessException;
 	
 	//Cart 목록에 item 추가하기
-	void addCart(Item item) throws DataAccessException; 
+	void addCart(Cart cart) throws DataAccessException; 
 
 	//Cart 목록에 item 정보 수정하기
 	void updateCart(int cartQty, int item_id) throws DataAccessException; 

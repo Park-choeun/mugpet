@@ -19,7 +19,7 @@ public interface CartService {
 	Cart getMyCartItemCartType(int item_id);
 	
 	//Cart 목록에 item 추가하기
-	void addCart(Item item);
+	void addCart(Cart cart);
 	
 	//Cart 목록에 item 정보 수정하기
 	void updateCart(int cartQty, int item_id); 

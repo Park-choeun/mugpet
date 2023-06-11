@@ -15,7 +15,7 @@ public interface WishService {
 	Item getWishItemInfo(int item_id);
 	
 	//Wish 목록에 item 추가하기
-	void insertWish(Item item); 
+	void insertWish(Wish wish); 
 
 	//Wish 목록에 item 삭제하기
 	void deleteWish(int item_id);
