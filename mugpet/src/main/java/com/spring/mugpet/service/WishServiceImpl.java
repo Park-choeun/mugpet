@@ -27,8 +27,8 @@ public class WishServiceImpl implements WishService{
 	}
 	
 	//Wish 목록에 item 추가하기
-	public void insertWish(Item item) {
-		wishDao.insertWish(item);
+	public void insertWish(Wish wish) {
+		wishDao.insertWish(wish);
 	}
 
 	//Wish 목록에 item 삭제하기

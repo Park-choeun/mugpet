@@ -36,8 +36,8 @@ public class CartServiceImpl implements CartService{
 	}
 	
 	//Cart 목록에 item 추가하기
-	public void addCart(Item item) {
-		cartDao.addCart(item);
+	public void addCart(Cart cart) {
+		cartDao.addCart(cart);
 	}
 	
 	//Cart 목록에 item 정보 수정하기
