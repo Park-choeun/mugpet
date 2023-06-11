@@ -20,6 +20,7 @@
 <style>
 #top {
 	border-bottom: 1px solid black;
+	width:1518px;
 }
 
 #inline {
@@ -49,6 +50,10 @@
 	margin: 10px;
 }
 
+#petName {
+	color:#2F5597;
+}
+
 #search {
 	text-align: right;
 	padding: 0 10px 5px 0;
@@ -67,11 +72,11 @@
 
 #body {
 	display: flex;
+	width:1518px;
 }
 
 #category {
 	display: inline-block;
-	position: fixed;
 	width: 200px;
 	height:628px;
 	text-align: center;
@@ -87,7 +92,6 @@
 }
 
 #category_name {
-	posigion: flex;
 	width: 200px;
 	line-height: 300%;
 	font-weight: bold;
@@ -95,7 +99,7 @@
 
 #subBody {
 	display: inline-block;
-	margin-left:200px;
+	width:1318px;
 	border-left:1px solid black;
 }
 
@@ -141,6 +145,10 @@
 	display:flex;	
 }
 
+#itemCards {
+	width: 1228px;
+}
+
 #itemCard {
 	display:inline-block;
 	width:200px; 
@@ -183,8 +191,17 @@ a:visited, a:hover, a:active {
 				<a href="${contextPath}/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
 			</div>
 			<div id="menu">
-				<a href="${contextPath}/member/register">회원가입</a> | 
-				<a href="${contextPath}/member/login">로그인</a>
+				<c:choose>
+					<c:when test="${empty petName}">
+						<a href="${contextPath}/member/register">회원가입</a> | 
+						<a href="${contextPath}/member/login">로그인</a>
+					</c:when>
+					<c:otherwise>
+						<span id="petName">${petName}</span>님 |
+						마이페이지
+						<a href="${contextPath}/cart/myCartList">장바구니</a> 
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<div id="search">

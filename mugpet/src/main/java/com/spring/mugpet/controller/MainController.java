@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
@@ -22,10 +23,9 @@ import com.spring.mugpet.service.ItemService;
 import com.spring.mugpet.service.PetService;
 
 @Controller
+@SessionAttributes("memberInfo")
 public class MainController {
-//로그인 후, 회원의 이름 or 펫의 이름 띄울거면 수정!!!!!!
 	
-	//메인 tiles 설정 
 	@Autowired
 	private ItemService itemService;
 	public void setItemService(ItemService itemService) {
@@ -38,29 +38,43 @@ public class MainController {
 		this.petService = petService;
 	}
 
-	@ModelAttribute("memberInfo")
-	public MemberInfo userSession(HttpServletRequest request) {
-		MemberInfo userSession = (MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
-		if ( userSession == null) {
-			return new MemberInfo();
-		}
-		else return userSession;
-		
-	}
+//	@ModelAttribute("userSession")
+//	public MemberInfo userSession(HttpServletRequest request) {
+//		MemberInfo userSession = (MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
+//		if (userSession == null) {
+//			return new MemberInfo();
+//		}
+//		else {
+//			return userSession;
+//		}
+//		
+//	}
 	
-	//수정
+//	@RequestMapping(value="/main", method=RequestMethod.GET)
+//	public String viewMain(HttpServletRequest request,
+//						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
+//						ModelMap model) throws Exception{
+	
 	@RequestMapping(value="/main", method=RequestMethod.GET)
-	public String viewMain(HttpServletRequest request,
-						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
-						ModelMap model) throws Exception{
+	@ModelAttribute("memberInfo")
+	public String viewMain(@RequestParam(value="spe_id", defaultValue="1") int spe_id, ModelMap model) {
 		
-		MemberInfo userSession = (MemberInfo) request.getSession().getAttribute("userSession");
-		if(userSession !=null) {
+//		MemberInfo userSession = (MemberInfo) request.getSession().getAttribute("userSession");
+	
+		MemberInfo userSession = new MemberInfo();
+		String petName = null;
+		
+		System.out.println("<<펫 정보 출력>>");
+		System.out.println(">>>>>u_id : " + userSession.getU_id());
+		if (userSession.getEmail() != null) {
 			Pet pet = petService.getPetByU_id(userSession.getU_id());
-			System.out.println(pet);
+			System.out.println(">>>>>>>pet : " + pet);
 			spe_id = pet.getSpe_id();
-			System.out.println(spe_id);
+			System.out.println(">>>>>>spe_id : " + spe_id);
+			petName = pet.getName();
+			System.out.println(">>>>>>petName : " + petName);
 		}
+		
 		String spe;
 		if (spe_id == 1) {
 			spe = "강아지";
@@ -69,16 +83,16 @@ public class MainController {
 		} else {
 			spe = "소동물";
 		}
-		
+		System.out.println("<<<<<<<spe_id : " + spe_id);
 		List<Item> itemList = new ArrayList<Item>();
-
 		itemList = itemService.getALLItemList(spe_id);	
-		model.put("itemList", itemList);
-		model.put("sep_id", spe_id);
+		
+		model.put("spe_id", spe_id);
 		model.put("spe", spe);
 		model.put("standard", "기본순");
-		return "tiles/main";
-
+		model.put("petName", petName);
+		model.put("itemList", itemList);
+		return "main";
 	}
   
 	

@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="top">
+	<%-- <div id="top">
 		<div id="inline">
 			<div id="title">
 				<a href="main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
@@ -17,8 +17,34 @@
 			<div id="menu"><a href="${contextPath }/member/register">회원가입</a> | <a href="${contextPath }/member/login">로그인</a></div>
 		</div>
 		<div id="search">
-			<%-- <input id="searchInput" type="text" name="searchInput" value="${searchItemCommand.searchInput}" /> --%>
+			<input id="searchInput" type="text" name="searchInput" value="${searchItemCommand.searchInput}" />
 			<input type="submit" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
+		</div>
+	</div> --%>
+	<div id="top">
+		<div id="inline">
+			<div id="title">
+				<a href="${contextPath}/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
+			</div>
+			<div id="menu">
+				<c:choose>
+					<c:when test="${empty petName}">
+						<a href="${contextPath}/member/register">회원가입</a> | 
+						<a href="${contextPath}/member/login">로그인</a>
+					</c:when>
+					<c:otherwise>
+						<span id="petName">${petName}</span>님 |
+						마이페이지
+						<a href="${contextPath}/cart/myCartList">장바구니</a> 
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+		<div id="search">
+			<%-- <input id="searchInput" type="text" name="searchInput" value="${searchItemCommand.searchInput}" /> --%>
+			<a href="javascript:void(window.open('${contextPath}/item/filter', '_blank', 'width=500, height=650, left=530, top=50'))">
+				<input type="button" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
+			</a>
 		</div>
 	</div>
 </body>
