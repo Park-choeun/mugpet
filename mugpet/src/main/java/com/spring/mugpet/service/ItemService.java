@@ -12,9 +12,11 @@ public interface ItemService {
 	
 	List<Item> getItemList(int spe_id, int category_id);
 	
-	List<Item> getSearchItemList(int spe_id, int filter);
+	List<Item> getFilterItemList(int spe_id, int age, String stuff, String feature);
 	
-	List<Item> orderByItem(int spe_id, String stand, String od);
+	List<Item> orderByALLItem(int spe_id, String stand, String od);
+	
+	List<Item> orderByCategoryItem(int spe_id, int category_id, String stand, String od);
 	
 	void insertItem(Item item);
 	

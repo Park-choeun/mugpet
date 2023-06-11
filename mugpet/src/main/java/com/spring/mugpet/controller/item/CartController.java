@@ -33,6 +33,7 @@ public class CartController {
 	private CartService cartService;
 	@Autowired
 	private MemberService memberService;
+
 	@Autowired
 	private OrderItemService orderItemService;
 	private int resetPoints;
@@ -97,6 +98,7 @@ public class CartController {
 			totalPrice += cartItemsPrice.get(idx);
 			idx++;
 		}
+
 		
 		ModelAndView mav = new ModelAndView("/cart/myCartList");
 		
@@ -136,8 +138,6 @@ public class CartController {
 			}
 			num++;
 		}
-//		ModelAndView mav = getCart(userSession(null));
-//		return mav;
 		return new ModelAndView("redirect:/cart/myCartList");
 	}
 	
@@ -190,6 +190,7 @@ public class CartController {
 		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("memberInfo", memberInfo);
 		mav.addObject("applyPoints", applyPoints);
+
 		mav.addObject("resetPoints", resetPoints);
 		
 		return mav;

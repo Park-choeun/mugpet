@@ -29,13 +29,19 @@
 		WHERE u_id=#{u_id}
 	</select>
 	
+	<select id="getU_IdByCommunity" resultType="int" parameterType="int">
+		SELECT u_id
+		FROM Community
+		WHERE com_id=#{com_id}
+	</select>
+	
 	<!-- Community 작성 -> sequence, default 값에 따라 selectKey, SYSDATE 사용
 		-> parameterType을 Command로 바꿔야 하나? -->
 	<insert id="insertCom" parameterType="Community">
 		INSERT INTO Community (<include refid="communityCols" />)
 		VALUES (#{com_id}, #{imageUrl}, #{title}, #{content}, SYSDATE, #{likes}, #{replyCnt}, #{u_id})
 		<selectKey resultType="int" keyProperty="com_id" order="BEFORE">
-			SELECT SEQ_Community_com_id FROM DUAL
+			SELECT MAX(com_id) + 1 FROM Community
 		</selectKey>
 	</insert>
 	

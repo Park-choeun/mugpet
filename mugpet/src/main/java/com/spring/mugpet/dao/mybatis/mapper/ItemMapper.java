@@ -18,10 +18,13 @@ public interface ItemMapper {
 	List<Item> getItemList(@Param("spe_id") int spe_id, @Param("category_id") int category_id);
 		
 	//필터링(검색)한 상품정보목록 가져오기
-	List<Item> getSearchItemList(int spe_id, int filter);
+	List<Item> getFilterItemList(@Param("spe_id")int spe_id, @Param("age")int age, @Param("stuff")String stuff, @Param("feature") String feature);
 	
-	//상품 정렬하기
-	List<Item> orderByItem(@Param("spe_id")int spe_id, @Param("stand")String stand, @Param("od")String od);
+	//전체상품 정렬하기(메인)
+	List<Item> orderByALLItem(@Param("spe_id")int spe_id, @Param("stand")String stand, @Param("od")String od);
+	
+	//카테고리별 상품 정렬하기
+	List<Item> orderByCategoryItem(@Param("spe_id")int spe_id, @Param("category_id")int category_id, @Param("stand")String stand, @Param("od")String od);
 		
 	//상품 추가하기
 	void insertItem(Item item);

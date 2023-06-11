@@ -22,6 +22,7 @@
 <style>
 #top {
 	border-bottom: 1px solid black;
+	width:1518px;
 }
 
 #inline {
@@ -69,11 +70,11 @@
 
 #body {
 	display: flex;
+	width:1518px;
 }
 
 #category {
 	display: inline-block;
-	position: fixed;
 	width: 200px;
 	height:628px;
 	text-align: center;
@@ -89,7 +90,6 @@
 }
 
 #category_name {
-	posigion: flex;
 	width: 200px;
 	line-height: 300%;
 	font-weight: bold;
@@ -97,13 +97,28 @@
 
 #subBody {
 	display: inline-block;
-	margin-left:200px;
+	width:1318px;
 	border-left:1px solid black;
 }
 
+#orderBy {
+	text-align:right;
+	padding:4px 28px 0 0;
+}
+
+#orderBtn {
+	background-color:white;
+	border-color:white;
+	color:black;
+}
+
 #itemList {
-	padding: 35px 45px;
-	display:flex;
+	padding:0 45px;
+	display:flex;	
+}
+
+#itemCards {
+	width: 1228px;
 }
 
 #itemCard {
@@ -145,12 +160,26 @@ a:visited, a:hover, a:active {
 	<div id="top">
 		<div id="inline">
 			<div id="title">
-				<a href="/mugpet/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
+				<a href="${contextPath}/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
 			</div>
-			<div id="menu">회원가입 | 로그인</div>
+			<div id="menu">
+				<c:choose>
+					<c:when test="${empty petName}">
+						<a href="${contextPath}/member/register">회원가입</a> | 
+						<a href="${contextPath}/member/login">로그인</a>
+					</c:when>
+					<c:otherwise>
+						<span id="petName">${petName}</span>님 |
+						마이페이지
+						<a href="${contextPath}/cart/myCartList">장바구니</a> 
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 		<div id="search">
-			<input type="submit" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
+			<a href="javascript:void(window.open('${contextPath}/item/filter', '_blank', 'width=500, height=650, left=530, top=50'))">
+				<input type="button" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
+			</a>
 		</div>
 	</div>
 
@@ -168,20 +197,31 @@ a:visited, a:hover, a:active {
 				</ul>
 			</div>
 			<div id=category_name>
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=1%>">사료</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=2%>">간식</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=3%>">건강관리</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=4%>">하우스/이동장</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=5%>">화장실/위생</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=6%>">의류/리드줄</a><br /> 
-				<a href="itemList?spe_id=${spe_id}&category_id=<%=7%>">장난감</a><br />
-				 
-				<%-- jsp연결하기!!!!!!!!!!!!!!!!!!! --%>
-				<a href="item">커뮤니티</a><br /> 
-				<a href="main">중고거래</a><br />
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=1%>">사료</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=2%>">간식</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=3%>">건강관리</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=4%>">하우스/이동장</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=5%>">화장실/위생</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=6%>">의류/리드줄</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=7%>">장난감</a><br />
+				<a href="${contextPath}/community/communityList?spe_id=${spe_id}">커뮤니티</a><br /> 
+				<a href="${contextPath}/usedGoods/usedGoodsList?spe_id=${spe_id}">중고거래</a><br />
 			</div>
 		</div>
 		<div id="subBody">
+			<div id="orderBy">
+				<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="orderBtn" 
+						data-bs-toggle="dropdown" aria-expanded="false">
+    				${standard}
+ 				</button>
+ 				<ul class="dropdown-menu" style="font-size:14px;">
+ 					<li><a class="dropdown-item" href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=${category_id}">기본순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/item/orderItem?spe_id=${spe_id}&category_id=${category_id}&stand=itemName&od=ASC">이름순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/item/orderItem?spe_id=${spe_id}&category_id=${category_id}&stand=price&od=ASC">가격낮은순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/item/orderItem?spe_id=${spe_id}&category_id=${category_id}&stand=price&od=DESC">가격높은순</a></li>
+				</ul>
+			</div>
+			
 			<div id="itemList">
 				<div id="itemCards">
 					<c:forEach var="item" items="${itemList}" varStatus="i">

@@ -1,20 +1,30 @@
 package com.spring.mugpet.controller;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import com.spring.mugpet.domain.Item;
+import com.spring.mugpet.domain.MemberInfo;
+import com.spring.mugpet.domain.Pet;
 import com.spring.mugpet.service.ItemService;
+import com.spring.mugpet.service.PetService;
 
 @Controller
+@SessionAttributes("memberInfo")
 public class MainController {
-//로그인 후, 회원의 이름 or 펫의 이름 띄울거면 수정!!!!!!
 	
 	@Autowired
 	private ItemService itemService;
@@ -22,10 +32,49 @@ public class MainController {
 		this.itemService = itemService;
 	}
 	
-	//main화면
-	@RequestMapping("/main")
-	public ModelAndView viewMain(@RequestParam(value="spe_id", defaultValue="1") int spe_id) {
-		ModelAndView mav = new ModelAndView();
+	@Autowired
+	private PetService petService;
+	public void setPetService(PetService petService) {
+		this.petService = petService;
+	}
+
+//	@ModelAttribute("userSession")
+//	public MemberInfo userSession(HttpServletRequest request) {
+//		MemberInfo userSession = (MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
+//		if (userSession == null) {
+//			return new MemberInfo();
+//		}
+//		else {
+//			return userSession;
+//		}
+//		
+//	}
+	
+//	@RequestMapping(value="/main", method=RequestMethod.GET)
+//	public String viewMain(HttpServletRequest request,
+//						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
+//						ModelMap model) throws Exception{
+	
+	@RequestMapping(value="/main", method=RequestMethod.GET)
+	@ModelAttribute("memberInfo")
+	public String viewMain(@RequestParam(value="spe_id", defaultValue="1") int spe_id, ModelMap model) {
+		
+//		MemberInfo userSession = (MemberInfo) request.getSession().getAttribute("userSession");
+	
+		MemberInfo userSession = new MemberInfo();
+		String petName = null;
+		
+		System.out.println("<<펫 정보 출력>>");
+		System.out.println(">>>>>u_id : " + userSession.getU_id());
+		if (userSession.getEmail() != null) {
+			Pet pet = petService.getPetByU_id(userSession.getU_id());
+			System.out.println(">>>>>>>pet : " + pet);
+			spe_id = pet.getSpe_id();
+			System.out.println(">>>>>>spe_id : " + spe_id);
+			petName = pet.getName();
+			System.out.println(">>>>>>petName : " + petName);
+		}
+		
 		String spe;
 		if (spe_id == 1) {
 			spe = "강아지";
@@ -34,18 +83,18 @@ public class MainController {
 		} else {
 			spe = "소동물";
 		}
-		
+		System.out.println("<<<<<<<spe_id : " + spe_id);
 		List<Item> itemList = new ArrayList<Item>();
-		itemList = itemService.getALLItemList(spe_id);
+		itemList = itemService.getALLItemList(spe_id);	
 		
-		mav.setViewName("main");
-		mav.addObject("spe_id", spe_id);
-		mav.addObject("spe", spe);
-		mav.addObject("itemList", itemList);
-		mav.addObject("standard", "기본순");
-		
-		return mav;
+		model.put("spe_id", spe_id);
+		model.put("spe", spe);
+		model.put("standard", "기본순");
+		model.put("petName", petName);
+		model.put("itemList", itemList);
+		return "main";
 	}
+  
 	
 	@RequestMapping("/main/orderItem")
 	public ModelAndView orderItem(@RequestParam("spe_id") int spe_id, @RequestParam("stand") String stand, @RequestParam("od") String od) {
@@ -71,7 +120,7 @@ public class MainController {
 		}
 		
 		List<Item> itemList = new ArrayList<Item>();
-		itemList = itemService.orderByItem(spe_id, stand, od);
+		itemList = itemService.orderByALLItem(spe_id, stand, od);
 		
 		mav.setViewName("main");
 		mav.addObject("spe_id", spe_id);
@@ -81,4 +130,7 @@ public class MainController {
 		
 		return mav;
 	}
+
+
 }
+
