@@ -9,6 +9,7 @@
 <title>MugPet</title>
 </head>
 <body>
+	
 		<div id="category">
 			<div class="btn-group">
 				<button type="button" class="btn btn-danger dropdown-toggle" id="categoryBtn"
@@ -31,10 +32,10 @@
 				<a href="${contextPath }/item/itemList?spe_id=${spe_id}&category_id=<%=7%>">장난감</a><br />
 				 
 				<%-- jsp연결하기!!!!!!!!!!!!!!!!!!! --%>
-				<a href="item">커뮤니티</a><br /> 
-				<a href="main">중고거래</a><br />
+				<a href="${contextPath}/community/communityList?spe_id=${spe_id}">커뮤니티</a><br /> 
+				<a href="${contextPath}/usedGoods/usedGoodsList?spe_id=${spe_id}">중고거래</a><br />
 			</div>
 		</div>
-
+	
 </body>
 </html>

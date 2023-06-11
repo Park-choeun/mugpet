@@ -25,9 +25,7 @@ import com.spring.mugpet.service.PetService;
 @Controller
 @SessionAttributes("userSession")
 public class MainController {
-//로그인 후, 회원의 이름 or 펫의 이름 띄울거면 수정!!!!!!
 	
-	//메인 tiles 설정 
 	@Autowired
 	private ItemService itemService;
 	public void setItemService(ItemService itemService) {
@@ -48,21 +46,24 @@ public class MainController {
 		
 		return userSession;
 	}
-	
-	//수정
+
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String viewMain(HttpServletRequest request,
 						@RequestParam(value="spe_id", defaultValue="1") int spe_id,
 						@ModelAttribute("userSession") MemberInfo userSession,
 						ModelMap model) throws Exception{
 		System.out.println(userSession.getU_id() + "," + userSession.getEmail());
-		
+		String petName = null;
 		if(userSession.getU_id() != 0) {
+
 			Pet pet = petService.getPetByU_id(userSession.getU_id());
-			System.out.println(pet);
+			System.out.println(">>>>>>>pet : " + pet);
 			spe_id = pet.getSpe_id();
-			System.out.println(spe_id);
+			System.out.println(">>>>>>spe_id : " + spe_id);
+			petName = pet.getName();
+			System.out.println(">>>>>>>petName : " + petName);
 		}
+		
 		String spe;
 		if (spe_id == 1) {
 			spe = "강아지";
@@ -71,14 +72,15 @@ public class MainController {
 		} else {
 			spe = "소동물";
 		}
-		
+		System.out.println("<<<<<<<spe_id : " + spe_id);
 		List<Item> itemList = new ArrayList<Item>();
-		
+
 		itemList = itemService.getALLItemList(spe_id);	
 		model.put("itemList", itemList);
 		model.put("spe_id", spe_id);
 		model.put("spe", spe);
 		model.put("standard", "기본순");
+		model.put("petName", petName);
 		model.put("userSession",userSession);
 		return "tiles/main";
 
@@ -86,7 +88,7 @@ public class MainController {
   
 	
 	@RequestMapping("/main/orderItem")
-	public ModelAndView orderItem(@RequestParam("spe_id") int spe_id, @RequestParam("standard") String stand, @RequestParam("order") String od) {
+	public ModelAndView orderItem(@RequestParam("spe_id") int spe_id, @RequestParam("stand") String stand, @RequestParam("od") String od) {
 		ModelAndView mav = new ModelAndView();
 		String spe;
 		if (spe_id == 1) {
