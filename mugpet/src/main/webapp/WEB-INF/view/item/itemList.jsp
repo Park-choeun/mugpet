@@ -22,6 +22,7 @@
 <style>
 #top {
 	border-bottom: 1px solid black;
+	width:1518px;
 }
 
 #inline {
@@ -69,11 +70,11 @@
 
 #body {
 	display: flex;
+	width:1518px;
 }
 
 #category {
 	display: inline-block;
-	position: fixed;
 	width: 200px;
 	height:628px;
 	text-align: center;
@@ -89,7 +90,6 @@
 }
 
 #category_name {
-	posigion: flex;
 	width: 200px;
 	line-height: 300%;
 	font-weight: bold;
@@ -97,7 +97,7 @@
 
 #subBody {
 	display: inline-block;
-	margin-left:200px;
+	width:1318px;
 	border-left:1px solid black;
 }
 
@@ -113,8 +113,12 @@
 }
 
 #itemList {
-	padding: 35px 45px;
-	display:flex;
+	padding:0 45px;
+	display:flex;	
+}
+
+#itemCards {
+	width: 1228px;
 }
 
 #itemCard {
@@ -159,12 +163,23 @@ a:visited, a:hover, a:active {
 				<a href="${contextPath}/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
 			</div>
 			<div id="menu">
-				<a href="${contextPath}/member/register">회원가입</a> | 
-				<a href="${contextPath}/member/login">로그인</a>
+				<c:choose>
+					<c:when test="${empty petName}">
+						<a href="${contextPath}/member/register">회원가입</a> | 
+						<a href="${contextPath}/member/login">로그인</a>
+					</c:when>
+					<c:otherwise>
+						<span id="petName">${petName}</span>님 |
+						마이페이지
+						<a href="${contextPath}/cart/myCartList">장바구니</a> 
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<div id="search">
-			<input type="submit" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
+			<a href="javascript:void(window.open('${contextPath}/item/filter', '_blank', 'width=500, height=650, left=530, top=50'))">
+				<input type="button" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
+			</a>
 		</div>
 	</div>
 
