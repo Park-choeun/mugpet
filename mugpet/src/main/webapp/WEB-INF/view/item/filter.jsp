@@ -17,11 +17,42 @@
 	crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>필터 선택</title>
+<style>
+#filter {
+	font-size:25px;
+	text-align:center;
+	font-weight:bold;
+	margin: 5px auto;
+}
+
+#ftable {
+	width:400px;
+	margin:15px auto;
+	border:1px solid black;
+}
+
+#filterName {
+	font-weight:bold;
+}
+</style>
 </head>
 <body>
-	<h3>필터</h3>
-	<table class="table table-striped-columns">
-  		
-	</table>
+	<div id=filter>
+		필터
+	</div>
+	<form:form method="post" class="validation-form" action="${contextPath}/item/filterItem?spe_id=${spe_id}">
+		<table class="table table-striped-columns" id="ftable">
+  			<tr id="filterName">
+				<td>연령</td>
+				<td>주원료</td>
+				<td>특정/기능</td>
+			</tr>
+			<tr>
+				<td><form:radiobuttons path="age" items="${ages}" /></td>
+				<td><form:checkboxes path="stuff" items="${stuffs}" /></td>
+				<td><form:checkboxes path="feature" items="${features}" /></td>
+			</tr>
+		</table>
+	</form:form>
 </body>
 </html>

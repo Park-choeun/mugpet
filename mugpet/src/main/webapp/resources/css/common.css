@@ -1,0 +1,94 @@
+#top {
+	border-bottom: 1px solid black;
+	width:1518px;
+}
+
+#inline {
+	display: flex;
+}
+
+#title {
+	text-align: center;
+	font-size: 40px;
+	font-weight: bold;
+	width: 250px;
+	display: inline-block;
+	margin: 15px 0 0 637px;
+}
+
+#logoImg {
+	width: 50px;
+	height: 50px;
+}
+
+#menu {
+	text-align: right;
+	font-size: 15px;
+	width: 300px;
+	display: inline-block;
+	float:right;
+	margin: 15px 0 0 315px;
+}
+
+#petName {
+	color:#2F5597;
+	font-weight: bold;
+}
+
+#search {
+	text-align: right;
+	padding: 0 10px 5px 0;
+	width: 400px;
+	margin-left: auto;
+}
+
+#searchBtn {
+	height: 35px;
+	width: 75px;
+	background-color: #FFE593;
+	border-color: #FFE593;
+	color: white;
+	font-weight: bold;
+}
+
+#body {
+	display: flex;
+	width: 1518px;
+}
+
+#category {
+	display: inline-block;
+	width: 200px;
+	height: 628px;
+	text-align: center;
+	padding: 10px 0;
+	float: left;
+}
+
+#categoryBtn {
+	background-color: #FFD1FF; 
+	border-color: #FFD1FF; 
+	font-weight: bold; 
+	margin-top: 20px;
+}
+
+#category_name {
+	width: 200px;
+	line-height: 300%;
+	font-weight: bold;
+}
+
+#subBody {
+	display: inline-block;
+	width:1318px;
+	border-left:1px solid black;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+/* link, visited, hover, active 순서대로 맞춰 쓸 것 */
+a:visited, a:hover, a:active {
+	color: black;
+}
