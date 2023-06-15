@@ -1,5 +1,7 @@
 package com.spring.mugpet.domain;
 
+import java.util.List;
+
 public class OrderItem {
 	private int o_id;			//primary key
 	private int item_id;		//구매한 item의 id
@@ -7,7 +9,7 @@ public class OrderItem {
 	private String orderAddr;		//배송지
 	private String orderPhoneNum; 	//전화번호
 	private int u_id;			//로그인한 사용자 id
-	
+	private List<Cart> cartItemList;
 	public OrderItem() {}
 
 	public OrderItem(int o_id, int item_id, int orderQty, int u_id) {
@@ -64,4 +66,14 @@ public class OrderItem {
 	public void setU_id(int u_id) {
 		this.u_id = u_id;
 	}
+
+	public List<Cart> getCartItemList() {
+		return cartItemList;
+	}
+
+	public void setCartItemList(List<Cart> cartItemList) {
+		this.cartItemList = cartItemList;
+	}
+	
+	
 }
