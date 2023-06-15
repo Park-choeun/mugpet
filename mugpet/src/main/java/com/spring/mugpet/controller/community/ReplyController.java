@@ -52,4 +52,13 @@ public class ReplyController {
 		
 		return "redirect:/usedGoods/view?g_id=" + g_id;
 	}
+	
+	//u_id로 받나? userSession?
+	@RequestMapping("/myPage/replyList")
+	public String getMyReplyList(@ModelAttribute("userSession") MemberInfo userSession, Model model){
+		int u_id = userSession.getU_id();
+		replyService.getMyReplyList(u_id);
+		
+		return "/myPage/replyList";
+	}
 }

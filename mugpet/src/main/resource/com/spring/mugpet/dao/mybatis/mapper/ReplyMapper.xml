@@ -39,6 +39,13 @@
 		WHERE g_id=#{g_id} AND rp_id=#{rp_id}
 	</select>
 	
+	<!-- 내가 쓴 댓글 목록 -->
+	<select id="getMyReplyList" resultType="Reply">
+		SELECT *
+		FROM Reply
+		WHERE u_id=#{u_id}
+	</select>
+	
 	<!-- 댓글 작성 -->
 	<insert id="insertComReply" parameterType="Reply">
 		INSERT INTO Reply (<include refid="replyForComCols" />)
