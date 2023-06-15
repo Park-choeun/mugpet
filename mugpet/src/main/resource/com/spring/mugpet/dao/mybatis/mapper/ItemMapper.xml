@@ -27,12 +27,16 @@
 		WHERE spe_id=#{spe_id} AND category_id=#{category_id}
 	</select>
 	
-	<select id="getFilterItemList" resultType="Item">
+	<select id="getFilterItemList" parameterType="java.util.HashMap" resultType="Item">
 		SELECT <include refid="itemCols" />
 		FROM Item i JOIN Filter f ON i.item_id = f.item_id 
-		WHERE i.spe_id=${spe_id} AND f.age = ${age} 
-		AND f.stuff like '%' || ${stuff} || '%' 
-		AND f.feature like '%' || ${feature} || '%'
+		WHERE i.spe_id=${spe_id} AND f.age = ${age} AND
+		<foreach collection="stuffList" item="s" open="(" close="}" separator="OR">
+			f.stuff like '%' || ${s} || '%'
+		</foreach> AND 
+		<foreach collection="featureList" item="f" open="(" close="}" separator="OR">
+			f.feature like '%' || ${f} || '%'
+		</foreach> 
 	</select>
 	
 	<select id="orderByALLItem" resultType="Item">

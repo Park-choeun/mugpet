@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.spring.mugpet.domain.*"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -20,87 +17,6 @@
 <meta charset="UTF-8">
 <title>상품정보</title>
 <style>
-#top {
-	border-bottom: 1px solid black;
-	width:1518px;
-}
-
-#inline {
-	display: flex;
-}
-
-#title {
-	text-align: center;
-	font-size: 40px;
-	font-weight: bold;
-	width: 50%;
-	display: inline-block;
-	margin: 1% 20% 0 35%;
-}
-
-#logoImg {
-	width: 50px;
-	height: 50px;
-}
-
-#menu {
-	text-align: right;
-	font-size: 15px;
-	width: 15%;
-	display: inline-block;
-	float: right;
-	margin: 10px;
-}
-
-#search {
-	text-align: right;
-	padding: 0 10px 5px 0;
-	width: 400px;
-	margin-left: auto;
-}
-
-#searchBtn {
-	height: 35px;
-	width: 75px;
-	background-color: #FFE593;
-	border-color: #FFE593;
-	color: white;
-	font-weight: bold;
-}
-
-#body {
-	display: flex;
-	width:1518px;
-}
-
-#category {
-	display: inline-block;
-	width: 200px;
-	height:628px;
-	text-align: center;
-	padding: 10px 0;
-	float: left;
-}
-
-#categoryBtn {
-	background-color: #FFD1FF; 
-	border-color: #FFD1FF; 
-	font-weight: bold; 
-	margin-top: 20px;
-}
-
-#category_name {
-	width: 200px;
-	line-height: 300%;
-	font-weight: bold;
-}
-
-#subBody {
-	display: inline-block;
-	width:1318px;
-	border-left:1px solid black;
-}
-
 .itemInfoTable {
 	margin: auto;
 	margin-top: 30px;
@@ -193,88 +109,36 @@ a:visited, a:hover, a:active {
 </style>
 </head>
 <body>
-	<div id="top">
-		<div id="inline">
-			<div id="title">
-				<a href="/mugpet/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
-			</div>
-			<div id="menu">
-				<c:choose>
-					<c:when test="${empty petName}">
-						<a href="${contextPath}/member/register">회원가입</a> | 
-						<a href="${contextPath}/member/login">로그인</a>
-					</c:when>
-					<c:otherwise>
-						<span id="petName">${petName}</span>님 |
-						마이페이지
-						<a href="${contextPath}/cart/myCartList">장바구니</a> 
-					</c:otherwise>
-				</c:choose>
-			</div>
-		</div>
-		<div id="search">
-			<input type="button" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
-		</div>
-	</div>
-
-	<div id="body">
-		<div id="category">
-			<div class="btn-group">
-				<button type="button" class="btn btn-danger dropdown-toggle" id="categoryBtn"
-						data-bs-toggle="dropdown" aria-expanded="false">
-					${spe}
-				</button>
-				<ul class="dropdown-menu">
-					<li><a class="dropdown-item" href="/mugpet/main?spe_id=<%=1%>">강아지</a></li>
-					<li><a class="dropdown-item" href="/mugpet/main?spe_id=<%=2%>">고양이</a></li>
-					<li><a class="dropdown-item" href="/mugpet/main?spe_id=<%=3%>">소동물</a></li>
-				</ul>
-			</div>
-			<div id=category_name>
-				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=1%>">사료</a><br /> 
-				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=2%>">간식</a><br /> 
-				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=3%>">건강관리</a><br /> 
-				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=4%>">하우스/이동장</a><br /> 
-				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=5%>">화장실/위생</a><br /> 
-				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=6%>">의류/리드줄</a><br /> 
-				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=7%>">장난감</a><br />
-				<a href="${contextPath}/community/communityList?spe_id=${spe_id}">커뮤니티</a><br /> 
-				<a href="${contextPath}/usedGoods/usedGoodsList?spe_id=${spe_id}">중고거래</a><br />
-			</div>
-		</div>
-		<div id="subBody">
-			<table class="itemInfoTable">
-				<tr>
-					<td rowspan="4" id="itemImgBox">
-						<img src="${item.imageUrl}" class="card-img-top" id="itemImg">
-					</td>
-					<td colspan="2" style="height:60px;"></td>
-				</tr>
-				<tr>
-					<td id="info1">
-						<span id="spe">${spe}</span><br/>
-						<span id="brand">${item.brand}</span><br/>
-						<span id="itemName">${item.itemName}</span><br/>
-					</td>
-				</tr>
-				<tr>
-					<td id="price">
-						<fmt:formatNumber value="${item.price}" pattern="#,###"/>원
-					</td>
-				</tr>
-				<tr>
-					<td id="comments">${item.comments}</td>
-				</tr>
-				<tr>
-					<td colspan="2" id="btnBox">
-						<img id="wishBtn" src="${contextPath}/resources/images/wish.png" />
-						<input type="button" value="장바구니" class="btn btn-primary" id="cartBtn" />
-						<input type="button" value="구매하기" class="btn btn-primary" id="buyBtn" />
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>
+	<table class="itemInfoTable">
+		<tr>
+			<td rowspan="4" id="itemImgBox">
+				<img src="${item.imageUrl}" class="card-img-top" id="itemImg">
+			</td>
+			<td colspan="2" style="height:60px;"></td>
+		</tr>
+		<tr>
+			<td id="info1">
+				<span id="spe">${spe}</span><br/>
+				<span id="brand">${item.brand}</span><br/>
+				<span id="itemName">${item.itemName}</span><br/>
+			</td>
+		</tr>
+		<tr>
+			<td id="price">
+				<fmt:formatNumber value="${item.price}" pattern="#,###"/>원
+			</td>
+		</tr>
+		<tr>
+			<td id="comments">${item.comments}</td>
+		</tr>
+		<tr>
+			<td colspan="2" id="btnBox">
+				<img id="wishBtn" src="${contextPath}/resources/images/wish.png" />
+				<input type="button" value="장바구니" class="btn btn-primary" id="cartBtn" />
+				<input type="button" value="구매하기" class="btn btn-primary" id="buyBtn" />
+			</td>
+		</tr>
+	</table>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

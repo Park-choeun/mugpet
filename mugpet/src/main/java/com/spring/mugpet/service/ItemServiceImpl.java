@@ -1,6 +1,8 @@
 package com.spring.mugpet.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +35,13 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public List<Item> getFilterItemList(int spe_id, int age, String stuff, String feature) {
-		return itemDao.getFilterItemList(spe_id, age, stuff, feature);
+		Map<String, Object> param = new HashMap<String, Object>(3);
+		// 수정해야함!!!!!!!!!!
+		param.put("spe_id", spe_id);
+		param.put("stuffList", spe_id);
+		param.put("featureList", spe_id);
+		
+		return itemDao.getFilterItemList(param);
 	}
 
 	@Override
