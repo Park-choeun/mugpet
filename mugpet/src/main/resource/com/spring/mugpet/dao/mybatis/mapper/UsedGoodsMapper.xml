@@ -14,13 +14,14 @@
 	<select id="getUsedGoods" resultType="UsedGoods">
 		SELECT <include refid="usedGoodsCols" />
 		FROM UsedGoods
-		WHERE ㅎ_id=#{ㅎ_id}
+		WHERE g_id=#{g_id}
 	</select>
 	
 	<!-- UsedGoods 목록 -->
 	<select id="getUsedGoodsList" resultType="UsedGoods">
 		SELECT <include refid="usedGoodsCols" />
 		FROM UsedGoods
+		ORDER BY enrollDt DESC
 	</select>
 	
 	<!-- Member의 UsedGoods 작성 목록 -->
@@ -28,19 +29,25 @@
 		SELECT <include refid="usedGoodsCols" />
 		FROM UsedGoods
 		WHERE u_id=#{u_id}
+		ORDER BY enrollDt DESC
 	</select>
 	
-	<!-- UsedGoods 작성 -> sequence, default 값에 따라 selectKey, SYSDATE 사용
-		-> parameterType을 Command로 바꿔야 하나? -->
+	<select id="getU_IdByUsedGoods" resultType="int" parameterType="int">
+		SELECT u_id
+		FROM UsedGoods
+		WHERE g_id=#{g_id}
+	</select>
+	
+	<!-- UsedGoods 작성 -> sequence, default 값에 따라 selectKey, SYSDATE 사용 -->
 	<insert id="insertUsedGoods" parameterType="UsedGoods">
 		INSERT INTO UsedGoods (<include refid="usedGoodsCols" />)
 		VALUES (#{g_id}, #{imageUrl}, #{title}, #{content}, SYSDATE, #{price}, #{likes}, #{replyCnt}, #{u_id})
 		<selectKey resultType="int" keyProperty="g_id" order="BEFORE">
-			SELECT SEQ_UsedGoods_g_id FROM DUAL
+			SELECT NVL(MAX(g_id) + 1, 1) FROM UsedGoods
 		</selectKey>
 	</insert>
 	
-	<!-- UsedGoods 수정 -> UI상에서 세션 아이디 확인해 본인만 수정/삭제 버튼을 띄운다면 g_id만 비교해도 됨 -->
+	<!-- UsedGoods 수정 -->
 	<update id="updateUsedGoods" parameterType="UsedGoods">
 		UPDATE UsedGoods
 		SET imageUrl=#{imageUrl},
@@ -54,9 +61,16 @@
 		WHERE g_id=#{g_id}
 	</update>
 	
-	<!-- UsedGoods 삭제 -> UI상에서 세션 아이디 확인해 본인만 수정/삭제 버튼을 띄운다면 g_id만 비교해도 됨 -->
+	<!-- UsedGoods 삭제 -> UI상에서 세션 아이디 확인해 본인만 수정/삭제 버튼을 띄워 g_id만 비교 -->
 	<delete id="deleteUsedGoods" parameterType="int">
 		DELETE FROM UsedGoods
 		WHERE #{g_id}=g_id
 	</delete>
+	
+	<!-- 댓글수 -->
+	<update id="updateGoodsReplyCnt">
+		UPDATE UsedGoods
+		SET replyCnt=replyCnt+#{amount}
+		WHERE g_id=#{g_id}
+	</update>
 </mapper>

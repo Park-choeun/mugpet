@@ -5,81 +5,51 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.Reply;
 import com.spring.mugpet.service.ReplyServiceImpl;
 
 @Controller
+@SessionAttributes("userSession")
 public class ReplyController {
 	@Autowired
 	private ReplyServiceImpl replyService;
 	
-	/*
-	 * //댓글 작성
-	 * 
-	 * @RequestMapping("/reply/insert") public String form() { return "~~~~"; }
-	 */
-	
-	//test용
-	@RequestMapping(value = "/community/replyForm")
-	public String comReplyForm() {
-		return "/community/replyForm";
-	}
-	
-	//댓글 등록 -> SpringMvcExample의 search controller처럼 변경해야할 듯함
 	@RequestMapping(value = "/community/replyInsert")
-	public String comSubmit(NewReplyCommand replyCommand) {
-		replyCommand.setRp_id(1);
-		replyCommand.setU_id(2);
-		replyCommand.setCom_id(1);
+	public String comSubmit(NewReplyCommand replyCommand, @ModelAttribute("userSession") MemberInfo userSession) {
+		replyCommand.setU_id(userSession.getU_id());
 		replyService.insertComReply(replyCommand);
 		
-		return "redirect:/community/view";
+		return "redirect:/community/view?com_id=" + replyCommand.getCom_id();
 	}
 	
-	@RequestMapping(value = "/usedGoods/reply/insert")
-	public String goodsSubmit(NewReplyCommand replyCommand) {
+	@RequestMapping(value = "/usedGoods/replyInsert")
+	public String goodsSubmit(NewReplyCommand replyCommand, @ModelAttribute("userSession") MemberInfo userSession) {
+		replyCommand.setU_id(userSession.getU_id());
 		replyService.insertGoodsReply(replyCommand);
 		
-		return "redirect:/usedGoods/view";
+		return "redirect:/usedGoods/view?g_id=" + replyCommand.getG_id();
 	}
 	
-	/*
-	 * @RequestMapping("/community/view") public String getCommunityReplyList(Model
-	 * model, @RequestParam(value = "com_id") int com_id){ //댓글 목록 보기 List<Reply>
-	 * replyList = replyService.getCommunityReplyList(com_id);
-	 * 
-	 * model.addAttribute("ReplyList", replyList);
-	 * 
-	 * return "/community/view"; }
-	 */
-	
-	@RequestMapping("/usedGoods/view")
-	public String getUsedGoodsReplyList(Model model, @RequestParam(value = "g_id") int g_id){
-		//댓글 목록 보기
-		List<Reply> replyList = replyService.getUsedGoodsReplyList(g_id);
-		
-		model.addAttribute("ReplyList", replyList);
-		
-		return "/usedGoods/view";
-	}
-	
-	@RequestMapping("/community/reply/delete")
+	@RequestMapping("/community/replyDelete")
 	public String deleteComReply(@RequestParam(value = "rp_id") int rp_id, @RequestParam(value = "com_id") int com_id) {
 		//댓글 삭제
 		replyService.deleteComReply(rp_id, com_id);
 		
-		return "redirect:/community/view";
+		return "redirect:/community/view?com_id=" + com_id;
 	}
 	
-	@RequestMapping("/usedGoods/reply/delete")
+	@RequestMapping("/usedGoods/replyDelete")
 	public String deleteGoodsReply(@RequestParam(value = "rp_id") int rp_id, @RequestParam(value = "g_id") int g_id) {
 		//댓글 삭제
 		replyService.deleteGoodsReply(rp_id, g_id);
 		
-		return "redirect:/usedGoods/view";
+		return "redirect:/usedGoods/view?g_id=" + g_id;
 	}
 }
