@@ -1,6 +1,7 @@
 package com.spring.mugpet.dao.mybatis;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -32,9 +33,13 @@ public class MybatisItemDao implements ItemDao {
 	}
 
 	@Override
-	public List<Item> getFilterItemList(int spe_id, int age, String stuff, String feature) throws DataAccessException {
-		return itemMapper.getFilterItemList(spe_id, age, stuff, feature);
+	public List<Item> getFilterItemList(Map<String, Object> param) throws DataAccessException {
+		return itemMapper.getFilterItemList(param);
 	}
+//	@Override
+//	public List<Item> getFilterItemList(int spe_id, int age, String stuff, String feature) throws DataAccessException {
+//		return itemMapper.getFilterItemList(spe_id, age, stuff, feature);
+//	}
 
 	@Override
 	public List<Item> orderByALLItem(int spe_id, String stand, String od) throws DataAccessException {
