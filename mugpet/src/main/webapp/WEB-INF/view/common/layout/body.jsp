@@ -7,18 +7,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>MugPet</title>
 </head>
 <body>
 
-<div id="subBody">
-		<div id="banner">
+
+		<div id="subBody">
+			<div id="banner">
 				<div id="comment">
 					<span id="comment_big"> 
 						반려동물과 함께만드는<br/> 
@@ -30,22 +26,23 @@
 			</div>
 			
 			<div id="orderBy">
-				<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="orderBtn" 
+				<button class="btn btn-secondary btn-sm dropdown-toggle" role="button" id="orderBtn" 
 						data-bs-toggle="dropdown" aria-expanded="false">
-    				기본순
+    				${standard}
  				</button>
+
  				<ul class="dropdown-menu" style="font-size:14px;">
- 					<li><a class="dropdown-item" href="main?spe_id=${spe_id}">기본순</a></li>
-					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=itemName&order=ASC">이름순</a></li>
-					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=price&order=ASC">가격낮은순</a></li>
-					<li><a class="dropdown-item" href="main/orderItem?spe_id=${spe_id}&standard=price&order=DESC">가격높은순</a></li>
+ 					<li><a class="dropdown-item" href="${contextPath}/main?spe_id=${spe_id}">기본순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&stand=itemName&od=ASC">이름순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&stand=price&od=ASC">가격낮은순</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&stand=price&od=DESC">가격높은순</a></li>
 				</ul>
 			</div>
 			
 			<div id="itemList">
 				<div id="itemCards">
 					<c:forEach var="item" items="${itemList}" varStatus="i">
-						<a href="item/itemDetail?item_id=${item.item_id}">
+						<a href="${contextPath}/item/itemDetail?item_id=${item.item_id}">
 						<div class="card" id="itemCard">
 							<img src="${item.imageUrl}" class="card-img-top" id="itemImg">
 							<div class="card-body">

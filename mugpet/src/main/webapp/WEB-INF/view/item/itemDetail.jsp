@@ -22,6 +22,7 @@
 <style>
 #top {
 	border-bottom: 1px solid black;
+	width:1518px;
 }
 
 #inline {
@@ -69,11 +70,11 @@
 
 #body {
 	display: flex;
+	width:1518px;
 }
 
 #category {
 	display: inline-block;
-	position: fixed;
 	width: 200px;
 	height:628px;
 	text-align: center;
@@ -89,7 +90,6 @@
 }
 
 #category_name {
-	posigion: flex;
 	width: 200px;
 	line-height: 300%;
 	font-weight: bold;
@@ -97,13 +97,13 @@
 
 #subBody {
 	display: inline-block;
-	margin-left:200px;
+	width:1318px;
 	border-left:1px solid black;
-	width:87%;
 }
 
-.itemInfo {
+.itemInfoTable {
 	margin: auto;
+	margin-top: 30px;
 }
 
 #itemImgBox {
@@ -198,7 +198,19 @@ a:visited, a:hover, a:active {
 			<div id="title">
 				<a href="/mugpet/main">MugPet <img id="logoImg" src="${contextPath}/resources/images/foot.png" /></a>
 			</div>
-			<div id="menu">회원가입 | 로그인</div>
+			<div id="menu">
+				<c:choose>
+					<c:when test="${empty petName}">
+						<a href="${contextPath}/member/register">회원가입</a> | 
+						<a href="${contextPath}/member/login">로그인</a>
+					</c:when>
+					<c:otherwise>
+						<span id="petName">${petName}</span>님 |
+						마이페이지
+						<a href="${contextPath}/cart/myCartList">장바구니</a> 
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 		<div id="search">
 			<input type="button" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
@@ -219,21 +231,19 @@ a:visited, a:hover, a:active {
 				</ul>
 			</div>
 			<div id=category_name>
-				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=1%>">사료</a><br /> 
-				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=2%>">간식</a><br /> 
-				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=3%>">건강관리</a><br /> 
-				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=4%>">하우스/이동장</a><br /> 
-				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=5%>">화장실/위생</a><br /> 
-				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=6%>">의류/리드줄</a><br /> 
-				<a href="itemList?spe_id=${item.spe_id}&category_id=<%=7%>">장난감</a><br />
-				 
-				<%-- jsp연결하기!!!!!!!!!!!!!!!!!!! --%>
-				<a href="item">커뮤니티</a><br /> 
-				<a href="main">중고거래</a><br />
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=1%>">사료</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=2%>">간식</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=3%>">건강관리</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=4%>">하우스/이동장</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=5%>">화장실/위생</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=6%>">의류/리드줄</a><br /> 
+				<a href="${contextPath}/item/itemList?spe_id=${spe_id}&category_id=<%=7%>">장난감</a><br />
+				<a href="${contextPath}/community/communityList?spe_id=${spe_id}">커뮤니티</a><br /> 
+				<a href="${contextPath}/usedGoods/usedGoodsList?spe_id=${spe_id}">중고거래</a><br />
 			</div>
 		</div>
 		<div id="subBody">
-			<table class="itemInfo">
+			<table class="itemInfoTable">
 				<tr>
 					<td rowspan="4" id="itemImgBox">
 						<img src="${item.imageUrl}" class="card-img-top" id="itemImg">

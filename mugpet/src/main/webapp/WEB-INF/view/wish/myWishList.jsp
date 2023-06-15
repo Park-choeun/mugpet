@@ -9,6 +9,7 @@
    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>위시 리스트</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <style>
 	.wish{
 		text-size: 15px;
@@ -22,6 +23,8 @@
 	}
 	.wishImg{
 		margin-left: 170px;
+		border: none;
+		background-color: #FFFFFF
 	}
 	.productImg {
 		margin:10px 20px;
@@ -104,7 +107,7 @@
         style="background-color:#FFD1FF; border-color:#FFD1FF;"
         data-bs-toggle="dropdown" aria-expanded="false">
      강아지
-      <%--    ${pet.species}  --%>        
+         ${pet.species}         
       </button>
      <!-- <ul class="dropdown-menu">
        <li><a class="dropdown-item" href="#">Action</a></li>
@@ -114,7 +117,7 @@
           <li><a class="dropdown-item" href="#">Separated link</a></li>
      </ul> -->
    </div>
-</div>
+</div> 
 <%--위시 리스트 창 --%>
 <div class="content">
 	<h5>위시 리스트</h5><br/>
@@ -127,8 +130,8 @@
 				<div class="item">
 					<span class="product">
 					<a href='<c:url value="/wish/removeItemFromWish"><c:param name="item_id" value="${wishItem.item_id}"/></c:url>'>
-						<button type="button">
-							<img src="${contextPath}/resources/images/wished.png" name="wishImg" width="20" height="20" alt="찜" class="wishImg"/> 
+						<button type="button" class="wishImg">
+							<img src="${contextPath}/resources/images/wished.png" name="wishImg" width="20" height="20" alt="찜" /> 
 						</button>
 					</a>
 						<br/>

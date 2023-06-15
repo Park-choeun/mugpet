@@ -45,27 +45,11 @@ public class CartController {
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
 	}
-	
-//	@ModelAttribute("sessionCart")
-//	public Cart createCart(HttpSession session) {
-//		Cart cart = (Cart)session.getAttribute("sessionCart");
-//		if (cart == null) cart = new Cart();
-//		return cart;
-//	}
-	
-//	@ModelAttribute("userSession")
-//	public MemberInfo userSession(HttpServletRequest request) {
-//		MemberInfo userSession = (MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
-//		if ( userSession == null) {
-//			return new MemberInfo();
-//		}
-//		else return userSession;
-//		
-//	} 
-	
+		
 	public void addCart(Cart cart) throws Exception{
 		cartService.addCart(cart);
 	}
+	
 	
 	//Cart(장바구니)에 담긴 아이템 조회 -> 장바구니 버튼 누르면 /cart/myCartList로 연결되는 방식
 	@RequestMapping(value="/cart/myCartList", method=RequestMethod.GET)
@@ -75,7 +59,7 @@ public class CartController {
 		System.out.println("u_id: " + u_id);
 		
 		
-		List<Cart> cartItems = cartService.getMyCartList(1);	//장바구니에 담긴 아이템 조회
+		List<Cart> cartItems = cartService.getMyCartList(u_id);	//장바구니에 담긴 아이템 조회
 		
 		//System.out.println("카트 정보 : " + cartItems.get(0).getItem_id() +", " + cartItems.get(1).getItem_id() +", " +cartItems.get(2).getItem_id());
 		List<Item> cartItemsInfo = new ArrayList<Item>();		//Item 객체를 담을 list 생성
@@ -120,8 +104,9 @@ public class CartController {
 	
 	//각 물품의 개수를 수정할 수 있는 메소드
 	@RequestMapping(value="/cart/updateCartQuantities", method=RequestMethod.POST)
-	public ModelAndView cartItemUpdate(HttpServletRequest request) throws Exception{
-		List<Cart> cartItems = cartService.getMyCartList(1); 
+	public ModelAndView cartItemUpdate(HttpServletRequest request,@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
+		
+		List<Cart> cartItems = cartService.getMyCartList(userSession.getU_id()); 
 		int num = 0;
 		for(Cart cartItem : cartItems){
 			int item_id = cartItem.getItem_id(); //아이템의 item_id를 가지고 옴
@@ -134,7 +119,7 @@ public class CartController {
 						cartService.removeCart(item_id);
 					}
 			}catch(NumberFormatException ex) {
-				
+				ex.printStackTrace();
 			}
 			num++;
 		}
@@ -151,11 +136,11 @@ public class CartController {
 		
 		return new ModelAndView("redirect:/cart/myCartList");
 	}
-	
+
 	//주문하기누르면 계산 페이지로 이동하는 메소드
 	@RequestMapping(value="/cart/order", method=RequestMethod.GET)
-	public ModelAndView cartToOrder() throws Exception{
-		List<Cart> cartItems = cartService.getMyCartList(1);	//장바구니에 담긴 아이템 조회
+	public ModelAndView cartToOrder(@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
+		List<Cart> cartItems = cartService.getMyCartList(userSession.getU_id());	//장바구니에 담긴 아이템 조회
 		List<Item> cartItemsInfo = new ArrayList<Item>();		//Item 객체를 담을 list 생성
 		List<Integer> cartItemsPrice = new ArrayList<Integer>();		//cartItem들의 각 가격을 담은 list 생성
 		List<Integer> cartItemsQty = new ArrayList<Integer>();		//cartItem들의 각 개수를 담은 list 생성
@@ -177,7 +162,7 @@ public class CartController {
 			idx++;
 		}
 		
-		MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd("som@naver.com", "123456");
+		MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd(userSession.getEmail(), userSession.getPwd());
 		resetPoints = memberInfo.getPoint();
 		
 		ModelAndView mav = new ModelAndView("/cart/order");
@@ -198,14 +183,16 @@ public class CartController {
 	
 	
 	@RequestMapping(value="/cart/order", method=RequestMethod.POST)
-	public ModelAndView pointUpdate(HttpServletRequest request, @ModelAttribute("command") CartCommand command) throws Exception{ //매개변수 설정해야 함
+	public ModelAndView pointUpdate(HttpServletRequest request, @ModelAttribute("userSession") MemberInfo userSession, @ModelAttribute("command") CartCommand command) throws Exception{ 
 		//System.out.println("결과: " + request.getParameter("point"));
-			ModelAndView mav = cartToOrder();
-			MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd("som@naver.com", "123456");		
+			
+			//ModelAndView mav = new ModelAndView("redirect:/cart/order");
+			ModelAndView mav = cartToOrder(userSession);
+			MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd(userSession.getEmail(), userSession.getPwd());		
 			
 			int allPoints = memberInfo.getPoint();
 			int applyPoints;
-			if(request.getParameter("point") == "" || request.getParameter("point") == "0") { //숫자가 아니라면은 어떻게?
+			if(request.getParameter("point") == "" || request.getParameter("point") == "0") { 
 				return mav;
 			}
 			else {
@@ -231,10 +218,10 @@ public class CartController {
 	
 
 	@RequestMapping(value="/cart/ordering", method=RequestMethod.POST)
-	public ModelAndView submit(HttpServletRequest request, @ModelAttribute("command") CartCommand command) throws Exception{ //매개변수 설정해야 함
+	public ModelAndView submit(HttpServletRequest request, @ModelAttribute("userSession") MemberInfo userSession, @ModelAttribute("command") CartCommand command) throws Exception{ //매개변수 설정해야 함
 			ModelAndView mav = new ModelAndView("/cart/orderCompleted");
-			MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd("som@naver.com", "123456");
-//			//멤버의 전화번호, 주소 얻어옴
+			MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd(userSession.getEmail(), userSession.getPwd());
+//			멤버의 전화번호, 주소 얻어옴
 //			String phoneNum = memberInfo.getPhoneNum();
 //			String addr = memberInfo.getAddress() + " " + request.getParameter("addrDetail");
 //			String req = request.getParameter("req");

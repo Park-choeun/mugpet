@@ -5,17 +5,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.mugpet.domain.Cart;
 import com.spring.mugpet.domain.Item;
+import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.Wish;
 import com.spring.mugpet.service.WishService;
 
 @Controller
+@SessionAttributes("userSession")
 @RequestMapping("/wish")
 public class WishController {
 	
@@ -33,8 +37,8 @@ public class WishController {
 	
 	//Wish에 해당하는 아이템 조회
 	@RequestMapping(value="/myWishList", method=RequestMethod.GET)
-	public ModelAndView getWishList() {
-		List<Wish> wishItems = wishService.getWishList(1);
+	public ModelAndView getWishList(@ModelAttribute("userSession") MemberInfo userSession) {
+		List<Wish> wishItems = wishService.getWishList(userSession.getU_id());
 		List<Item> wishItemsInfo = new ArrayList<Item>();
 		int wishItemQty = wishItems.size();
 
@@ -61,9 +65,8 @@ public class WishController {
 	@RequestMapping(value="/removeItemFromWish", method=RequestMethod.GET)
 	public ModelAndView handleRequest(@RequestParam("item_id") int item_id) throws Exception{
 		wishService.deleteWish(item_id);
-		ModelAndView mav = getWishList();
-		
-		return mav;
+
+		return new ModelAndView("redirect:/wish/myWishList");
 	}
 //	//Wish에 해당하는 아이템 하나 클릭 시 그 아이템 상세페이지로 이동하는 url을 반환하는 메소드
 //	@RequestMapping("/myWishList/{item_id}")
