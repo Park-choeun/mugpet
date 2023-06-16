@@ -30,7 +30,14 @@
 	</tr>
 	<tr>
 		<td colspan="2" id="btnBox">
-			<img id="wishBtn" src="${contextPath}/resources/images/wish.png" />
+			<a href="${contextPath}/item/updateWish?wish=${item.wish}&item_id=${item.item_id}">
+				<c:if test="${item.wish eq 0}">
+					<img id="wishBtn" src="${contextPath}/resources/images/wish.png" />
+				</c:if>
+				<c:if test="${item.wish eq 1}">
+					<img id="wishBtn" src="${contextPath}/resources/images/wished.png" />
+				</c:if>
+			</a>
 			<input type="button" value="장바구니" class="btn btn-primary" id="cartBtn" />
 			<input type="button" value="구매하기" class="btn btn-primary" id="buyBtn" />
 		</td>

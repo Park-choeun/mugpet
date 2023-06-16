@@ -97,8 +97,10 @@ public class MainController {
 	public ModelAndView orderByItem(@ModelAttribute("userSession") MemberInfo userSession, 
 								@RequestParam("spe_id") int spe_id,
 								@RequestParam("stand") String stand, 
-								@RequestParam("od") String od) {
+								@RequestParam("od") String od,
+								@RequestParam(value="tmp", defaultValue="0") int tmp) {
 		
+		//tmp=1(필터링 결과화면),tmp=0(기본메인)
 		List<Item> itemList = new ArrayList<Item>();
 		itemList = itemService.orderByItem(spe_id, 0, stand, od);
 		

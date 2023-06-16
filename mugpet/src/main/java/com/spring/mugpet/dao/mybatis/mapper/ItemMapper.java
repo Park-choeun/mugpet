@@ -26,6 +26,9 @@ public interface ItemMapper {
 		
 	//상품 추가하기
 	void insertItem(Item item);
+	
+	//위시에 아이템 추가
+	void updateWish(@Param("wish")int wish, @Param("item_id") int item_id);
 		
 	//상품정보 수정하기
 	void updateItem(Item item);

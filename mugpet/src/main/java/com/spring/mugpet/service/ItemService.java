@@ -19,6 +19,8 @@ public interface ItemService {
 	
 	void insertItem(Item item);
 	
+	void updateWish(int wish, int item_id);
+	
 	void updateItem(Item item);
 	
 	void deleteItem(int item_id);
