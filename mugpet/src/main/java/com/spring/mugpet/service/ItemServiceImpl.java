@@ -54,6 +54,10 @@ public class ItemServiceImpl implements ItemService {
 		itemDao.insertItem(item);
 	}
 
+	public void updateWish(int wish, int item_id) {
+		itemDao.updateWish(wish, item_id);
+	}
+	
 	public void updateItem(Item item) {
 		itemDao.updateItem(item);
 	}
@@ -96,5 +100,4 @@ public class ItemServiceImpl implements ItemService {
 		filtering.setFeatures(null);
 		return filtering;
 	}
-
 }

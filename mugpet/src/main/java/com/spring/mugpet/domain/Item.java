@@ -10,11 +10,12 @@ public class Item {
 	private String brand;				//브랜드
 	private String imageUrl;			//이미지 경로
 	private String comments;			//상품 설명글
+	private int wish;					//위시 추가 여부(1이면 추가, default=0)
 
 	public Item() {}
 
 	public Item(int item_id, int category_id, int spe_id, String itemName, int price, String brand, String imageUrl,
-			String comments) {
+			String comments, int wish) {
 		this.item_id = item_id;
 		this.category_id = category_id;
 		this.spe_id = spe_id;
@@ -22,6 +23,8 @@ public class Item {
 		this.price = price;
 		this.brand = brand;
 		this.imageUrl = imageUrl;
+		this.comments = comments;
+		this.wish = wish;
 	}
 
 	public int getItem_id() {
@@ -84,14 +87,22 @@ public class Item {
 		return comments;
 	}
 
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+	
+	public int getWish() {
+		return wish;
+	}
+
+	public void setWish(int wish) {
+		this.wish = wish;
+	}
+
 	@Override
 	public String toString() {
 		return "Item [item_id=" + item_id + ", category_id=" + category_id + ", spe_id=" + spe_id + ", itemName="
 				+ itemName + ", price=" + price + ", brand=" + brand + ", imageUrl=" + imageUrl + ", comments="
 				+ comments + "]";
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
 	}
 }

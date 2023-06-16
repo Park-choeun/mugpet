@@ -46,7 +46,11 @@ public class MybatisItemDao implements ItemDao {
 	@Override
 	public void insertItem(Item item) throws DataAccessException {
 		itemMapper.insertItem(item);
-		
+	}
+	
+	@Override
+	public void updateWish(int wish, int item_id) throws DataAccessException {
+		itemMapper.updateWish(wish, item_id);
 	}
 
 	@Override
