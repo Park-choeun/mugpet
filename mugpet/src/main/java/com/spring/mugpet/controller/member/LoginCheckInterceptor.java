@@ -19,7 +19,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor  {
 		MemberInfo userSession =
 				(MemberInfo) WebUtils.getSessionAttribute(request, "userSession");
 		
-		if (userSession == null) { //로그인 안되어있으면..
+		if (userSession.getU_id() == 0) { //로그인 안되어있으면..
 			String url = request.getRequestURL().toString();
 			String query = request.getQueryString();
 			

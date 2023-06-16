@@ -53,10 +53,6 @@ public class ItemServiceImpl implements ItemService {
 	public void insertItem(Item item) {
 		itemDao.insertItem(item);
 	}
-
-	public void updateWish(int wish, int item_id) {
-		itemDao.updateWish(wish, item_id);
-	}
 	
 	public void updateItem(Item item) {
 		itemDao.updateItem(item);

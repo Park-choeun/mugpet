@@ -21,8 +21,6 @@ public interface ItemDao {
 	
 	void insertItem(Item item) throws DataAccessException;
 	
-	void updateWish(int wish, int item_id) throws DataAccessException;
-	
 	void updateItem(Item item) throws DataAccessException;
 	
 	void deleteItem(int item_id) throws DataAccessException;
