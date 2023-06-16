@@ -15,12 +15,9 @@ public interface ItemDao {
 	
 	List<Item> getItemList(int spe_id, int category_id) throws DataAccessException;
 	
-//	List<Item> getFilterItemList(int spe_id, int age, String stuff, String feature) throws DataAccessException;
 	List<Item> getFilterItemList(Map<String, Object> param) throws DataAccessException;
 	
-	List<Item> orderByALLItem(int spe_id, String standard, String od) throws DataAccessException;
-	
-	List<Item> orderByCategoryItem(int spe_id, int category_id, String stand, String od) throws DataAccessException;
+	List<Item> orderByItem(int spe_id, int category_id, String stand, String od) throws DataAccessException;
 	
 	void insertItem(Item item) throws DataAccessException;
 	
