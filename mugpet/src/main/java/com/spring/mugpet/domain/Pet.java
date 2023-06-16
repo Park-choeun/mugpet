@@ -5,7 +5,7 @@ public class Pet {
 	private String name;		//반려동물 이름
 	private int spe_id;			//반려동물 종(강아지 or 고양이 or 소동물)
 	private String birth;		//반려동물 생일
-	private int u_id;
+	private int u_id;			//반려인 u_id
 	
 	
 	public Pet() {};	

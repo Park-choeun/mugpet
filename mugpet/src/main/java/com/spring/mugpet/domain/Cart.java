@@ -1,7 +1,4 @@
 package com.spring.mugpet.domain;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.spring.mugpet.service.CartService;
 
 public class Cart {
 	
@@ -9,7 +6,6 @@ public class Cart {
 	private int total;		//총 가격(상품 가격 * 개수)
 	private int cartQty;	//개수
 	private int u_id;		//로그인한 사용자 id
-	//private final Map<Integer, Cart> itemMap = Collections.synchronizedMap(new HashMap<Integer, Cart>());
 	
 	public Cart() {}
 
@@ -43,11 +39,6 @@ public class Cart {
 	public void setCartQty(int cartQty) {
 		this.cartQty = cartQty;
 	}
-//	public void setQuantityByItemId(int item_id, int cartQty) {
-//		Cart cartItem = cartService.getMyCartItemCartType(item_id);
-//		cartItem.setCartQty(cartQty);
-//		
-//	}
 
 	public int getU_id() {
 		return u_id;

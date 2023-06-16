@@ -1,12 +1,12 @@
 package com.spring.mugpet.domain;
 
 public class OrderItem {
-	private int o_id;			//primary key
-	private int item_id;		//구매한 item의 id
-	private int orderQty;		//구매하는 개수
+	private int o_id;				//primary key
+	private int item_id;			//구매한 item의 id
+	private int orderQty;			//구매하는 개수
 	private String orderAddr;		//배송지
 	private String orderPhoneNum; 	//전화번호
-	private int u_id;			//로그인한 사용자 id
+	private int u_id;				//로그인한 사용자 id
 	
 	public OrderItem() {}
 

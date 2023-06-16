@@ -19,7 +19,4 @@ public class ImgFile {
 		this.imgFileName = imgFileName;
 	}
 	
-	
-	
-
 }
