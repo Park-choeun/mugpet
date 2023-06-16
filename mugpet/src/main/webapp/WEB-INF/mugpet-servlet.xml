@@ -70,4 +70,6 @@
 	
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+	<mvc:resources mapping="/upload/**" location="file:///C:/upload/" />
 </beans>
