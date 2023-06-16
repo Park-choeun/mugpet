@@ -66,6 +66,12 @@ public class MybatisCommunityDao implements CommunityDao{
 	@Override
 	public int getU_IdByCommunity(int com_id) {
 		return comMapper.getU_IdByCommunity(com_id);
+	}
+
+	@Override
+	public void updateComLikesCnt(int com_id, int amount) {
+		//좋아요 수
+		comMapper.updateComLikesCnt(com_id, amount);
 	}	
 
 }
