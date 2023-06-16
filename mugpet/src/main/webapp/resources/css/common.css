@@ -96,5 +96,5 @@ a {
 }
 /* link, visited, hover, active 순서대로 맞춰 쓸 것 */
 a:visited, a:hover, a:active {
-	color: black;
+	color: #FFB1BC;
 }

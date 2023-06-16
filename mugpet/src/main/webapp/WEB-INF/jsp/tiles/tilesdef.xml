@@ -23,5 +23,10 @@
 		<put-attribute name="side" value="/WEB-INF/view/common/side.jsp" />
 		<put-attribute name="body" value="/WEB-INF/view/{1}/{2}.jsp" />												
 	</definition>
+	<definition name="tile/myPage/*" extends="default">
+		<put-attribute name="dynamic_css" value="/resources/css/{1}.css"/>  								
+		<put-attribute name="side" value="/WEB-INF/view/myPage/layout/side.jsp" />
+		<put-attribute name="body" value="/WEB-INF/view/myPage/{1}.jsp" />												
+	</definition>
 	
 </tiles-definitions>

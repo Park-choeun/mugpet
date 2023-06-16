@@ -56,7 +56,7 @@
     
    	<mvc:interceptors>
 		<mvc:interceptor>
-    	    <mvc:mapping path="/cart/myCartList"/>
+    	    <mvc:mapping path="/cart/*"/>
         	<bean class="com.spring.mugpet.controller.member.LoginCheckInterceptor" />
     	</mvc:interceptor>
 	</mvc:interceptors>

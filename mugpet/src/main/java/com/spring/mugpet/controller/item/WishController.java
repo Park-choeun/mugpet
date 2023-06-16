@@ -28,6 +28,9 @@ public class WishController {
 		this.itemController = itemController;
 	}
 	
+
+	
+	
 	@RequestMapping("/item/updateWish")
 	public ModelAndView updateWish(@ModelAttribute("userSession") MemberInfo userSession, 
 									@RequestParam("wish") int wish, @RequestParam("item_id") int item_id) {
