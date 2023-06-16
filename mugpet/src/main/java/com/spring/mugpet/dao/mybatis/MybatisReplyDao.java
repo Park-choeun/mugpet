@@ -61,6 +61,18 @@ public class MybatisReplyDao implements ReplyDao{
 		//댓글 삭제
 		replyMapper.deleteGoodsReply(rp_id, g_id);
 	}
+	
+	@Override
+	public void deleteComAllReply(int com_id) throws DataAccessException {
+		//전체 댓글 삭제
+		replyMapper.deleteComAllReply(com_id);
+	}
+
+	@Override
+	public void deleteGoodsAllReply(int g_id) throws DataAccessException {
+		//전체 댓글 삭제
+		replyMapper.deleteGoodsAllReply(g_id);
+	}
 
 	@Override
 	public int getU_IdByCommunityReply(int com_id, int rp_id) throws DataAccessException {

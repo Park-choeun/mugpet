@@ -73,4 +73,15 @@
 		DELETE FROM Reply
 		WHERE rp_id=#{rp_id} AND g_id=#{g_id}
 	</delete>
+	
+	<!-- 게시글 삭제 시 댓글 전체 삭제 -->
+	<delete id="deleteComAllReply" parameterType="int">
+		DELETE FROM Reply
+		WHERE com_id=#{com_id}
+	</delete>
+	
+	<delete id="deleteGoodsAllReply" parameterType="int">
+		DELETE FROM Reply
+		WHERE g_id=#{g_id}
+	</delete>
 </mapper>

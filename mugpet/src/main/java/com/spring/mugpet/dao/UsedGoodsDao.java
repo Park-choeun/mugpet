@@ -23,4 +23,6 @@ public interface UsedGoodsDao {
 	public void updateGoodsReplyCnt(int g_id, int amount);
 	
 	public int getU_IdByUsedGoods(int g_id);
+	
+	public void updateGoodsLikesCnt(int g_id, int amount);
 }

@@ -20,6 +20,10 @@ public interface ReplyMapper {
 	
 	public void deleteGoodsReply(@Param("rp_id") int rp_id, @Param("g_id") int g_id);
 	
+	public void deleteComAllReply(int com_id);
+	
+	public void deleteGoodsAllReply(int g_id);
+	
 	public int getU_IdByCommunityReply(@Param("com_id") int com_id, @Param("rp_id") int rp_id);
 	
 	public int getU_IdByUsedGoodsReply(@Param("g_id") int g_id, @Param("rp_id") int rp_id);

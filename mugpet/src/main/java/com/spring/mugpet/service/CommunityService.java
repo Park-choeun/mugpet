@@ -26,5 +26,7 @@ public interface CommunityService {
 	public void deleteCom(int com_id);
 	
 	public int getU_IdByCommunity(int com_id);
+	
+	public void updateComLikesCnt(int com_id, int amount);
 }
 

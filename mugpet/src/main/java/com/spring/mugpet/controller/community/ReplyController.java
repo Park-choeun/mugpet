@@ -23,6 +23,15 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/community/replyInsert")
 	public String comSubmit(NewReplyCommand replyCommand, @ModelAttribute("userSession") MemberInfo userSession) {
+		if(userSession.getU_id() == 0) {
+			return "/member/loginForm";
+		}
+		
+		if(replyCommand.getContent() == "") {
+			System.out.println("댓글 내용 입력 X");
+			return "redirect:/community/view?com_id=" + replyCommand.getCom_id();
+		}
+		
 		replyCommand.setU_id(userSession.getU_id());
 		replyService.insertComReply(replyCommand);
 		
@@ -31,6 +40,15 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/usedGoods/replyInsert")
 	public String goodsSubmit(NewReplyCommand replyCommand, @ModelAttribute("userSession") MemberInfo userSession) {
+		if(userSession.getU_id() == 0) {
+			return "/member/loginForm";
+		}
+		
+		if(replyCommand.getContent() == "") {
+			System.out.println("댓글 내용 입력 X");
+			return "redirect:/usedGoods/view?g_id=" + replyCommand.getG_id();
+		}
+		
 		replyCommand.setU_id(userSession.getU_id());
 		replyService.insertGoodsReply(replyCommand);
 		

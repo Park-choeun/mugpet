@@ -21,6 +21,10 @@ public interface ReplyDao {
 	
 	public void deleteGoodsReply(int rp_id, int g_id) throws DataAccessException;
 	
+	public void deleteComAllReply(int com_id) throws DataAccessException;
+	
+	public void deleteGoodsAllReply(int g_id) throws DataAccessException;
+	
 	public int getU_IdByCommunityReply(int com_id, int rp_id) throws DataAccessException;
 	
 	public int getU_IdByUsedGoodsReply(int g_id, int rp_id) throws DataAccessException;

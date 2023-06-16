@@ -56,6 +56,16 @@ public class ReplyServiceImpl implements ReplyService{
 		usedgoodsDAO.updateGoodsReplyCnt(g_id, -1);
 		replyDAO.deleteGoodsReply(rp_id, g_id);
 	}
+	
+	@Override
+	public void deleteComAllReply(int com_id) {
+		replyDAO.deleteComAllReply(com_id);
+	}
+
+	@Override
+	public void deleteGoodsAllReply(int g_id) {
+		replyDAO.deleteGoodsAllReply(g_id);
+	}
 
 	@Override
 	public int getU_IdByCommunityReply(int com_id, int rp_id) {

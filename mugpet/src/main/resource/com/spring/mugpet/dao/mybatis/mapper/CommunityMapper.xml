@@ -71,4 +71,11 @@
 		SET replyCnt=replyCnt+#{amount}
 		WHERE com_id=#{com_id}
 	</update>
+	
+	<!-- 좋아요 수 -->
+	<update id="updateComLikesCnt">
+		UPDATE Community
+		SET likes=likes+#{amount}
+		WHERE com_id=#{com_id}
+	</update>
 </mapper>

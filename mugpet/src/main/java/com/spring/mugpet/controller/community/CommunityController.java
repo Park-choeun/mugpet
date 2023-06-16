@@ -1,5 +1,8 @@
 package com.spring.mugpet.controller.community;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,9 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +56,8 @@ public class CommunityController {
 	public String getCom(@RequestParam(value = "com_id") int com_id, @ModelAttribute("userSession")MemberInfo userSession, Model model) {
 		//게시글 상세보기
 		
-		System.out.println("com_id: " + com_id);
+		int spe_id = 1;
+		String petName = null;
 		
 		Community com = null;
 		com = comService.getCom(com_id);
@@ -58,6 +67,24 @@ public class CommunityController {
 		
 		int u_id = comService.getU_IdByCommunity(com_id);
 		String nickname = memberService.getNickNameByU_Id(u_id);
+		
+		if(userSession.getU_id() != 0) {
+			Pet pet = petService.getPetByU_id(userSession.getU_id());
+			
+			spe_id = pet.getSpe_id();
+			System.out.println(">>>>>>spe_id : " + spe_id);
+			petName = pet.getName();
+			System.out.println(">>>>>>>petName : " + petName);
+		}
+		
+		String spe;
+		if (spe_id == 1) {
+			spe = "강아지";
+		} else if (spe_id == 2) {
+			spe = "고양이";
+		} else {
+			spe = "소동물";
+		}
 		
 		for(Reply reply : replyList) {
 			int rp_id = reply.getRp_id();
@@ -74,8 +101,11 @@ public class CommunityController {
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("rp_nicknameList", rp_nicknameList);
 		model.addAttribute("userSession", userSession);
+		model.addAttribute("petName", petName);
+		model.addAttribute("spe", spe);
 		
-		return "/community/view";
+		
+		return "tiles/community/view";
 	}
 	
 	@RequestMapping("/community/communityList")
@@ -113,11 +143,13 @@ public class CommunityController {
 		} else {
 			spe = "소동물";
 		}
-				
+		
+		//title, com_id 확인
 		for(Community com : comList) {
 			System.out.println(com.getTitle());
 			System.out.println(com.getCom_id());
 		}
+		
 		model.addAttribute("comList", comList);
 		model.addAttribute("petName", petName);
 		model.addAttribute("spe", spe);
@@ -127,18 +159,46 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/community/myCommunityList")
-	public String getMemberComList(Model model, @ModelAttribute("userSession") int u_id) {
+	public String getMemberComList(Model model, @ModelAttribute("userSession") MemberInfo userSession) {
 		//본인이 쓴 게시글 목록 보기
+		int u_id = userSession.getU_id();
 		List<Community> myComList = comService.getMemberComList(u_id);
+		String nickname = memberService.getNickNameByU_Id(u_id);
+		
+		int spe_id = 1;
+		String petName = null;
+		
+		if(userSession.getU_id() != 0) {
+			Pet pet = petService.getPetByU_id(userSession.getU_id());
+			
+			spe_id = pet.getSpe_id();
+			System.out.println(">>>>>>spe_id : " + spe_id);
+			petName = pet.getName();
+			System.out.println(">>>>>>>petName : " + petName);
+		
+		}
+		
+		String spe;
+		if (spe_id == 1) {
+			spe = "강아지";
+		} else if (spe_id == 2) {
+			spe = "고양이";
+		} else {
+			spe = "소동물";
+		}
 		
 		model.addAttribute("myComList", myComList);
-		
-		return "/community/myCommunityList";
+		model.addAttribute("nickname", nickname);
+		model.addAttribute("petName", petName);
+		model.addAttribute("spe", spe);
+	
+		return "tiles/community/myCommunityList";
 	}
 	
 	@RequestMapping("/community/delete")
 	public String deleteCom(@RequestParam(value = "com_id") int com_id) {
 		//게시글 삭제
+		replyService.deleteComAllReply(com_id);
 		comService.deleteCom(com_id);
 		
 		return "redirect:/community/communityList";
@@ -155,7 +215,7 @@ public class CommunityController {
 		return "/community/updateForm";
 	}
 	
-	//수정 폼에서 수정 완료 버튼 클릭시, 해당 글과 관련된 내용을 db에 수정해 저장 후 목록or상세보기 페이지로 이동
+	//수정 폼에서 수정 완료 버튼 클릭시, 해당 글과 관련된 내용을 db에 수정해 저장 후 상세보기 페이지로 이동
 	@RequestMapping(value = "/community/update", method = RequestMethod.POST)
 	public String updateSubmit(NewCommunityCommand comCommand, BindingResult result, HttpServletRequest request,
 								@RequestPart(value="imgFile", required=false) MultipartFile file, @ModelAttribute("userSession") MemberInfo userSession) throws Exception {
@@ -191,7 +251,14 @@ public class CommunityController {
 			comService.insertComWithoutImgFile(comCommand);
 		}
 	
-		//작성된 view로 넘어가게 수정
+		//작성된 view로 이동
 		return "redirect:/community/view?com_id=" + comCommand.getCom_id();		
+	}
+	
+	@RequestMapping(value = "/community/likes")
+	public String updateComLikesCnt(@RequestParam("com_id") int com_id, Model model) {
+		comService.updateComLikesCnt(com_id, 1);
+		
+		return "redirect:/community/view?com_id=" + com_id;
 	}
 }

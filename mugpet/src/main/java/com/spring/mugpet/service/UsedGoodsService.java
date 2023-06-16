@@ -25,4 +25,6 @@ public interface UsedGoodsService {
 	public void deleteUsedGoods(int g_id);
 	
 	public int getU_IdByUsedGoods(int g_id);
+	
+	public void updateGoodsLikesCnt(int g_id, int amount);
 }

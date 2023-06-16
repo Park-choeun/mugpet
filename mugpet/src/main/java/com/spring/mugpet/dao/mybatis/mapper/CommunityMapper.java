@@ -25,5 +25,7 @@ public interface CommunityMapper {
 	public void updateReplyCnt(@Param("com_id") int com_id, @Param("amount") int amount);
 	
 	public int getU_IdByCommunity(int com_id);
+	
+	public void updateComLikesCnt(@Param("com_id") int com_id, @Param("amount") int amount);
 }
 

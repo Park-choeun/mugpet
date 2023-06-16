@@ -18,6 +18,10 @@ public interface ReplyService {
 	
 	public void deleteGoodsReply(int rp_id, int g_id);
 	
+	public void deleteComAllReply(int com_id);
+	
+	public void deleteGoodsAllReply(int g_id);
+	
 	public int getU_IdByCommunityReply(int com_id, int rp_id);
 	
 	public int getU_IdByUsedGoodsReply(int g_id, int rp_id);

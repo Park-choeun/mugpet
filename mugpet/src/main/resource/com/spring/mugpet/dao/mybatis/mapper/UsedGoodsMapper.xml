@@ -73,4 +73,11 @@
 		SET replyCnt=replyCnt+#{amount}
 		WHERE g_id=#{g_id}
 	</update>
+	
+	<!-- 좋아요 수 -->
+	<update id="updateGoodsLikesCnt">
+		UPDATE UsedGoods
+		SET likes=likes+#{amount}
+		WHERE g_id=#{g_id}
+	</update>
 </mapper>

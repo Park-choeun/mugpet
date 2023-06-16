@@ -63,4 +63,10 @@ public class MybatisUsedGoodsDao implements UsedGoodsDao{
 		return goodsMapper.getU_IdByUsedGoods(g_id);
 	}
 
+	@Override
+	public void updateGoodsLikesCnt(int g_id, int amount) {
+		//좋아요 수
+		goodsMapper.updateGoodsLikesCnt(g_id, amount);
+	}
+
 }

@@ -47,7 +47,8 @@ public class UsedGoodsController {
 	public String viewUsedGoods(@RequestParam(value = "g_id") int g_id, @ModelAttribute("userSession") MemberInfo userSession, Model model) {
 		//게시글 상세보기
 		
-		System.out.println("g_id: " + g_id);
+		int spe_id = 1;
+		String petName = null;
 		
 		UsedGoods goods = null;
 		goods = goodsService.getUsedGoods(g_id);
@@ -64,6 +65,24 @@ public class UsedGoodsController {
 			String rp_nickname = memberService.getNickNameByU_Id(rp_u_id);
 			rp_nicknameList.add(rp_nickname);
 		}
+
+		if(userSession.getU_id() != 0) {
+			Pet pet = petService.getPetByU_id(userSession.getU_id());
+			
+			spe_id = pet.getSpe_id();
+			System.out.println(">>>>>>spe_id : " + spe_id);
+			petName = pet.getName();
+			System.out.println(">>>>>>>petName : " + petName);
+		}
+		
+		String spe;
+		if (spe_id == 1) {
+			spe = "강아지";
+		} else if (spe_id == 2) {
+			spe = "고양이";
+		} else {
+			spe = "소동물";
+		}
 		
 		System.out.println("g_id: " + goods.getG_id());
 		System.out.println("userSession의 u_id: " + userSession.getU_id());
@@ -73,8 +92,10 @@ public class UsedGoodsController {
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("rp_nicknameList", rp_nicknameList);
 		model.addAttribute("userSession", userSession);
+		model.addAttribute("petName", petName);
+		model.addAttribute("spe", spe);
 		
-		return "/usedGoods/view";
+		return "tiles/usedGoods/view";
 	}
 	
 	@RequestMapping("/usedGoods/usedGoodsList")
@@ -127,18 +148,46 @@ public class UsedGoodsController {
 	}
 	
 	@RequestMapping("/usedGoods/myUsedGoodsList")
-	public String getMemberUsedGoodsList(Model model, @ModelAttribute("userSession") int u_id) {
+	public String getMemberUsedGoodsList(Model model, @ModelAttribute("userSession") MemberInfo userSession) {
 		//본인이 쓴 게시글 목록 보기
+		int u_id = userSession.getU_id();
 		List<UsedGoods> myGoodsList = goodsService.getMemberUsedGoodsList(u_id);
+		String nickname = memberService.getNickNameByU_Id(u_id);
+		
+		int spe_id = 1;
+		String petName = null;
+		
+		if(userSession.getU_id() != 0) {
+			Pet pet = petService.getPetByU_id(userSession.getU_id());
+			
+			spe_id = pet.getSpe_id();
+			System.out.println(">>>>>>spe_id : " + spe_id);
+			petName = pet.getName();
+			System.out.println(">>>>>>>petName : " + petName);
+		
+		}
+		
+		String spe;
+		if (spe_id == 1) {
+			spe = "강아지";
+		} else if (spe_id == 2) {
+			spe = "고양이";
+		} else {
+			spe = "소동물";
+		}
 		
 		model.addAttribute("myGoodsList", myGoodsList);
+		model.addAttribute("nickname", nickname);
+		model.addAttribute("petName", petName);
+		model.addAttribute("spe", spe);
 		
-		return "/usedGoods/myUsedGoodsList";
+		return "tiles/usedGoods/myUsedGoodsList";
 	}
 	
 	@RequestMapping("/usedGoods/delete")
 	public String deleteGoods(@RequestParam(value = "g_id") int g_id) {
 		//게시글 삭제
+		replyService.deleteGoodsAllReply(g_id);
 		goodsService.deleteUsedGoods(g_id);
 		
 		return "redirect:/usedGoods/usedGoodsList";
@@ -193,5 +242,12 @@ public class UsedGoodsController {
 		
 		//작성한 게시글 상세보기로 이동
 		return "redirect:/usedGoods/view?g_id=" + goodsCommand.getG_id();
+	}
+	
+	@RequestMapping(value = "/usedGoods/likes")
+	public String updateGoodsLikesCnt(@RequestParam("g_id") int g_id, Model model) {
+		goodsService.updateGoodsLikesCnt(g_id, 1);
+		
+		return "redirect:/usedGoods/view?g_id=" + g_id;
 	}
 }
