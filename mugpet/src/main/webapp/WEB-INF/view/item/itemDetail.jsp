@@ -30,11 +30,11 @@
 	</tr>
 	<tr>
 		<td colspan="2" id="btnBox">
-			<a href="${contextPath}/item/updateWish?wish=${item.wish}&item_id=${item.item_id}">
-				<c:if test="${item.wish eq 0}">
+			<a href="${contextPath}/wish/updateWish?item_id=${item.item_id}&isWish=${isWish}">
+				<c:if test="${isWish eq 0}">
 					<img id="wishBtn" src="${contextPath}/resources/images/wish.png" />
 				</c:if>
-				<c:if test="${item.wish eq 1}">
+				<c:if test="${isWish eq 1}">
 					<img id="wishBtn" src="${contextPath}/resources/images/wished.png" />
 				</c:if>
 			</a>

@@ -6,13 +6,13 @@
 	<sql id="itemCols">
 		item_id, category_id, spe_id,
 		itemName, price, brand,
-		imageUrl, comments, wish
+		imageUrl, comments
 	</sql>
 	
 	<sql id="filteringCols">
 		i.item_id, category_id, spe_id,
 		itemName, price, brand,
-		imageUrl, comments, wish
+		imageUrl, comments
 	</sql>
 	
 	<select id="getItem" parameterType="int" resultType="Item">
@@ -74,12 +74,6 @@
 		INSERT INTO Item (<include refid="itemCols" />)
 		VALUES (#{item_id}, #{category_id}, #{spe_id}, #{itemName}, #{price}, #{brand}, #{imageUrl})
 	</insert>
-	
-	<update id="updateWish" parameterType="int">
-		UPDATE Item
-		SET wish=#{wish}
-		WHERE item_id=#{item_id}
-	</update>
 	
 	<update id="updateItem">
 		UPDATE Item
