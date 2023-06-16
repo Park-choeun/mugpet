@@ -32,7 +32,7 @@ public class WishController {
 	public ModelAndView updateWish(@ModelAttribute("userSession") MemberInfo userSession, 
 									@RequestParam("wish") int wish, @RequestParam("item_id") int item_id) {
 		ModelAndView mav = itemController.viewItme(userSession, item_id);
-		System.out.println(">>>>>>>>>>wish=" + wish + ", item_id=" + item_id);
+
 		if (wish == 0) {
 			itemService.updateWish(1, item_id);
 		} else {
