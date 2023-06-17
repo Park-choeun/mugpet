@@ -69,13 +69,14 @@ td{
 </style>
 </head>
 <body>
-	<form:form modelAttribute="filtering" name="filterForm" method="post" class="validation-form" action="${contextPath}/item/filter?spe_id=${spe_id}&category_id=${category_id}">
+	<form:form modelAttribute="filtering" method="post" class="validation-form" action="${contextPath}/item/filter?spe_id=${spe_id}&category_id=${category_id}">
 		<table id="ftable">
 			<tr><th id="filterLabel">필터</th></tr>
   			<tr>
 				<td>
 					<span class="filterName">연령</span><br/>
 					<span class="val"><form:radiobuttons path="age" items="${ageVal}" /></span>
+					<form:errors path="age" />
 				</td>
 			</tr>
 			<tr>
@@ -99,6 +100,7 @@ td{
 	</form:form>
 	
 	<script>
+		/* 주석 */
 		function closeFilter() {
 			window.opener.name="parentPage";
 			document.filterForm.target="parentPage";

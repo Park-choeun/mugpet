@@ -21,15 +21,15 @@
 	<mvc:annotation-driven/>		<!-- create RequestMappingHandlerMapping -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
-	
-	<!-- <beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-    	<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
-   		 <beans:property name="order" value="1" />
-	</beans:bean>
-	
-    <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-        <beans:property name="definitions" value="/WEB-INF/jsp/tiles/common/" />	
-    </beans:bean> -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages.validation</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
     
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
     	<property name="definitions">
@@ -57,7 +57,6 @@
    	<mvc:interceptors>
 		<mvc:interceptor>
     	    <mvc:mapping path="/cart/myCartList"/>
-    	    <mvc:mapping path="/wish/updateWish"/>
         	<bean class="com.spring.mugpet.controller.member.LoginCheckInterceptor" />
     	</mvc:interceptor>
 	</mvc:interceptors>
