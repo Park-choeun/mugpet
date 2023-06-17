@@ -17,6 +17,16 @@ public class CartServiceImpl implements CartService{
 	private CartDao cartDao;
 	//u_id 가지고 올 필요 없음. 여기서는 controller에서 u_id를 받아서 cart 정보 넘겨줌
 	
+	@Override
+	public Integer isCart(int item_id, int u_id) {
+		Integer isCart = cartDao.isCart(item_id, u_id);
+		if (isCart != null) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+	
 	//Cart 목록 리스트 형태로 가져오기 (장바구니는 하나)
 	public List<Cart> getMyCartList(int u_id){
 		return cartDao.getMyCartList(u_id);
@@ -53,4 +63,5 @@ public class CartServiceImpl implements CartService{
 	public void removeCartAll(int u_id) {
 		cartDao.removeCartAll(u_id);
 	}
+	
 }

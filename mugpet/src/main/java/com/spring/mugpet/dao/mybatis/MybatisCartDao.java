@@ -17,6 +17,11 @@ public class MybatisCartDao implements CartDao{
 	@Autowired
 	private CartMapper cartMapper;
 	
+	@Override
+	public Integer isCart(int item_id, int u_id) throws DataAccessException {
+		return cartMapper.isCart(item_id, u_id);
+	}
+	
 	//Cart 목록 리스트 형태로 가져오기 (장바구니는 하나)
 	public List<Cart> getMyCartList(int u_id) throws DataAccessException{
 		return cartMapper.getMyCartList(u_id);
@@ -53,4 +58,5 @@ public class MybatisCartDao implements CartDao{
 	public void removeCartAll(int u_id) throws DataAccessException{
 		cartMapper.removeCartAll(u_id);
 	}
+	
 }

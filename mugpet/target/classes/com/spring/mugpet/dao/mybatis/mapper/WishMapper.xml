@@ -30,9 +30,9 @@
 	</select>
 	
 	<select id="isWish" parameterType="int" resultType="Integer">
-		SELECT item_id
+		SELECT w_id
 		FROM Wish
-		WHERE u_id=#{u_id}
+		WHERE item_id=${item_id} AND u_id=#{u_id}
 	</select>
    
 	<insert id="insertWish" parameterType="Wish">
