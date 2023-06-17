@@ -3,44 +3,48 @@
 
 <mapper namespace="com.spring.mugpet.dao.mybatis.mapper.OrderItemMapper">
 	<sql id="orderItemCols">
-		o_id, item_id, orderQty,
-		orderAddr, orderPhoneNum, u_id 
+		o_id, orderQty,
+		orderAddr, orderPhoneNum, item_id, itemPrice, applyPoints, req, orderTime, u_id
 	</sql>
 	
 	<select id="getOrderItemList" parameterType="OrderItem" resultType="OrderItem">
-		SELECT <include refid="orderItemCols" />
+		SELECT o_id, orderQty, orderAddr, orderPhoneNum, item_id, itemPrice, req, orderTime, u_id
 		FROM OrderItem
-		WHERE o_id=#{o_id}
+		WHERE u_id=#{u_id} AND orderTime=#{orderTime} 
 	</select>
 	
-	<select id="getAllOrderItemList" parameterType="OrderItem" resultType="OrderItem">
-		SELECT <include refid="orderItemCols" />
+	<select id="getAllOrderTimeList" parameterType="int" resultType="String">
+		SELECT orderTime
 		FROM OrderItem
 		WHERE u_id=#{u_id}
+		GROUP BY orderTime
+		ORDER BY orderTime DESC
+	</select>
+	
+	<select id="getOrderItemInfo" parameterType="int" resultType="Item">
+		SELECT itemName, price, imageUrl, item_id
+		FROM Item
+		WHERE item_id=#{item_id}
+	</select>
+	
+	<select id="getAllOrderItemList" resultType="OrderItemInfos">
+		SELECT o.item_id, o.orderAddr, o.orderQty, o.req, o.itemPrice, o.applyPoints, i.itemName, i.imageUrl
+		FROM OrderItem o JOIN Item i ON o.item_id = i.item_id
+		WHERE u_id=#{u_id} AND orderTime=#{orderTime}
 	</select>
 	
 	<insert id="insertOrderItem" parameterType="OrderItem">
 		<selectKey keyProperty="o_id" resultType="int" order="BEFORE">
-			SELECT SEQ_ORDERITEM_O_ID AS o_id FROM ORDERITEM
+			SELECT NVL(MAX(o_id),0) + 1 FROM ORDERITEM
 		</selectKey>
 		INSERT INTO OrderItem (<include refid="orderItemCols" />)
-		VALUES (#{o_id}, #{item_id}, #{orderQty}, #{orderAddr}, #{orderPhoneNum}, #{u_id})
+		VALUES (#{o_id}, #{orderQty}, #{orderAddr}, #{orderPhoneNum}, #{item_id}, #{itemPrice}, #{applyPoints}, #{req}, TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD HH24:MI'), #{u_id})
 	</insert>
 	
-	<update id="updateOrderItem" parameterType="OrderItem">
-		UPDATE OrderItem
-		SET o_id=#{o_id}, 
-		item_id=#{item_id},
-		orderQty=#{orderQty},
-		orderAddr=#{orderAddr},
-		orderPhoneNum=#{orderPhoneNum},
-		u_id=#{u_id}
-		WHERE item_id=#{item_id}
-	</update>
 	
 	<delete id="deleteOrderItem" parameterType="com.spring.mugpet.domain.OrderItem">
 		DELETE FROM OrderItem
-		WHERE item_id=#{item_id}
+		WHERE u_id=#{u_id} AND orderTime=#{orderTime} 
 	</delete>
 	
 

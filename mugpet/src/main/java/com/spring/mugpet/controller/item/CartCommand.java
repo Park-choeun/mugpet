@@ -9,7 +9,6 @@ public class CartCommand {
 	private String addrDetail;	//상세주소
 	private String req;			//요청사항
 	
-	
 	public String getAddrDetail() {
 		return addrDetail;
 	}
@@ -22,6 +21,7 @@ public class CartCommand {
 	public void setReq(String req) {
 		this.req = req;
 	}
+	
 	protected List<Cart> getCartItems() {
 		return cartItems;
 	}

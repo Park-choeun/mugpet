@@ -33,7 +33,7 @@
 	<update id="updatePoints">
 		UPDATE MEMBERINFO
 		SET POINT=#{point}
-		WHERE EMAIL = #{param1}
-		AND PWD = #{param2}
+		WHERE EMAIL = #{email}
+		AND PWD = #{pwd}
 	</update>
 </mapper>

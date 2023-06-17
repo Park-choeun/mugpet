@@ -1,0 +1,21 @@
+.content{
+ 	/* display: inline-block; */
+	/* width:100%; */	/*padding값 고려해서 %추가*/
+	padding-top:30px;
+	padding-left:50px;
+} 
+table{
+	margin: 0 auto;
+	text-align: center;
+	border: 1px solid black;
+	margin: 50px;
+}
+
+tr{
+	width: 500px;
+	border: 1px solid black;
+}
+td{
+	width: 500px;
+	border: 1px solid black;
+}

@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/myPage")
+//@RequestMapping("/myPage")
 public class MyPageController {
 
 	
-	@RequestMapping(value="/myOrderList" , method=RequestMethod.GET)
-	public String myOrderList() throws Exception {
-			
-		return "/mypage/myOrderList";
-	
-	}
+//	@RequestMapping(value="/myOrderList" , method=RequestMethod.GET)
+//	public String myOrderList() throws Exception {
+//			
+//		return "/mypage/myOrderList";
+//	
+//	}
 	
 //	@RequestMapping(value="/myOrderList" , method=RequestMethod.POST)
 //	public String myOrderList(HttpServletRequest request) throws Exception {

@@ -46,4 +46,9 @@
 		DELETE FROM Cart
 		WHERE item_id=#{item_id}
 	</delete>
+	
+	<delete id="removeCartAll" parameterType="int">
+		DELETE FROM Cart
+		WHERE u_id=#{u_id}
+	</delete>
 </mapper>

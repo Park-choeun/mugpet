@@ -50,5 +50,7 @@ public class CartServiceImpl implements CartService{
 		cartDao.removeCart(item_id);
 	}
 
-	//주석
+	public void removeCartAll(int u_id) {
+		cartDao.removeCartAll(u_id);
+	}
 }

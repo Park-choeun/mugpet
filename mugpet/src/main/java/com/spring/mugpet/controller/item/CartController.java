@@ -343,6 +343,8 @@ public class CartController {
 			cartService.removeCartAll(u_id);
 
 			return mav;
+			
+			//주석
 		}
 
 }

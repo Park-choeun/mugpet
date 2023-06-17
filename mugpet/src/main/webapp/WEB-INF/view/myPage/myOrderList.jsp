@@ -1,12 +1,55 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 
-</body>
-</html>
+<div class="content">
+	<br/><h5>주문 목록</h5><br/>
+	<hr>
+	<div>
+		<c:forEach var="map" items="${orderItemsInfoList}" varStatus="status"> 
+			<table>
+			<tr>
+				<td colspan="2">주문일자</td>
+				<td colspan="2">${map.key}</td>
+			</tr>
+			<tr>
+				<td colspan="2">주문자</td>
+				<td colspan="2">${memberInfo.name}</td>
+			</tr>
+			<tr>
+				<td colspan="2">전화번호</td>
+				<td colspan="2">${memberInfo.phoneNum}</td>
+			</tr>
+				<tr>
+					<td colspan="2">배송지</td>
+					<td colspan="2">${map.value[status.index].orderAddr}</td>
+				</tr>
+				<tr>
+					<td colspan="2">배송 요청사항</td>
+					<td colspan="2">${map.value[status.index].req}</td>
+				</tr>
+				<tr>
+					<td colspan="1">주문 상품</td>
+					<td colspan="3">총 종류: ${itemsSize[status.index]}개</td>
+				</tr>
+					<c:forEach var="row" items="${map.value}" varStatus="rowStatus">
+						<tr>
+							<td> <img src="${row.imageUrl}"  width="50" height="50" alt="상품이미지" class="productImg"/></td>
+							<td>${row.itemName}</td>
+							<td>${row.orderQty}개</td>
+							<td><fmt:formatNumber value="${map.value[rowStatus.index].itemPrice}" pattern="#,###"/>원</td>
+							
+						</tr>
+					</c:forEach>
+					<tr>
+						<td colspan="1">결제 금액</td>
+						<td colspan="3">
+							<fmt:formatNumber value="${orderItemsPrice[status.index] - map.value[status.index].applyPoints}" pattern="#,###"/>원 
+							(적립금 적용 : <fmt:formatNumber value="${map.value[status.index].applyPoints}" pattern="#,###"/>원) 
+						</td>
+					</tr>
+				</table>
+		</c:forEach>
+	</div>	       
+</div>

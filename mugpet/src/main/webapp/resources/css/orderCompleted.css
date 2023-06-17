@@ -1,0 +1,45 @@
+.content{
+	padding-top:30px;
+	padding-left:50px;
+	margin: 0 auto;
+} 
+table{
+	width: 800px;
+	margin: 0 auto;
+	margin-top: 50px;
+	margin-bottom: 70px;
+	text-align: center;
+	border: 1px solid black;
+}
+
+tr{
+	width: 500px;
+	border: 1px solid black;
+}
+td{
+	width: 500px;
+	padding: 20px 10px;
+	border: 1px solid black;
+}
+.message{
+	background-color:#FDFCE4;
+	font-size: 18px;
+	padding: 30px 30px;
+}
+
+.goToMainBtn{
+	width: 200px;
+	height: 70px;
+	background-color: #FFD1FF; 
+	border-color: #FFD1FF; 
+	font-weight: bold; 
+	color: #FFFFFF;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.bottom{
+	text-align:center;
+	margin: 0 auto;
+	margin-bottom: 60px;
+}
