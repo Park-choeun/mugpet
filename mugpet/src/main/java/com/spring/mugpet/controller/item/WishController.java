@@ -40,8 +40,10 @@ public class WishController {
 		this.itemController = itemController;
 	}
 	
+
 	//위시리스트에 아이템 추가 및 삭제
 	@RequestMapping("/updateWish")
+
 	public ModelAndView updateWish(@ModelAttribute("userSession") MemberInfo userSession, 
 									@RequestParam("item_id") int item_id,
 									@RequestParam("isWish") int isWish) {
@@ -75,7 +77,7 @@ public class WishController {
 		System.out.println("위시 아이템 개수" + wishItemsInfo.size());
 	    
 	    ModelAndView mav = itemController.viewItemListByCategory(userSession, spe_id, 1);
-	    mav.setViewName("tiles/wish/myWishList");
+	    mav.setViewName("tile/myPage/myWishList");
 	    
 	    mav.addObject("spe_id", spe_id);
 	    mav.addObject("filterTmp", null);

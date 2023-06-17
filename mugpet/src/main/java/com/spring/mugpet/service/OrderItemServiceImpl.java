@@ -44,4 +44,16 @@ public class OrderItemServiceImpl implements OrderItemService {
 	public void deleteOrderItem(int u_id, String orderTime) {
 		orderItemDao.deleteOrderItem(u_id, orderTime);
 	}
+
+	@Override
+	public int getOrderItemCnt(int u_id) {
+		return orderItemDao.getOrderItemCnt(u_id);
+	}
+
+	@Override
+	public boolean isCheckOrderItem(int u_id, int item_id) {
+		if(orderItemDao.isCheckOrderItem(u_id,item_id) != null)
+			return true; 
+		else return false;
+	}
 }

@@ -1,5 +1,6 @@
 package com.spring.mugpet.service;
 
-public class ReviewService {
+public interface ReviewService {
 
+	
 }

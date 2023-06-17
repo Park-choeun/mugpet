@@ -22,12 +22,14 @@ public interface OrderItemDao {
 	List<OrderItemInfos> getAllOrderItemList(int u_id, String orderTime) throws DataAccessException;
 	//주문 목록에 상품 추가하기	
 	void insertOrderItem(OrderItem orderItem) throws DataAccessException;
-	
-//	//주문 목록에 상품 수정하기
-//	void updateOrderItem(OrderItem orderItem) throws DataAccessException;
-//		
+
+	int getOrderItemCnt(int u_id)throws DataAccessException;
+
+	OrderItem isCheckOrderItem(int u_id, int item_id)throws DataAccessException;
+
 	//주문 목록 삭제하기
 	void deleteOrderItem(int u_id, String orderTime) throws DataAccessException;
+
 	
 	
 
