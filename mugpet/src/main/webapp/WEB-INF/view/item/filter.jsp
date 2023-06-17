@@ -76,6 +76,7 @@ td{
 				<td>
 					<span class="filterName">연령</span><br/>
 					<span class="val"><form:radiobuttons path="age" items="${ageVal}" /></span>
+					<form:errors path="age" />
 				</td>
 			</tr>
 			<tr>
