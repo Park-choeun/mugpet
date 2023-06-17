@@ -57,17 +57,12 @@
    	<mvc:interceptors>
 		<mvc:interceptor>
     	    <mvc:mapping path="/cart/myCartList"/>
+    	    <mvc:mapping path="/wish/updateWish"/>
         	<bean class="com.spring.mugpet.controller.member.LoginCheckInterceptor" />
     	</mvc:interceptor>
 	</mvc:interceptors>
 	
- <!--   	<mvc:interceptors>
-		<mvc:interceptor>
-    	    <mvc:mapping path="/main"/>
-        	<bean class="com.spring.mugpet.controller.MainLoginCheckInterceptor" />
-    	</mvc:interceptor>
-	</mvc:interceptors> -->
-	
-
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+	<mvc:resources mapping="/upload/**" location="file:///C:/upload/" />
 </beans>

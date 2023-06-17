@@ -51,6 +51,12 @@
 	font-weight: bold;
 }
 
+#hiddenBox {
+	height: 35px;
+	width: 75px;
+	color: white;
+}
+
 #body {
 	display: flex;
 	width: 1518px;

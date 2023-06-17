@@ -52,4 +52,21 @@ public class MybatisUsedGoodsDao implements UsedGoodsDao{
 		goodsMapper.deleteUsedGoods(g_id);
 	}
 
+	@Override
+	public void updateGoodsReplyCnt(int g_id, int amount) {
+		//댓글수
+		goodsMapper.updateGoodsReplyCnt(g_id, amount);
+	}
+
+	@Override
+	public int getU_IdByUsedGoods(int g_id) {
+		return goodsMapper.getU_IdByUsedGoods(g_id);
+	}
+
+	@Override
+	public void updateGoodsLikesCnt(int g_id, int amount) {
+		//좋아요 수
+		goodsMapper.updateGoodsLikesCnt(g_id, amount);
+	}
+
 }

@@ -20,4 +20,14 @@ public interface ReplyDao {
 	public void deleteComReply(int rp_id, int com_id) throws DataAccessException; //댓글 삭제 
 	
 	public void deleteGoodsReply(int rp_id, int g_id) throws DataAccessException;
+	
+	public void deleteComAllReply(int com_id) throws DataAccessException;
+	
+	public void deleteGoodsAllReply(int g_id) throws DataAccessException;
+	
+	public int getU_IdByCommunityReply(int com_id, int rp_id) throws DataAccessException;
+	
+	public int getU_IdByUsedGoodsReply(int g_id, int rp_id) throws DataAccessException;
+	
+	public List<Reply> getMyReplyList(int u_id) throws DataAccessException;
 }
