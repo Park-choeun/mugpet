@@ -15,7 +15,7 @@
 			<c:otherwise>
 				<span id="petName">${petName}</span>님 |
 				마이페이지 |
-				<a href="${contextPath}/cart/myCartList">장바구니</a> |
+				<a href="${contextPath}/cart/myCartList?spe_id=${spe_id}">장바구니</a> |
 				<a href="${contextPath}/member/logout">로그아웃</a>
 			</c:otherwise>
 		</c:choose>

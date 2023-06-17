@@ -2,14 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
-<!DOCTYPE html>
-<html>
-<head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-   integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-<meta charset="UTF-8">
-<title>장바구니</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -53,78 +45,10 @@ function getCheckedCnt()  {
 	  document.getElementById('result').innerText
 	    = selectedElementsCnt;
 }
-/* //상품 삭제(div 삭제)
-function deleteItem() {
-	  const div = document.getElementByClassName('item');
-	  div.remove();
-} */
-
-/* //상품 개수 -
-function sub(item){
-	const currentQty = Integer.parseInt(document.getElementById('itemQty').value);
-	currentQty = currentQty - 1;
-	
-	document.getElementById(item).innerText
-    = currentQty;
-}
-
-//상품 개수 +
-function add(item){
-	const currentQty = Integer.parseInt(document.getElementById('itemQty').value);
-	currentQty = currentQty + 1;
-	
-	document.getElementById(item).innerText
-    = currentQty;
-} */
 </script>
-<style>
-	.item {
-		display:flex;
-		vertical-align:top;
-	}
-	.productImg {
-		margin:10px 20px;
-		border: 1px solid #A6A6A6;
-	}
-	.productName{
-		margin-left:50px;
-		margin-top:50px;
-		width: 300px;
-	}
-	.productPrice{
-		margin-left:200px;
-		margin-top:50px;
-	}
-	.bottom {
-		text-align:center;
-		font-size: 20px;
-		margin-top : 20px;
-	}
-	.remove{
-		float:right;
-		border:none;
-		background-color:#FFFFFF;
-	}
-	.productQty{
-		text-align:center;
-	}
-	.content{
-		float:left;
-		width:80%;			/*padding값 고려해서 %추가*/
-		padding-top:30px;
-		padding-left:50px;
-	}
-	h5{
-		text-color: #5D5D5D;
-	}
-
-</style>
-</head>
-<body>
-<!------------------------주문 결제 창-------------------->   
-
+<!------------------------장바구니 창-------------------->  
 <div class="content">
-	<h5>주문 결제</h5><br/>
+	<h5>장바구니</h5><br/>
 	<div>
 		<input type='checkbox'
 		       name='selectAll' 
@@ -178,17 +102,17 @@ function add(item){
 		</table>
 	<div class="bottom">
 	  <div>
-	  	<button style="float:right;">카트 업데이트</button> 
+	  	<button type="submit" class="btn btn-light order updateBtn">카트 업데이트</button>
 	  </div>
 </form>	
 	 <br/>
-		<fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원 + 배송비 무료 = <fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원
+		<div class="spacing">
+			<fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원 + 배송비 무료 = <fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원
+		</div>
 		<br /><br />
 		<a href='<c:url value="/cart/order"/>'>
-			<button>주문하기</button>
+			<button type="button" class="btn btn-light order orderBtn">주문하기</button>
 		</a>
 		<br /><br />
 	</div>
 </div>
-</body>
-</html>

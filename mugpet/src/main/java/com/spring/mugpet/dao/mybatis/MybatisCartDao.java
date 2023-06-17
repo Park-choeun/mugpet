@@ -48,5 +48,9 @@ public class MybatisCartDao implements CartDao{
 	public void removeCart(int item_id) throws DataAccessException{
 		cartMapper.removeCart(item_id);
 	}
-	//주석
+	
+	//Cart 목록의 모든 아이템 삭제하기
+	public void removeCartAll(int u_id) throws DataAccessException{
+		cartMapper.removeCartAll(u_id);
+	}
 }
