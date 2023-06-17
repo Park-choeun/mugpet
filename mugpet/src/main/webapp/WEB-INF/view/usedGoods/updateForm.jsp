@@ -11,6 +11,29 @@
 <script>
 
 function usedGoodsUpdate() {
+	frm = document.forms["write"];
+	
+	var title = frm["title"].value.trim();
+	var content = frm["content"].value.trim();
+	
+	if(title == ""){
+		alert("제목은 반드시 입력해야 합니다.");
+		frm["title"].focus();
+		return false;
+	}
+	
+	if(content == ""){
+		alert("내용은 반드시 입력해야 합니다.");
+		frm["content"].focus();
+		return false;
+	}
+	
+	if(price == 0){
+		alert("1원 이상 반드시 입력해야 합니다.");
+		frm["price"].focus();
+		return false;
+	}
+	
 	write.submit();
 }
 
@@ -40,8 +63,8 @@ function usedGoodsUpdate() {
 				<br>
   			  <input name="imgFile" class="form-control form-control-sm" type="file" style="width: 90%;" multiple="multiple" accept=".jpg, .jpeg, .png"/>
   		<br>
-  		<button type="submit" class="btn btn-danger" style="background-color: #FFD1FF; border-color: #FFD1FF; color:white;" type="submit" onClick="usedGoodsUpdate()">등록</button>&nbsp;
-  		<button type="button" class="btn btn-outline-danger" style="background-color: #FFD1FF; border-color: #FFD1FF;" onclick="javascript:history.back()">취소</button>
+  		<button type="submit" class="btn btn-danger" style="background-color: #FFE593; border-color: #FFE593; color:white;" type="submit" onClick="usedGoodsUpdate()">등록</button>&nbsp;
+  		<button type="button" class="btn btn-outline-danger" style="background-color: #FFE593; border-color: #FFE593;" onclick="javascript:history.back()">취소</button>
 				</div>
 	</form>		
 		 
