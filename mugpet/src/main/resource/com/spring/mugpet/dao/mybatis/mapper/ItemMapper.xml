@@ -32,7 +32,7 @@
 		WHERE spe_id=#{spe_id} AND category_id=#{category_id}
 	</select>
 	
-	<select id="getFilterItemList" parameterType="java.util.HashMap" resultType="Item">
+	<sql id="filtering">
 		SELECT <include refid="filteringCols" />
 		FROM Item i JOIN Filter f ON i.item_id = f.item_id 
 		<where>
@@ -54,6 +54,16 @@
 				</foreach> 
 			</if>
 		</where>
+	</sql>
+	
+	<select id="getFilterItemList" parameterType="java.util.HashMap" resultType="Item">
+		<include refid="filtering" />
+	</select>
+	
+	<select id="orderByFiltering" parameterType="java.util.HashMap" resultType="Item">
+		SELECT <include refid="itemCols" />
+		FROM (<include refid="filtering" />)
+		ORDER BY ${stand} ${od}
 	</select>
 	
 	<select id="orderByItem" resultType="Item">
@@ -67,26 +77,4 @@
 		</where>
 		ORDER BY ${stand} ${od}
 	</select>
-	
-	<insert id="insertItem">
-		INSERT INTO Item (<include refid="itemCols" />)
-		VALUES (#{item_id}, #{category_id}, #{spe_id}, #{itemName}, #{price}, #{brand}, #{imageUrl})
-	</insert>
-	
-	<update id="updateItem">
-		UPDATE Item
-		SET category_id=#{category_id},
-		spe_id=#{spe_id}
-		itemName=#{ItemName},
-		price=#{price},
-		brand=#{brand},
-		imageUrl=#{imageUrl},
-		comments=#{comments},
-		WHERE item_id=#{item_id}
-	</update>
-		
-	<delete id="deleteItem">
-		DELETE FROM Item
-		WHERE item_id=#{item_id}
-	</delete>
 </mapper>

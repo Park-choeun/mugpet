@@ -21,6 +21,9 @@ public interface ItemMapper {
 	//필터링한 상품목록 가져오기
 	List<Item> getFilterItemList(Map<String, Object> param);
 	
+	//필터링한 상품 정렬하기
+	List<Item> orderByFiltering(Map<String, Object> param);
+	
 	//카테고리별 상품 정렬하기
 	List<Item> orderByItem(@Param("spe_id")int spe_id, @Param("category_id")int category_id, @Param("stand")String stand, @Param("od")String od);
 		

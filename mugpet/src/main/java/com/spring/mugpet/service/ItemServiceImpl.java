@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spring.mugpet.controller.item.FilterCommand;
 import com.spring.mugpet.dao.ItemDao;
 import com.spring.mugpet.domain.Item;
 
@@ -33,17 +32,17 @@ public class ItemServiceImpl implements ItemService {
 	
 	@Override
 	public List<Item> getFilterItemList(int spe_id, int category_id, String strAge, List<String> stuffs, List<String> features) {
-		Map<String, Object> param = new HashMap<String, Object>(5);
-		
-		int age = getAgeId(strAge);
-		
-		param.put("spe_id", spe_id);
-		param.put("category_id", category_id);
-		param.put("age", age);
-		param.put("stuffList", stuffs);
-		param.put("featureList", features);
-		
+		Map<String, Object> param = getFilterMap(spe_id, category_id, strAge, stuffs, features);
 		return itemDao.getFilterItemList(param);
+	}
+
+	@Override
+	public List<Item> orderByFiltering(int spe_id, int category_id, String strAge, List<String> stuffs,
+			List<String> features, String stand, String od) {
+		Map<String, Object> param = getFilterMap(spe_id, category_id, strAge, stuffs, features);
+		param.put("stand", stand);
+		param.put("od", od);
+		return itemDao.orderByFiltering(param);
 	}
 	
 	public List<Item> orderByItem(int spe_id, int category_id, String stand, String od) {
@@ -90,10 +89,18 @@ public class ItemServiceImpl implements ItemService {
 		return standard;
 	}
 	
-	public FilterCommand resetFilter(FilterCommand filtering) {
-		filtering.setAge(null);
-		filtering.setStuffs(null);
-		filtering.setFeatures(null);
-		return filtering;
-	}
+	 public Map<String, Object> getFilterMap(int spe_id, int category_id, String strAge, List<String> stuffs, List<String> features) {
+		 Map<String, Object> param = new HashMap<String, Object>(5);
+			
+		 int age = getAgeId(strAge);
+			
+		 param.put("spe_id", spe_id);
+		 param.put("category_id", category_id);
+		 param.put("age", age);
+		 param.put("stuffList", stuffs);
+		 param.put("featureList", features);
+			
+		 return param;
+	 }
+
 }

@@ -3,6 +3,7 @@ package com.spring.mugpet.controller.item;
 import java.util.List;
 
 public class FilterCommand {
+	
 	private String age;					//연령
 	private List<String> stuffs;		//주원료
 	private List<String> features;		//기능
