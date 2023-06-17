@@ -87,15 +87,6 @@ public class CommunityController {
 			System.out.println(">>>>>>>petName : " + petName);
 		}
 		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
-		
 		//댓글을 작성한 사용자 닉네임 가져오기
 		for(Reply reply : replyList) {
 			int rp_id = reply.getRp_id();
@@ -113,7 +104,8 @@ public class CommunityController {
 		model.addAttribute("rp_nicknameList", rp_nicknameList);
 		model.addAttribute("userSession", userSession);
 		model.addAttribute("petName", petName);
-		model.addAttribute("spe", spe);
+		model.addAttribute("spe", petService.getSpeName(spe_id));
+		model.addAttribute("spe_id", spe_id);
 		
 		
 		return "tiles/community/view";
@@ -146,15 +138,6 @@ public class CommunityController {
 			String nickname = memberService.getNickNameByU_Id(u_id);
 			nicknameList.add(nickname);
 		}
-	
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
 		
 		for(Community com : comList) {
 			System.out.println(com.getTitle());
@@ -163,8 +146,9 @@ public class CommunityController {
 		
 		model.addAttribute("comList", comList);
 		model.addAttribute("petName", petName);
-		model.addAttribute("spe", spe);
+		model.addAttribute("spe", petService.getSpeName(spe_id));
 		model.addAttribute("nicknameList", nicknameList);
+		model.addAttribute("spe_id", spe_id);
 		
 		return "tiles/community/communityList";
 	}
@@ -189,19 +173,11 @@ public class CommunityController {
 		
 		}
 		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
-		
 		model.addAttribute("myComList", myComList);
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("petName", petName);
-		model.addAttribute("spe", spe);
+		model.addAttribute("spe", petService.getSpeName(spe_id));
+		model.addAttribute("spe_id", spe_id);
 	
 		return "tiles/community/myCommunityList";
 	}

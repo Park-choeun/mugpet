@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.mugpet.domain.Community;
 import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.Pet;
 import com.spring.mugpet.domain.Reply;
@@ -84,15 +83,6 @@ public class UsedGoodsController {
 			System.out.println(">>>>>>>petName : " + petName);
 		}
 		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
-		
 		System.out.println("g_id: " + goods.getG_id());
 		System.out.println("userSession의 u_id: " + userSession.getU_id());
 		
@@ -102,7 +92,8 @@ public class UsedGoodsController {
 		model.addAttribute("rp_nicknameList", rp_nicknameList);
 		model.addAttribute("userSession", userSession);
 		model.addAttribute("petName", petName);
-		model.addAttribute("spe", spe);
+		model.addAttribute("spe", petService.getSpeName(spe_id));
+		model.addAttribute("spe_id", spe_id);
 		
 		return "tiles/usedGoods/view";
 	}
@@ -135,15 +126,6 @@ public class UsedGoodsController {
 			nicknameList.add(nickname);
 		}
 		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
-		
 		for(UsedGoods goods : goodsList) {
 			System.out.println(goods.getTitle());
 			System.out.println(goods.getG_id());
@@ -151,7 +133,8 @@ public class UsedGoodsController {
 		
 		model.addAttribute("goodsList", goodsList);
 		model.addAttribute("petName", petName);
-		model.addAttribute("spe", spe);
+		model.addAttribute("spe", petService.getSpeName(spe_id));
+		model.addAttribute("spe_id", spe_id);
 		model.addAttribute("nicknameList", nicknameList);
 		
 		return "tiles/usedGoods/usedGoodsList";
@@ -177,19 +160,11 @@ public class UsedGoodsController {
 		
 		}
 		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
-		
 		model.addAttribute("myGoodsList", myGoodsList);
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("petName", petName);
-		model.addAttribute("spe", spe);
+		model.addAttribute("spe", petService.getSpeName(spe_id));
+		model.addAttribute("spe_id", spe_id);
 		
 		return "tiles/usedGoods/myUsedGoodsList";
 	}
