@@ -43,7 +43,10 @@ td{
 	margin: 0 auto;
 	text-align: center;
 }
-
+.goToMainBtn:hover{
+	background: #FFD1FF;
+	color: #FFFFFF;
+}
 .bottom{
 	text-align:center;
 	margin: 0 auto;
