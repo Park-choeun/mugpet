@@ -8,6 +8,8 @@ public interface WishService {
 	
 	List<Item> getMyWishList(int u_id);
 	
+	List<Item> getMyWishListForMyHome(int u_id);
+	
 	int isWish(int u_id, int item_id);
 	
 	void insertWish(int item_id, int u_id);

@@ -25,4 +25,6 @@ public interface UsedGoodsMapper {
 	public int getU_IdByUsedGoods(int g_id);
 	
 	public void updateGoodsLikesCnt(@Param("g_id") int g_id, @Param("amount") int amount);
+
+	public int getUsedGoodsCntByU_id(int u_id);
 }

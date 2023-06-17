@@ -108,4 +108,9 @@ public class UsedGoodsServiceImpl implements UsedGoodsService{
 	public void updateGoodsLikesCnt(int g_id, int amount) {
 		usedgoodsDAO.updateGoodsLikesCnt(g_id, amount);
 	}
+
+	@Override
+	public int getUsedGoodsCntByU_id(int u_id) {
+		return usedgoodsDAO.getUsedGoodsCntByU_id(u_id);
+	}
 }

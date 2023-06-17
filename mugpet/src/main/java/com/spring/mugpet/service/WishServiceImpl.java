@@ -48,4 +48,9 @@ public class WishServiceImpl implements WishService {
 		}
 	}
 
+	@Override
+	public List<Item> getMyWishListForMyHome(int u_id) {
+		return wishDao.getMyWishListForMyHome(u_id);
+	}
+
 }

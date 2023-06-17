@@ -27,11 +27,15 @@ public interface OrderItemMapper {
 	//주문 목록에 상품 추가하기	
 	void insertOrderItem(OrderItem orderItem);
 	
+
+	int getOrderItemCnt(int u_id);
+
+	OrderItem isCheckOrderItem(int u_id, int item_id);
 //	//주문 목록에 상품 수정하기
 //	void updateOrderItem(OrderItem orderItem);
 //	
 	//주문 목록 삭제하기
 	void deleteOrderItem(@Param("u_id")int u_id, @Param("orderTime")String orderTime);
-	
+
 
 }

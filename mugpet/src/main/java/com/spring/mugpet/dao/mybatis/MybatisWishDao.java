@@ -35,5 +35,10 @@ public class MybatisWishDao implements WishDao{
 	public void deleteWish(int item_id, int u_id) throws DataAccessException {
 		wishMapper.deleteWish(item_id, u_id);
 	}
+
+	@Override
+	public List<Item> getMyWishListForMyHome(int u_id) throws DataAccessException {
+		return wishMapper.getMyWishListForMyHome(u_id);
+	}
 	
 }

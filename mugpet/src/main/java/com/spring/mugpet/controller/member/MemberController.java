@@ -40,7 +40,8 @@ public class MemberController {
 		MemberInfo userSession = (MemberInfo) session.getAttribute("userSession");
 		System.out.println(userSession + "," + userSession.getU_id() +"," + userSession.getName());
 		model.put("item_id", item_id);
-		return "member/loginForm";
+		return "tile/member/loginForm";
+
 	}
 	
 	

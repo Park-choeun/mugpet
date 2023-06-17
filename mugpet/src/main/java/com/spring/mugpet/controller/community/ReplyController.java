@@ -75,8 +75,9 @@ public class ReplyController {
 	@RequestMapping("/myPage/replyList")
 	public String getMyReplyList(@ModelAttribute("userSession") MemberInfo userSession, Model model){
 		int u_id = userSession.getU_id();
-		replyService.getMyReplyList(u_id);
+		List<Reply> replyList = replyService.getMyReplyList(u_id);
+		model.addAttribute("replyList",replyList);
 		
-		return "/myPage/replyList";
+		return "/myPage/myReplyList";
 	}
 }

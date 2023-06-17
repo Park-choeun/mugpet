@@ -5,7 +5,7 @@
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 
 <div class="content">
-	<br/><h5>결제 완료</h5><br/>
+	<h5>결제 완료</h5>
 	<hr>
 	<div>
 		<table>
@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<td colspan="1" class="separate title">주문 상품</td>
-				<td colspan="3" class="separate">종류: ${orderQty}개</td>
+				<td colspan="3" class="separate">상품 개수: ${orderQty}개</td>
 			</tr>
 			<c:forEach var="item" items="${orderItemsInfo}" varStatus="status"> 
 				<tr>
@@ -48,7 +48,7 @@
 						개수: ${orderItemQtyList[status.index]}개
 					</td>
 					<td>
-						가격:<fmt:formatNumber value="${orderItemsPrice[status.index]}" pattern="#,###"/>원
+						가격: <fmt:formatNumber value="${orderItemsPrice[status.index]}" pattern="#,###"/>원
 					</td>
 				</tr>
 			</c:forEach>

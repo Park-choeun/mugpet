@@ -14,7 +14,7 @@ public interface ItemMapper {
 	
 	//상품 전체목록 가져오기(펫 종에 따라 default 필터링)
 	List<Item> getALLItemList(@Param("spe_id") int spe_id);
-		
+	
 	//각 카테고리에 해당하는 상품목록가져오기
 	List<Item> getItemList(@Param("spe_id") int spe_id, @Param("category_id") int category_id);
 	
@@ -35,4 +35,6 @@ public interface ItemMapper {
 		
 	//상품 삭제하기
 	void deleteItem(int item_id);
+	
+	
 }

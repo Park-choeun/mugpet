@@ -24,7 +24,7 @@
 		SELECT <include refid="itemCols" />
 		FROM Item
 		WHERE spe_id=#{spe_id}
-	</select>
+	</select>	
 	
 	<select id="getItemList" parameterType="int" resultType="Item">
 		SELECT <include refid="itemCols" />

@@ -29,4 +29,9 @@ public interface OrderItemService {
 	
 	
 	
+	//member 의 모든 주문 아이템 개수 가져오기
+	int getOrderItemCnt(int u_id);
+	
+	//member가 주문한 아이템인지 확인하는 메소드
+	boolean isCheckOrderItem(int u_id,int item_id);
 }
