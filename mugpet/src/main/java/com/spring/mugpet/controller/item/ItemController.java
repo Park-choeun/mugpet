@@ -76,14 +76,13 @@ public class ItemController {
 	public ModelAndView viewItme(@ModelAttribute("userSession") MemberInfo userSession, 
 									@RequestParam("item_id") int item_id) {
 		
-		int u_id = 0;
+		//비로그인 상태이면 wish=0
+		int isWish = 0; 
 		if(userSession.getU_id() != 0) {
-			u_id = userSession.getU_id();
+			//wish에 해당 아이템이 있으면 1 반환, 없으면 0 반환
+			isWish = wishService.isWish(userSession.getU_id(), item_id);
 		}
 		Item item = itemService.getItem(item_id);
-		
-		//wish에 해당 아이템이 있으면 1 반환, 없으면 0 반환
-		int isWish = wishService.isWish(u_id, item_id);
 		
 		ModelAndView mav = viewItemListByCategory(userSession, item.getSpe_id(), item.getCategory_id());
 		mav.setViewName("tiles/item/itemDetail");
@@ -107,6 +106,18 @@ public class ItemController {
 		ModelAndView mav = viewItemListByCategory(userSession, spe_id, category_id);
 		mav.addObject("itemList", itemList);
 		mav.addObject("standard", itemService.getOrderByName(stand, od));
+		
+		return mav;
+	}
+	
+	
+	//itemDetail에서 장바구니 or 구매하기 클릭 시 개수 선택 창
+	@RequestMapping("/choiceQty")
+	public ModelAndView choiceItemQty(@ModelAttribute("userSession") MemberInfo userSession,
+										@RequestParam("item_id") int item_id) {
+		
+		ModelAndView mav = viewItme(userSession, item_id);
+		mav.setViewName("/item/choiceQty");
 		
 		return mav;
 	}

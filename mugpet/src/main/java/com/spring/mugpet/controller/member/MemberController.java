@@ -6,12 +6,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.mugpet.controller.item.ItemController;
 import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.service.MemberService;
 
@@ -27,13 +29,19 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	
-
+	@Autowired
+	private ItemController itemController;
+	public void setItemController(ItemController itemController) {
+		this.itemController = itemController;
+	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login(HttpSession session) {
+	public String login(HttpSession session, @RequestParam(value="item_id", defaultValue="0")int item_id, ModelMap model) {
 		MemberInfo userSession = (MemberInfo) session.getAttribute("userSession");
 		System.out.println(userSession + "," + userSession.getU_id() +"," + userSession.getName());
+		model.put("item_id", item_id);
 		return "tile/member/loginForm";
+
 	}
 	
 	
@@ -42,20 +50,27 @@ public class MemberController {
 						@RequestParam("email") String email,
 						@RequestParam("pwd") String pwd,
 						@RequestParam(value="forwardAction", required=false) String forwardAction,
+						@RequestParam(value="item_id") int item_id,
 						Model model) throws Exception {
+		
 		MemberInfo userSession = memberService.getMemberInfoByEmailandPwd(email,pwd);
 		model.addAttribute("userSession", userSession);
+		
 		if(userSession==null) {
 			return new ModelAndView("error", "message", 
 					"Invalid username or password.  Signon failed.");
 		}
 		else {
-			
 			if(forwardAction != null) {
 				return new ModelAndView("redirect:" + forwardAction);
 			}
 			else {
-				return new ModelAndView("redirect:/main");
+				if (item_id != 0) {
+					ModelAndView mav = itemController.viewItme(userSession, item_id);
+					return mav;
+				} else {
+					return new ModelAndView("redirect:/main");
+				}
 			}
 		}
 	}

@@ -55,12 +55,12 @@ public class MyPageController {
 		this.wishService = wishService;
 	}
 	
-	@RequestMapping(value="/myOrderList" , method=RequestMethod.GET)
-	public String myOrderList() throws Exception {
-			
-		return "/mypage/myOrderList";
-	
-	}
+//	@RequestMapping(value="/myOrderList" , method=RequestMethod.GET)
+//	public String myOrderList() throws Exception {
+//			
+//		return "/mypage/myOrderList";
+//	
+//	}
 	
 	
 	
