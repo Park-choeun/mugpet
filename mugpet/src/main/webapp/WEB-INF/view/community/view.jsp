@@ -28,7 +28,7 @@
 <div style="padding: 10px;">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	
-	<h4 class="card-title" id="text1">&nbsp;${community.title }</h4>
+	<h4 class="card-title" id="text1" style="font-weight: bold;">&nbsp;${community.title }</h4>
 	
 	<hr style="color:#BDBDBD; size: 2px;">
 	
@@ -55,7 +55,7 @@
    		<img style="height: 400px; width: 400px;" src="<c:url value='/upload/${community.imageUrl }'/>" class="card-img-bottom" alt=""><br>
 	</c:if>
 	<br>
-	<small class="text-muted">&nbsp;<fmt:formatDate value="${community.enrollDt }" pattern="yyyy-MM-dd hh:mm:ss" />에 올라옴</small>
+	<small class="text-muted">&nbsp;<fmt:formatDate value="${community.enrollDt }" pattern="yyyy-MM-dd" /> 에 올라옴</small>
 	
 	<hr style="color: #BDBDBD; size: 2px;">
 	<br>
@@ -127,7 +127,7 @@
                                 <span class="text-muted pull-right">
                                     <strong class="text-success"> ${rp_nicknameList[status.index] }</strong>
                                 </span>
-                                <small class="text-muted"><fmt:formatDate value="${reply.enrollDt }" pattern="yyyy-MM-dd hh:mm:ss" /></small>
+                                <small class="text-muted"><fmt:formatDate value="${reply.enrollDt }" pattern="yyyy-MM-dd" /></small>
                                 
                                 <!-- 댓글 삭제버튼 -->
 								<c:if test="${userSession.u_id eq reply.u_id }">

@@ -23,6 +23,7 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/community/replyInsert")
 	public String comSubmit(NewReplyCommand replyCommand, @ModelAttribute("userSession") MemberInfo userSession) {
+		//비로그인 상태시, 로그인 폼으로 이동
 		if(userSession.getU_id() == 0) {
 			return "/member/loginForm";
 		}
@@ -35,11 +36,13 @@ public class ReplyController {
 		replyCommand.setU_id(userSession.getU_id());
 		replyService.insertComReply(replyCommand);
 		
+		//기존 view로 이동
 		return "redirect:/community/view?com_id=" + replyCommand.getCom_id();
 	}
 	
 	@RequestMapping(value = "/usedGoods/replyInsert")
 	public String goodsSubmit(NewReplyCommand replyCommand, @ModelAttribute("userSession") MemberInfo userSession) {
+		//비로그인 상태시, 로그인 폼으로 이동
 		if(userSession.getU_id() == 0) {
 			return "/member/loginForm";
 		}
@@ -52,6 +55,7 @@ public class ReplyController {
 		replyCommand.setU_id(userSession.getU_id());
 		replyService.insertGoodsReply(replyCommand);
 		
+		//기존 view로 이동
 		return "redirect:/usedGoods/view?g_id=" + replyCommand.getG_id();
 	}
 	
@@ -60,6 +64,7 @@ public class ReplyController {
 		//댓글 삭제
 		replyService.deleteComReply(rp_id, com_id);
 		
+		//기존 view로 이동
 		return "redirect:/community/view?com_id=" + com_id;
 	}
 	
@@ -68,15 +73,7 @@ public class ReplyController {
 		//댓글 삭제
 		replyService.deleteGoodsReply(rp_id, g_id);
 		
+		//기존 view로 이동
 		return "redirect:/usedGoods/view?g_id=" + g_id;
-	}
-	
-	//u_id로 받나? userSession?
-	@RequestMapping("/myPage/replyList")
-	public String getMyReplyList(@ModelAttribute("userSession") MemberInfo userSession, Model model){
-		int u_id = userSession.getU_id();
-		replyService.getMyReplyList(u_id);
-		
-		return "/myPage/replyList";
 	}
 }
