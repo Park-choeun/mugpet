@@ -29,5 +29,7 @@ public interface CartDao {
 
 	//Cart 목록에 item 삭제하기
 	void removeCart(int item_id) throws DataAccessException; 	
-	//주석
+	
+	//Cart 목록의 모든 아이템 삭제하기
+	void removeCartAll(int u_id) throws DataAccessException;
 }

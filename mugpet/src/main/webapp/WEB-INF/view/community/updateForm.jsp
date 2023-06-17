@@ -20,7 +20,7 @@ function communityUpdate() {
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
  <div style=" width: 70%; padding: 30px; float: right;">
-	<form name="write" method="post" action="<c:url value='/community/update' />" enctype="multipart/form-data">
+	<form name="write" method="post" action="<c:url value='/community/update' />">
           <input type="hidden" value="${community.com_id }" name="com_id">
 				<div class="input-group mb-3" style="width: 90%;">
   					<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
@@ -29,14 +29,14 @@ function communityUpdate() {
                	<div class="mb-3">
                	<div class="input-group" style="width: 90%;">
   					<span class="input-group-text">본문</span>
- 					<textarea name="content" class="form-control" rows="6" aria-label="With textarea" name="">
+ 					<textarea name="postContent" class="form-control" rows="6" aria-label="With textarea" name="">
  					${community.content }
  					</textarea>
 				</div>
 				<br>
-  			  <input name="imgFile" class="form-control form-control-sm" type="file" style="width: 90%;" multiple="multiple" accept=".jpg, .jpeg, .png"/>
+  		<input class="form-control form-control-sm" id="formFileSm" type="file" style="width: 90%;">
   		<br>
-  		<button type="submit" class="btn btn-danger" style="background-color: #FFD1FF; border-color: #FFD1FF; color:white;" type="submit" onClick="CommunityUpdate()">등록</button>&nbsp;
+  		<button type="button" class="btn btn-danger" style="background-color: #FFD1FF; border-color: #FFD1FF; color:white;" type="submit" onClick="CommunityUpdate()">등록</button>&nbsp;
   		<button type="button" class="btn btn-outline-danger" style="background-color: #FFD1FF; border-color: #FFD1FF;" onclick="javascript:history.back()">취소</button>
 				</div>
 	</form>		

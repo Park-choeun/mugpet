@@ -37,7 +37,7 @@ public class MybatisReplyDao implements ReplyDao{
 	@Override
 	public void insertComReply(NewReplyCommand replyCommand) throws DataAccessException{
 		//댓글 작성
-		//comMapper.updateReplyCnt(replyCommand.getCom_id(), 1);
+		comMapper.updateReplyCnt(replyCommand.getCom_id(), 1);
 		replyMapper.insertComReply(replyCommand);
 	}
 	
@@ -52,7 +52,7 @@ public class MybatisReplyDao implements ReplyDao{
 	@Transactional
 	public void deleteComReply(int rp_id, int com_id) throws DataAccessException{
 		//댓글 삭제
-		//comMapper.updateReplyCnt(com_id, -1);
+		comMapper.updateReplyCnt(com_id, -1);
 		replyMapper.deleteComReply(rp_id, com_id);
 	}
 
@@ -60,33 +60,5 @@ public class MybatisReplyDao implements ReplyDao{
 	public void deleteGoodsReply(int rp_id, int g_id) throws DataAccessException{
 		//댓글 삭제
 		replyMapper.deleteGoodsReply(rp_id, g_id);
-	}
-	
-	@Override
-	public void deleteComAllReply(int com_id) throws DataAccessException {
-		//전체 댓글 삭제
-		replyMapper.deleteComAllReply(com_id);
-	}
-
-	@Override
-	public void deleteGoodsAllReply(int g_id) throws DataAccessException {
-		//전체 댓글 삭제
-		replyMapper.deleteGoodsAllReply(g_id);
-	}
-
-	@Override
-	public int getU_IdByCommunityReply(int com_id, int rp_id) throws DataAccessException {
-		return replyMapper.getU_IdByCommunityReply(com_id, rp_id);
-	}
-
-	@Override
-	public int getU_IdByUsedGoodsReply(int g_id, int rp_id) throws DataAccessException {
-		return replyMapper.getU_IdByUsedGoodsReply(g_id, rp_id);
-	}
-
-	@Override
-	public List<Reply> getMyReplyList(int u_id) throws DataAccessException {
-		//내가 쓴 댓글 목록
-		return replyMapper.getMyReplyList(u_id);
 	}
 }

@@ -10,7 +10,7 @@ public class NewCommunityCommand {
 	private String title;
 	private String content;
 	private Date enrollDt;
-	private int likes;
+	private int likse;
 	private int replyCnt;
 	private int u_id;
 
@@ -54,12 +54,12 @@ public class NewCommunityCommand {
 		this.enrollDt = enrollDt;
 	}
 
-	public int getLikes() {
-		return likes;
+	public int getLikse() {
+		return likse;
 	}
 
-	public void setLikes(int likes) {
-		this.likes = likes;
+	public void setLikse(int likse) {
+		this.likse = likse;
 	}
 
 	public int getReplyCnt() {

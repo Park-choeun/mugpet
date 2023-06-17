@@ -24,7 +24,5 @@ public interface CommunityDao {
 	public void updateReplyCnt(int com_id, int amount);
 	
 	public int getU_IdByCommunity(int com_id);
-	
-	public void updateComLikesCnt(int com_id, int amount);
 }
 

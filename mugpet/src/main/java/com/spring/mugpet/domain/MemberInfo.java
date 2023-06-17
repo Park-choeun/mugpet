@@ -1,6 +1,8 @@
 package com.spring.mugpet.domain;
 
-public class MemberInfo {
+import java.io.Serializable;
+
+public class MemberInfo implements Serializable {
 	private int u_id;			//primary key(userId)
 	private String nickname;	//닉네임
 	private String name;		//이름
@@ -9,7 +11,7 @@ public class MemberInfo {
 	private String phoneNum;	//전화번호
 	private String address;		//주소
 	private String imageUrl;	//이미지 경로
-	private int point;			//적립포인트
+	private int point;			//적립포인트		//본인이 소유한 펫
 
 	
 	public MemberInfo() {}

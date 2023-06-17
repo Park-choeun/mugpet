@@ -14,6 +14,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css" />
 <link rel="stylesheet" href="${contextPath}<tiles:getAsString name='dynamic_css'/>"/>
+
 </head>
 <body>
 	<tiles:insertAttribute name="header"/>
