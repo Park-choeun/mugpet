@@ -32,7 +32,7 @@
 		<td id="qtyBox">
 			<div id="qtyBtns" class="input-group mb-3">
   				<button type="button" id="minus" onclick="updateQty(-1, ${item.price})" class="btn btn-outline-secondary" >-</button>
-  				<input type="text" id="itemQty" class="form-control" value="1" />
+  				<input type="text" id="itemQty" class="form-control" value="1" readonly/>
   				<button type="button" id="plus" onclick="updateQty(1, ${item.price})" class="btn btn-outline-secondary" >+</button>
 			</div>
 		</td>
