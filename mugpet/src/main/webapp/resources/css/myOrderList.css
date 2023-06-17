@@ -1,14 +1,15 @@
 .content{
- 	/* display: inline-block; */
-	/* width:100%; */	/*padding값 고려해서 %추가*/
 	padding-top:30px;
 	padding-left:50px;
+	margin: 0 auto;
 } 
 table{
+	width: 500px;
 	margin: 0 auto;
+	margin-top: 70px;
+	margin-bottom: 100px;
 	text-align: center;
 	border: 1px solid black;
-	margin: 50px;
 }
 
 tr{
@@ -17,5 +18,15 @@ tr{
 }
 td{
 	width: 500px;
+	padding: 10px 10px;
 	border: 1px solid black;
+}
+.separate{
+	background-color:#FDFCE4;
+	font-size: 15px;
+	padding: 20px 20px;
+}
+
+.title{
+	font-weight: bold;
 }

@@ -38,6 +38,14 @@
 	color: #FFFFFF;
 	text-align:center;
 }
+.updateBtn:hover{
+	background: #FFD1FF;
+	color: #FFFFFF;
+}
+.orderBtn:hover{
+	background: #FFD1FF;
+	color: #FFFFFF;
+}
 table{
 	width: 100%;
 }

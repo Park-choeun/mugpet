@@ -10,31 +10,31 @@
 	<div>
 		<table>
 			<tr>
-				<td colspan="4" class="message">결제가 완료되었습니다. 감사합니다.</td>
+				<td colspan="4" class="separate message">결제가 완료되었습니다. 감사합니다.</td>
 			</tr>
 			<tr>
-				<td colspan="2">주문일자</td>
+				<td colspan="2" class="title">주문일자</td>
 				<td colspan="2">${currentTime}</td>
 			</tr>
 			<tr>
-				<td colspan="2">주문자</td>
+				<td colspan="2" class="title">주문자</td>
 				<td colspan="2">${memberInfo.name}</td>
 			</tr>
 			<tr>
-				<td colspan="2">전화번호</td>
+				<td colspan="2" class="title">전화번호</td>
 				<td colspan="2">${memberInfo.phoneNum}</td>
 			</tr>
 			<tr>
-				<td colspan="2">배송지</td>
+				<td colspan="2" class="title">배송지</td>
 				<td colspan="2">${address}</td>
 			</tr>
 			<tr>
-				<td colspan="2">배송 요청사항</td>
+				<td colspan="2" class="title">배송 요청사항</td>
 				<td colspan="2">${req}</td>
 			</tr>
 			<tr>
-				<td colspan="2">주문 상품</td>
-				<td colspan="2">총 종류: ${orderQty}개</td>
+				<td colspan="1" class="separate title">주문 상품</td>
+				<td colspan="3" class="separate">종류: ${orderQty}개</td>
 			</tr>
 			<c:forEach var="item" items="${orderItemsInfo}" varStatus="status"> 
 				<tr>
@@ -53,8 +53,8 @@
 				</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="1">결제 금액</td>
-				<td colspan="3"><fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원 (적립금 적용: ${applyPoints}원)</td>
+				<td colspan="1" class="separate title">결제 금액</td>
+				<td colspan="3" class="separate"><fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원 (적립금 적용 : <fmt:formatNumber value="${applyPoints}" pattern="#,###"/>원)</td>
 			</tr>
 		</table>
 		<div class="bottom">

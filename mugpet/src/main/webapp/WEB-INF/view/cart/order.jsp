@@ -56,7 +56,7 @@
 		</table>
 		<br/>		
 		<p class="semiTitle">적립금 적용</p>
-			<input type="text" name="point" placeholder=" 직접 입력" class="userInfo" value="${applyPoints}" style="width:200px"/>
+			<input type="text" name="point" placeholder="직접 입력" class="userInfo" value="${applyPoints}" style="width:200px"/>
 				<button type="submit" formaction="order" name="apply" style="margin-Left:30px" class="btn btn-light order updateBtn">적용</button>
 			<span class="userInfo detail">총 적립금: <fmt:formatNumber value="${memberInfo.point}" pattern="#,###"/>원</span> <%-- memberService에서 전달받아 사용 --%>
 			<br/>

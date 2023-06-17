@@ -66,10 +66,16 @@ public class OrderItemController {//mypage에서 연결되는 것들은 어떻�
 		}
 		ModelAndView mav = new ModelAndView("tiles/myPage/myOrderList");
 		MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd(userSession.getEmail(), userSession.getPwd());
-		
 		Map<String, Object> orderItemsInfoList = new LinkedHashMap<String, Object>();
-		
 		List<String> orderTimeList = orderItemService.getAllOrderTimeList(userSession.getU_id()); //u_id가 가진 시간을 가져와
+		if(orderTimeList.size() == 0) {
+			mav = new ModelAndView("tiles/myPage/noItemOrder");
+			mav.addObject("spe_id", spe_id);
+			mav.addObject("spe", spe);
+			mav.addObject("petName", petName);
+			
+			return mav;
+		}
 		List<Integer> itemsSize = new ArrayList<>();
 		int totalPrice = 0;
 		List<Integer> orderItemsPrice = new ArrayList<Integer>();

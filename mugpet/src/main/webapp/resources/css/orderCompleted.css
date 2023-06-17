@@ -4,29 +4,35 @@
 	margin: 0 auto;
 } 
 table{
-	width: 800px;
+	width: 700px;
 	margin: 0 auto;
-	margin-top: 50px;
+	margin-top: 70px;
 	margin-bottom: 70px;
 	text-align: center;
 	border: 1px solid black;
 }
 
 tr{
-	width: 500px;
 	border: 1px solid black;
 }
 td{
 	width: 500px;
-	padding: 20px 10px;
+	padding: 10px 10px;
 	border: 1px solid black;
 }
-.message{
+.separate{
 	background-color:#FDFCE4;
-	font-size: 18px;
+	font-size: 15px;
 	padding: 30px 30px;
 }
 
+.title{
+	font-weight: bold;
+}
+.message{
+	font-weight: bold;
+	font-size: 18px;
+}
 .goToMainBtn{
 	width: 200px;
 	height: 70px;

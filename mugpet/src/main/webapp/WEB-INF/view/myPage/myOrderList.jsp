@@ -10,28 +10,27 @@
 		<c:forEach var="map" items="${orderItemsInfoList}" varStatus="status"> 
 			<table>
 			<tr>
-				<td colspan="2">주문일자</td>
-				<td colspan="2">${map.key}</td>
+				<td colspan="4" class="separate title">주문일자 ${map.key}</td>
 			</tr>
 			<tr>
-				<td colspan="2">주문자</td>
+				<td colspan="2" class="title">주문자</td>
 				<td colspan="2">${memberInfo.name}</td>
 			</tr>
 			<tr>
-				<td colspan="2">전화번호</td>
+				<td colspan="2" class="title">전화번호</td>
 				<td colspan="2">${memberInfo.phoneNum}</td>
 			</tr>
 				<tr>
-					<td colspan="2">배송지</td>
+					<td colspan="2" class="title">배송지</td>
 					<td colspan="2">${map.value[status.index].orderAddr}</td>
 				</tr>
 				<tr>
-					<td colspan="2">배송 요청사항</td>
+					<td colspan="2" class="title">배송 요청사항</td>
 					<td colspan="2">${map.value[status.index].req}</td>
 				</tr>
 				<tr>
-					<td colspan="1">주문 상품</td>
-					<td colspan="3">총 종류: ${itemsSize[status.index]}개</td>
+					<td colspan="1" class="separate title">주문 상품</td>
+					<td colspan="3" class="separate">종류: ${itemsSize[status.index]}개</td>
 				</tr>
 					<c:forEach var="row" items="${map.value}" varStatus="rowStatus">
 						<tr>
@@ -43,8 +42,8 @@
 						</tr>
 					</c:forEach>
 					<tr>
-						<td colspan="1">결제 금액</td>
-						<td colspan="3">
+						<td colspan="1" class="separate title">결제 금액</td>
+						<td colspan="3" class="separate">
 							<fmt:formatNumber value="${orderItemsPrice[status.index] - map.value[status.index].applyPoints}" pattern="#,###"/>원 
 							(적립금 적용 : <fmt:formatNumber value="${map.value[status.index].applyPoints}" pattern="#,###"/>원) 
 						</td>
