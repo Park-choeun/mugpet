@@ -106,7 +106,7 @@ public class ItemController {
 		ModelAndView mav = viewItemListByCategory(userSession, spe_id, category_id);
 		mav.addObject("itemList", itemList);
 		mav.addObject("standard", itemService.getOrderByName(stand, od));
-		
+		//잉
 		return mav;
 	}
 	
