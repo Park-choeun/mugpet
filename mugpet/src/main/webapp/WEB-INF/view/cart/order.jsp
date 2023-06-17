@@ -14,6 +14,15 @@
 			return false;
 		}
 	}
+	
+	function goLocation() {
+	      var point = document.getElementsByName("point").value;
+	      if(point == ""){
+	    	  alert("비어 있음");
+	    	  location.href = contextPath + "/cart/ordering?point=0";
+	      }
+	    	  
+	  }
 </script>
 <!------------------------주문 결제 창-------------------->  
 <form name="orderForm" action='<c:url value="/cart/ordering"/>' method="post" >
@@ -77,7 +86,7 @@
 		<br/>
 		<br/>
 		<input type="checkbox" name="allowPermission"/>주문상품 및 결제대행 이용약관에 모두 동의합니다.<br/><br/>
-		<button class="btnSubmit btn btn-light order orderBtn" onclick="check()">결제하기</button>
+		<button class="btnSubmit btn btn-light order orderBtn" onclick="javascript:check() goLocation()">결제하기</button>
 	</form>
 		<br/><br/>
 </div>

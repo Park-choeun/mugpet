@@ -17,10 +17,16 @@ public interface CommunityService {
 	
 	public void insertCom(NewCommunityCommand comCommand, MultipartFile file) throws Exception;
 	
-	public void updateCom(NewCommunityCommand comCommand);
+	public void insertComWithoutImgFile(NewCommunityCommand comCommand);
+	
+	public void updateCom(NewCommunityCommand comCommand, MultipartFile file) throws Exception;
+	
+	public void updateComWithoutImgFile(NewCommunityCommand comCommand);
 	
 	public void deleteCom(int com_id);
 	
 	public int getU_IdByCommunity(int com_id);
+	
+	public void updateComLikesCnt(int com_id, int amount);
 }
 

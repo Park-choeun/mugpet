@@ -20,10 +20,24 @@
 			</c:otherwise>
 		</c:choose>
 		</div>
-		</div>
+	</div>
 	<div id="search">
-		<a href="javascript:void(window.open('${contextPath}/item/filter?spe_id=${spe_id}', '_blank', 'width=500, height=650, left=530, top=50'))">
-			<input type="button" value="필터링" class="btn btn-primary btn-sm" id="searchBtn" />
-		</a>
+		<c:choose>
+			<c:when test="${(spe_id eq 1 || spe_id eq 2) && (category_id eq 0 || category_id eq 1 || category_id eq 2)}">
+				<c:choose>
+					<c:when test="${filterTmp eq '1'}">
+						<a href="javascript:void(window.open('${contextPath}/item/filter?spe_id=${spe_id}&category_id=${category_id}', '_blank', 'width=500, height=600, left=530, top=50'))">
+							<input type="button" value="필터링" class="btn btn-primary btn-sm" id="searchBtn"/>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<div id="hiddenBox">필터링불가</div>
+					</c:otherwise>
+				</c:choose>
+			</c:when>
+			<c:otherwise>
+				<div id="hiddenBox">필터링불가</div>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>

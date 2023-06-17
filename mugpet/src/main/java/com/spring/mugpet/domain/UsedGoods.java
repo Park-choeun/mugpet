@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class UsedGoods {
 	private int g_id;				//primary key
-	private int imageUrl;			//이미지 경로
+	private String imageUrl;			//이미지 경로
 	private String title;			//제목
 	private String content;			//내용
 	private Date enrollDt;			//작성시간
@@ -15,7 +15,7 @@ public class UsedGoods {
 	
 	public UsedGoods() {}
 	
-	public UsedGoods(int g_id, int imageUrl, String title, String content, Date enrollDt, int price, int likes,
+	public UsedGoods(int g_id, String imageUrl, String title, String content, Date enrollDt, int price, int likes,
 			int replyCnt, int u_id) {
 		this.g_id = g_id;
 		this.imageUrl = imageUrl;
@@ -36,11 +36,11 @@ public class UsedGoods {
 		this.g_id = g_id;
 	}
 
-	public int getImageUrl() {
+	public String getImageUrl() {
 		return imageUrl;
 	}
 
-	public void setImageUrl(int imageUrl) {
+	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 

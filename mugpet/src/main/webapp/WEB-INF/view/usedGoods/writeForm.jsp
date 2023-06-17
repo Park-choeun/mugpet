@@ -11,7 +11,7 @@
 
 <script>
 
-function communityCreate() {
+function usedGoodsCreate() {
 	write.submit();
 }
 
@@ -25,16 +25,20 @@ function communityCreate() {
 	color: gray;
 }
 </style> 
-<title>mugpet</title>
+<title>Mugpet</title>
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
  <div style="width: 70%; padding: 30px; float: right;">
-		    <form name="write" action="<c:url value='/community/write' />" enctype="multipart/form-data" method="post">
+		    <form name="write" action="<c:url value='/usedGoods/write' />" enctype="multipart/form-data" method="post">
 					<div class="input-group mb-3" style="width: 90%;">
   						<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
  	 					<input name="title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-					</div>                	                	
+					</div>
+					<div class="input-group mb-3" style="width: 45%; float: left; padding: 0px 5px 0px 0px;">
+  						<span class="input-group-text" id="inputGroup-sizing-default">가격</span>
+ 	 					<input name="price" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+ 	 				</div>                	                	
                 	<div class="mb-3">
                 	<div class="input-group" style="width: 90%;">
   						<span class="input-group-text">본문</span>
@@ -43,7 +47,7 @@ function communityCreate() {
 					<br>
     <input name="imgFile" class="form-control form-control-sm" type="file" style="width: 90%;" multiple="multiple" accept=".jpg, .jpeg, .png"/>
   <br>
-  <button type="submit" class="btn btn-danger" style="background-color: #FFD1FF; border-color: #FFD1FF; color:white;" type="submit" onClick="communityCreate()">등록</button>&nbsp;
+  <button type="submit" class="btn btn-danger" style="background-color: #FFD1FF; border-color: #FFD1FF; color:white;" type="submit" onClick="usedGoodsCreate()">등록</button>&nbsp;
   <button type="button" class="btn btn-outline-danger" style="background-color: #FFD1FF; border-color: #FFD1FF;" onclick="javascript:history.back()">취소</button>
 </div>
                 	</form>

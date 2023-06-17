@@ -7,19 +7,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import com.spring.mugpet.domain.Item;
 import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.Pet;
 import com.spring.mugpet.service.ItemService;
-import com.spring.mugpet.service.MemberService;
 import com.spring.mugpet.service.PetService;
 
 @Controller
@@ -44,16 +43,14 @@ public class MainController {
 		if (userSession == null) {
 			return new MemberInfo();
 		}
-		
 		return userSession;
 	}
 
 	//main view
 	@RequestMapping(value="/main", method=RequestMethod.GET)
-	public String viewMain(@ModelAttribute("userSession") MemberInfo userSession,
-							ModelMap model) throws Exception{
-		
-		int spe_id = 1;
+	public ModelAndView viewMain(@ModelAttribute("userSession") MemberInfo userSession,
+								@RequestParam(value="spe_id", defaultValue="1") int spe_id) {
+	
 		String petName = null;
 		if(userSession.getU_id() != 0) {
 			Pet pet = petService.getPetByU_id(userSession.getU_id());
@@ -61,109 +58,60 @@ public class MainController {
 			petName = pet.getName();
 		}
 		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
-		
 		List<Item> itemList = new ArrayList<Item>();
 		itemList = itemService.getALLItemList(spe_id);	
 		
-		model.put("itemList", itemList);
-		model.put("spe_id", spe_id);
-		model.put("spe", spe);
-		model.put("standard", "기본순");
-		model.put("petName", petName);
-		model.put("userSession",userSession);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("tiles/main");
 		
-		return "tiles/main";
+		mav.addObject("itemList", itemList);
+		mav.addObject("spe_id", spe_id);
+		mav.addObject("filterTmp", "1");
+		mav.addObject("category_id", 0);
+		mav.addObject("spe", petService.getSpeName(spe_id));
+		mav.addObject("standard", "기본순");
+		mav.addObject("petName", petName);
+		mav.addObject("userSession", userSession);
+		
+		return mav;
 	}
 	
-	//종 선택 시 아이템 변경
+	
+	//종 선택 시 아이템 변경(session의 spe_id와는 무관하게)
 	@RequestMapping(value="/main/speId", method=RequestMethod.GET)
-	public String viewSpeMain(@ModelAttribute("userSession") MemberInfo userSession,
-								@RequestParam("spe_id") int spe_id,
-								ModelMap model) throws Exception{
-		
-		String petName = null;
-		if(userSession.getU_id() != 0) {
-			Pet pet = petService.getPetByU_id(userSession.getU_id());
-			petName = pet.getName();
-		}
-		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
+	public ModelAndView viewSpeMain(@ModelAttribute("userSession") MemberInfo userSession,
+								@RequestParam("spe_id") int spe_id) {
 		
 		List<Item> itemList = new ArrayList<Item>();
 		itemList = itemService.getALLItemList(spe_id);	
 		
-		model.put("itemList", itemList);
-		model.put("spe_id", spe_id);
-		model.put("spe", spe);
-		model.put("standard", "기본순");
-		model.put("petName", petName);
-		model.put("userSession",userSession);
+		ModelAndView mav = viewMain(userSession, spe_id);
+		mav.addObject("itemList", itemList);
+		mav.addObject("spe_id", spe_id);
+		mav.addObject("spe", petService.getSpeName(spe_id));
 		
-		return "tiles/main";
+		return mav;
 	}
   
 	
 	//main에서 아이템 정렬
 	@RequestMapping("/main/orderItem")
-	public String orderByItem(@ModelAttribute("userSession") MemberInfo userSession, 
+	public ModelAndView orderByItem(@ModelAttribute("userSession") MemberInfo userSession, 
 								@RequestParam("spe_id") int spe_id,
 								@RequestParam("stand") String stand, 
-								@RequestParam("od") String od, ModelMap model) {
+								@RequestParam("od") String od,
+								@RequestParam(value="tmp", defaultValue="0") int tmp) {
 		
-		String petName = null;
-		if(userSession.getU_id() != 0) {
-			Pet pet = petService.getPetByU_id(userSession.getU_id());
-			petName = pet.getName();
-		}
-		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
-		
-		String standard;
-		if (stand.equals("itemName")) {
-			standard = "이름순";
-		} else {
-			if (od.equals("ASC")) {
-				standard = "가격낮은순";
-			} else {
-				standard = "가격높은순";
-			}
-		}
-		
+		//tmp=1(필터링 결과화면),tmp=0(기본메인)
 		List<Item> itemList = new ArrayList<Item>();
-		itemList = itemService.orderByALLItem(spe_id, stand, od);
+		itemList = itemService.orderByItem(spe_id, 0, stand, od);
 		
+		ModelAndView mav = viewMain(userSession, spe_id);
+		mav.addObject("itemList", itemList);
+		mav.addObject("spe_id", spe_id);
+		mav.addObject("spe", petService.getSpeName(spe_id));
+		mav.addObject("standard", itemService.getOrderByName(stand, od));
 		
-		model.put("itemList", itemList);
-		model.put("spe_id", spe_id);
-		model.put("spe", spe);
-		model.put("standard", standard);
-		model.put("petName", petName);
-		model.put("userSession",userSession);
-		
-		return "tiles/main";
+		return mav;
 	}
-
-
 }
