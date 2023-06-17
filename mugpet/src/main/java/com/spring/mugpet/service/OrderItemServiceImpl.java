@@ -22,4 +22,16 @@ public class OrderItemServiceImpl implements OrderItemService {
 	public List<OrderItem> getAllOrderItemList(int u_id){
 		return orderItemDao.getAllOrderItemList(u_id);
 	}
+
+	@Override
+	public int getOrderItemCnt(int u_id) {
+		return orderItemDao.getOrderItemCnt(u_id);
+	}
+
+	@Override
+	public boolean isCheckOrderItem(int u_id, int item_id) {
+		if(orderItemDao.isCheckOrderItem(u_id,item_id) != null)
+			return true; 
+		else return false;
+	}
 }

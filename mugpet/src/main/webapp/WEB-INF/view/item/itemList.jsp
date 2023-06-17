@@ -22,7 +22,7 @@
 <div id="itemList">
 	<div id="itemCards">
 		<c:forEach var="item" items="${itemList}" varStatus="i">
-			<a href="itemDetail?item_id=${item.item_id}">
+			<a href="${contextPath}/item/itemDetail?item_id=${item.item_id}">
 			<div class="card" id="itemCard">
 				<img src="${item.imageUrl}" class="card-img-top" id="itemImg">
 				<div class="card-body">

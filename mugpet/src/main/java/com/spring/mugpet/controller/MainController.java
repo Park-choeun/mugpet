@@ -50,9 +50,7 @@ public class MainController {
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public ModelAndView viewMain(@ModelAttribute("userSession") MemberInfo userSession,
 								@RequestParam(value="spe_id", defaultValue="1") int spe_id) {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("tiles/main");
+	
 		String petName = null;
 		if(userSession.getU_id() != 0) {
 			Pet pet = petService.getPetByU_id(userSession.getU_id());
@@ -63,9 +61,13 @@ public class MainController {
 		List<Item> itemList = new ArrayList<Item>();
 		itemList = itemService.getALLItemList(spe_id);	
 		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("tiles/main");
+		
 		mav.addObject("itemList", itemList);
 		mav.addObject("spe_id", spe_id);
-		mav.addObject("tmp", 0);
+		mav.addObject("filterTmp", "1");
+		mav.addObject("category_id", 0);
 		mav.addObject("spe", petService.getSpeName(spe_id));
 		mav.addObject("standard", "기본순");
 		mav.addObject("petName", petName);

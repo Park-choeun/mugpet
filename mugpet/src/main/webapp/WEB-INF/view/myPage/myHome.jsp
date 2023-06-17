@@ -26,26 +26,26 @@
 	      <div class="card" id="user-content">
 	       <img src="${contextPath}/resources/images/foot.png" class="card-img-top" id="userImg">
 	        <div id="user-nickname" class="card-body">
-	       		 <p>발이님</p>
+	       		 <p>${userSession.nickname }님</p>
 	        </div>
 		</div> 
 	    </div>
 	    <div id="content-list" class="col-md-3 col-sm-4">
 	       <div class="card">
-	        <h5>주문/배송</h5>
-	        <span id="order-qty">um</span>
+	        <h5 style="color:rgb(0 0 0 / 51%);">주문/배송</h5>
+	        <p id="order-qty" >${orderCount }</p>
 			</div>
 	    </div>
 	    <div id="content-list" class="col-md-3 col-sm-4">
 		<div class="card" >
-	        <h5>등록 상품</h5>
-	        <span id="order-qty">um</span>
+	        <h5 style="color:rgb(0 0 0 / 51%);"> 등록 상품</h5>
+	        <p id="order-qty">${usedGoodsCount }</p>
 		</div>
 	    </div>
 	    <div id="content-list" class="col-md-3 col-sm-4">
 		<div class="card">
-	        <h5>내펫관리</h5>
-	        <span id="order-qty">um</span>
+	        <h5 style="color:rgb(0 0 0 / 51%);">내펫관리</h5>
+	        <p id="order-qty">${petName }</p>
 		</div>
 	    </div>
 	    
@@ -55,11 +55,11 @@
 
 <div id="wish-title" class="row">
 	
-	<h4>나의 찜 목록</h4>
+	<h4 style="color:#ff4f6894;">MY WISH LIST</h4>
 
 </div>
 <div id="wish-all-btn" class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <button class="btn cyan rounded me-md-2" type="button" style="background-color: #FFF0F5">찜 리스트 전체보기</button>
+  <a href="${contextPath }/wish/myWishList"><button class="btn cyan rounded me-md-2" type="button" style="background-color: #FFF0F5">찜 리스트 전체보기</button></a>
 </div>
 <div class="row">
 <div id="wishList">
@@ -80,34 +80,32 @@
     </div>
   </a>
   </c:forEach> --%>
- 
+  <c:if test="${not empty wishList }">
+  <c:forEach var="wishItem" items="${wishList }"  varStatus="i">
   <div id="wish-item" class="row w-144 h-144">
    		<div class="col-3">
-     	<img src="${contextPath}/resources/images/person.png" class="card-img-top" id="itemImg">
+     	<img src="${wishItem.imageUrl}" class="card-img-top" id="itemImg">
       </div>
       <div class="col-6" id="wish-item-info">
-    		<p id="win-1">Some placeholder content in a paragraph.</p>
-    		<p>가격 원 </p>
+    		<p id="win-1">${wishItem.itemName }</p>
+    		<p>${wishItem.price }원 </p>
       </div>
       <div class="col-3 align-self-center" id="wish-go-cart">
   				<button class="btn cyan rounded" type="button" style="background-color: #FFF0F5">장바구니</button>
       </div>
   </div>
-  <div id="wish-ltem" class="row w-144 h-144">
-   		<div class="col-3">
-     	<img src="${contextPath}/resources/images/person.png" class="card-img-top" id="itemImg">
-      </div>
-      <div class="col-6" id="wish-item-info">
-    		<p id="win-1">Some placeholder content in a paragraph.</p>
-    		<p>가격 원 </p>
-      </div>
-      <div class="col-3 align-self-center" id="wish-go-cart">
-  				<button class="btn cyan rounded" type="button" style="background-color: #FFF0F5">장바구니 </button>
-      </div>
-  </div>
+  </c:forEach>
+  </c:if>
+  <c:if test="${empty wishList }">
+
+  	<div id="wish-null-img">
+  			<img src="${contextPath }/resources/images/wishNull.png">
+  			<p>Add your wish list!</p>
+	  </div>
+		
+  </c:if>
 
   </div>
 </div>	
-</div>
 </div>
 </div>

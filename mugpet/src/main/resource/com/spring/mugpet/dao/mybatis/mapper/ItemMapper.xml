@@ -75,12 +75,6 @@
 		VALUES (#{item_id}, #{category_id}, #{spe_id}, #{itemName}, #{price}, #{brand}, #{imageUrl})
 	</insert>
 	
-	<update id="updateWish" parameterType="int">
-		UPDATE Item
-		SET wish=#{wish}
-		WHERE item_id=#{item_id}
-	</update>
-	
 	<update id="updateItem">
 		UPDATE Item
 		SET category_id=#{category_id},

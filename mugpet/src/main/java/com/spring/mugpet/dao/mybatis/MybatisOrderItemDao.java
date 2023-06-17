@@ -40,6 +40,17 @@ public class MybatisOrderItemDao implements OrderItemDao {
 	public void deleteOrderItem(OrderItem orderItem) throws DataAccessException{
 		orderItemMapper.deleteOrderItem(orderItem);
 	}
+
+	@Override
+	public int getOrderItemCnt(int u_id) throws DataAccessException {
+		return orderItemMapper.getOrderItemCnt(u_id);
+	}
+
+	@Override
+	public OrderItem isCheckOrderItem(int u_id, int item_id) throws DataAccessException {
+		return orderItemMapper.isCheckOrderItem(u_id,item_id);
+		
+	}
 	
 	
 }

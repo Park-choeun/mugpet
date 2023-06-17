@@ -60,7 +60,10 @@
 	text-align: center;
 	margin-top:50px;
 }
-
+#wish-title-text {
+	color:#ff4f6894;
+	
+}
 #wish-all-btn {
 	margin-bottom:20px;
 
@@ -71,6 +74,7 @@
 	 border: 2px solid #FFD0CD;
 	 border-radius: 8px;
   	padding: 5px;
+  	text-align: center;
 	
 }
 
@@ -102,16 +106,24 @@
 	width: 120px;
 	height: 120px;
 }
+#wish-null-img {
+	display: inline-block;
+
+}
 #order-qty {
 	display:inline-block;
 	margin-top:30px;
-	
+	font-size: 35px;
+	font-family: 나눔고딕;
+	color: #ff5a5a73;
 }
 
 .stars {
     margin:20px auto 1px;    
 }
-
+#content-list>h5 {
+	color: #FFB1BC;
+}
 
         .left_sub_menu {
                display: inline-block;
@@ -207,4 +219,4 @@
 
         .hide_sidemenu {
             display: none;
-        }
+        } 

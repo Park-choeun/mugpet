@@ -23,6 +23,10 @@ public interface OrderItemMapper {
 	
 	//주문 목록에 상품 삭제하기
 	void deleteOrderItem(OrderItem orderItem);
+
+	int getOrderItemCnt(int u_id);
+
+	OrderItem isCheckOrderItem(int u_id, int item_id);
 	
 
 }

@@ -12,21 +12,31 @@
 		<put-attribute name="body" value="" />
 	</definition>
 	
+	<!-- main -->
 	<definition name="tiles/*" extends="default">
 		<put-attribute name="dynamic_css" value="/resources/css/{1}.css"/>  								
 		<put-attribute name="side" value="/WEB-INF/view/common/mainSide.jsp" />
 		<put-attribute name="body" value="/WEB-INF/view/main/{1}.jsp" />												
 	</definition>
 	
+	
 	<definition name="tiles/*/*" extends="default">
 		<put-attribute name="dynamic_css" value="/resources/css/{2}.css"/>  								
 		<put-attribute name="side" value="/WEB-INF/view/common/side.jsp" />
 		<put-attribute name="body" value="/WEB-INF/view/{1}/{2}.jsp" />												
 	</definition>
+	<!-- myPage -->
 	<definition name="tile/myPage/*" extends="default">
 		<put-attribute name="dynamic_css" value="/resources/css/{1}.css"/>  								
 		<put-attribute name="side" value="/WEB-INF/view/myPage/layout/side.jsp" />
 		<put-attribute name="body" value="/WEB-INF/view/myPage/{1}.jsp" />												
 	</definition>
+	<!-- login,register -->
+	<definition name="tile/member/*" template="/WEB-INF/view/member/layout/layout.jsp">								
+		<put-attribute name="header" value="/WEB-INF/view/common/header.jsp" /> 
+		<put-attribute name="body" value="/WEB-INF/view/member/{1}.jsp" />												
+	</definition>
+	
+	
 	
 </tiles-definitions>

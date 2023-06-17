@@ -43,7 +43,7 @@ public class NewAccountController {
 
 	@RequestMapping(value="/member/register", method=RequestMethod.GET)
 	public String register() {
-		return "member/registerForm";
+		return "tile/member/registerForm";
 	}
 	
 	
@@ -81,7 +81,7 @@ public class NewAccountController {
 		HttpSession session = request.getSession();
 		MemberInfo newAccount = (MemberInfo) session.getAttribute("newAccount");
 		System.out.println(newAccount);
-		return "member/petRegisterForm";
+		return "tile/member/petRegisterForm";
 	}
 	
 	@RequestMapping(value="/pet/petRegister", method = RequestMethod.POST)

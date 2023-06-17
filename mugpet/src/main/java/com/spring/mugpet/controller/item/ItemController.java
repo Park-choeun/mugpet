@@ -16,6 +16,7 @@ import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.Pet;
 import com.spring.mugpet.service.ItemService;
 import com.spring.mugpet.service.PetService;
+import com.spring.mugpet.service.WishService;
 
 @Controller
 @SessionAttributes("userSession")
@@ -32,6 +33,12 @@ public class ItemController {
 	private PetService petService;
 	public void setPetService(PetService petService) {
 		this.petService = petService;
+	}
+	
+	@Autowired
+	private WishService wishService;
+	public void setWishService(WishService wishService) {
+		this.wishService = wishService;
 	}
 	
 	//종 및 카테고리에 맞는 아이템 리스트 출력
@@ -55,6 +62,7 @@ public class ItemController {
 		mav.addObject("itemList", itemList);
 		mav.addObject("spe_id", spe_id);
 		mav.addObject("spe", petService.getSpeName(spe_id));
+		mav.addObject("filterTmp", "1");
 		mav.addObject("standard", "기본순");
 		mav.addObject("category_id", category_id);
 		mav.addObject("petName", petName);
@@ -68,19 +76,21 @@ public class ItemController {
 	public ModelAndView viewItme(@ModelAttribute("userSession") MemberInfo userSession, 
 									@RequestParam("item_id") int item_id) {
 		
-		String petName = null;
+		int u_id = 0;
 		if(userSession.getU_id() != 0) {
-			Pet pet = petService.getPetByU_id(userSession.getU_id());
-			petName = pet.getName();
+			u_id = userSession.getU_id();
 		}
 		Item item = itemService.getItem(item_id);
 		
-		ModelAndView mav = new ModelAndView();
+		//wish에 해당 아이템이 있으면 1 반환, 없으면 0 반환
+		int isWish = wishService.isWish(u_id, item_id);
+		
+		ModelAndView mav = viewItemListByCategory(userSession, item.getSpe_id(), item.getCategory_id());
 		mav.setViewName("tiles/item/itemDetail");
 		
 		mav.addObject("item", item);
-		mav.addObject("spe", petService.getSpeName(item.getSpe_id()));
-		mav.addObject("petName", petName);
+		mav.addObject("isWish", isWish);
+		mav.addObject("filterTmp", null);
 		
 		return mav;
 	}

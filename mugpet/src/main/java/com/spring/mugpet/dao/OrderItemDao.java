@@ -21,6 +21,10 @@ public interface OrderItemDao {
 		
 	//주문 목록에 상품 삭제하기
 	void deleteOrderItem(OrderItem orderItem) throws DataAccessException;
+
+	int getOrderItemCnt(int u_id)throws DataAccessException;
+
+	OrderItem isCheckOrderItem(int u_id, int item_id)throws DataAccessException;
 	
 	
 

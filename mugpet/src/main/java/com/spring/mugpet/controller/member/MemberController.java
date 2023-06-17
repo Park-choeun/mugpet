@@ -33,7 +33,7 @@ public class MemberController {
 	public String login(HttpSession session) {
 		MemberInfo userSession = (MemberInfo) session.getAttribute("userSession");
 		System.out.println(userSession + "," + userSession.getU_id() +"," + userSession.getName());
-		return "member/loginForm";
+		return "tile/member/loginForm";
 	}
 	
 	
