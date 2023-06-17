@@ -21,6 +21,7 @@ import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.OrderItem;
 import com.spring.mugpet.domain.Pet;
 import com.spring.mugpet.service.CartService;
+import com.spring.mugpet.service.ItemService;
 import com.spring.mugpet.service.MemberService;
 import com.spring.mugpet.service.OrderItemService;
 import com.spring.mugpet.service.PetService;
@@ -37,6 +38,10 @@ public class CartController {
 	private OrderItemService orderItemService;
 	@Autowired
 	private PetService petService;
+	@Autowired
+	private ItemService itemService;
+	@Autowired
+	private ItemController itemController;
 	
 	private int resetPoints = 0;
 	int applyPoints = 0;
@@ -49,15 +54,40 @@ public class CartController {
 		this.memberService = memberService;
 	}
 	
-	
 	public void setPetService(PetService petService) {
 		this.petService = petService;
 	}
-		
-	public void addCart(Cart cart) throws Exception{
-		cartService.addCart(cart);
+	
+	public void setItemService(ItemService itemService) {
+		this.itemService = itemService;
 	}
 	
+	public void setItemController(ItemController itemController) {
+		this.itemController = itemController;
+	}
+	
+	
+	@RequestMapping("/cart/insertCart")
+	   public ModelAndView addCart(@ModelAttribute("userSession") MemberInfo userSession,
+			   						@RequestParam("item_id")int item_id, @RequestParam("qty")int qty,
+			   						@RequestParam("tmp")int tmp) throws Exception {
+		   
+		   System.out.println(">>>>>item_id=" + item_id + ", qty=" + qty);
+		   Item item = itemService.getItem(item_id);
+		   int total = item.getPrice() * qty;
+		   
+		   Cart newCart = new Cart(item_id, total, qty, userSession.getU_id());
+		   cartService.addCart(newCart);
+		   
+		   ModelAndView mav;
+		   if (tmp == 1) {
+			   mav = getCart(userSession);
+		   } else {
+			   mav = itemController.viewItme(userSession, item_id);
+		   }
+		   
+		   return mav;
+	   }
 	
 	
 	//Cart(장바구니)에 담긴 아이템 조회 -> 장바구니 버튼 누르면 /cart/myCartList로 연결되는 방식
