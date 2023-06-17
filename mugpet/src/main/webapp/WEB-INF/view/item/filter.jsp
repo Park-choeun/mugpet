@@ -69,7 +69,7 @@ td{
 </style>
 </head>
 <body>
-	<form:form modelAttribute="filtering" name="filterForm" method="post" class="validation-form" action="${contextPath}/item/filter?spe_id=${spe_id}&category_id=${category_id}">
+	<form:form modelAttribute="filtering" method="post" class="validation-form" action="${contextPath}/item/filter?spe_id=${spe_id}&category_id=${category_id}">
 		<table id="ftable">
 			<tr><th id="filterLabel">필터</th></tr>
   			<tr>

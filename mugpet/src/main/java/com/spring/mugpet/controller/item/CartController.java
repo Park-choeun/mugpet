@@ -22,6 +22,7 @@ import com.spring.mugpet.domain.Item;
 import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.OrderItem;
 import com.spring.mugpet.service.CartService;
+import com.spring.mugpet.service.ItemService;
 import com.spring.mugpet.service.MemberService;
 import com.spring.mugpet.service.OrderItemService;
 
@@ -29,25 +30,52 @@ import com.spring.mugpet.service.OrderItemService;
 @SessionAttributes("userSession")
 public class CartController {
 
-   @Autowired
-   private CartService cartService;
-   @Autowired
-   private MemberService memberService;
-
-   @Autowired
-   private OrderItemService orderItemService;
    private int resetPoints;
    
+   @Autowired
+   private CartService cartService;
    public void setCartService(CartService cartService) {
       this.cartService = cartService;
    }
    
+   @Autowired
+   private MemberService memberService;
    public void setMemberService(MemberService memberService) {
       this.memberService = memberService;
    }
-      
-   public void addCart(Cart cart) throws Exception{
-      cartService.addCart(cart);
+   
+   @Autowired
+	private ItemService itemService;
+	public void setItemService(ItemService itemService) {
+		this.itemService = itemService;
+	}
+	
+	@Autowired
+	private ItemController itemController;
+	public void setItemController(ItemController itemController) {
+		this.itemController = itemController;
+	}
+
+   @RequestMapping("/cart/insertCart")
+   public ModelAndView addCart(@ModelAttribute("userSession") MemberInfo userSession,
+		   						@RequestParam("item_id")int item_id, @RequestParam("qty")int qty,
+		   						@RequestParam("tmp")int tmp) throws Exception {
+	   
+	   System.out.println(">>>>>item_id=" + item_id + ", qty=" + qty);
+	   Item item = itemService.getItem(item_id);
+	   int total = item.getPrice() * qty;
+	   
+	   Cart newCart = new Cart(item_id, total, qty, userSession.getU_id());
+	   cartService.addCart(newCart);
+	   
+	   ModelAndView mav;
+	   if (tmp == 1) {
+		   mav = getCart(userSession);
+	   } else {
+		   mav = itemController.viewItme(userSession, item_id);
+	   }
+	   
+	   return mav;
    }
    
    

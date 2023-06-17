@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"  />
-
+	
 	<form:form method="post" class="validation-form" action="${contextPath}/member/login">
     <div class="box">
 		<h1>LOGIN</h1>
@@ -15,4 +15,5 @@
 			PASSWORD : <input type="password" id="pwd" name="pwd"><br>
 			<button type="submit" value="Login">Login</button>
 	  </div>
+	  <input type="hidden" name="item_id" value="${item_id}" />
 	</form:form>
