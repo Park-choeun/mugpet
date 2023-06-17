@@ -8,9 +8,9 @@
 			${spe}
 		</button>
 		<ul class="dropdown-menu">
-			<li><a class="dropdown-item" href="${contextPath}/main/speId?spe_id=<%=1%>">강아지</a></li>
-			<li><a class="dropdown-item" href="${contextPath}/main/speId?spe_id=<%=2%>">고양이</a></li>
-			<li><a class="dropdown-item" href="${contextPath}/main/speId?spe_id=<%=3%>">소동물</a></li>
+			<li><a class="dropdown-item" href="${contextPath}/item/itemList?spe_id=<%=1%>&category_id=${category_id}">강아지</a></li>
+			<li><a class="dropdown-item" href="${contextPath}/item/itemList?spe_id=<%=2%>&category_id=${category_id}">고양이</a></li>
+			<li><a class="dropdown-item" href="${contextPath}/item/itemList?spe_id=<%=3%>&category_id=${category_id}">소동물</a></li>
 		</ul>
 	</div>
 	<div id=category_name>

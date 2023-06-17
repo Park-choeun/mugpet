@@ -12,14 +12,12 @@ import com.spring.mugpet.domain.Pet;
 @Transactional
 public class PetServiceImpl implements PetService {
 
-	
 	@Autowired
 	private PetDao petDao;
 	
 	@Override
 	public void addPet(Pet pet) {
 		petDao.insertPet(pet);
-
 	}
 
 	@Override
@@ -27,6 +25,17 @@ public class PetServiceImpl implements PetService {
 		return petDao.getPetByU_id(u_id);
 	}
 	
-	
+	public String getSpeName(int spe_id) {
+		String spe;
+		if (spe_id == 1) {
+			spe = "강아지";
+		} else if (spe_id == 2) {
+			spe = "고양이";
+		} else {
+			spe = "소동물";
+		}
+		
+		return spe;
+	}
 
 }

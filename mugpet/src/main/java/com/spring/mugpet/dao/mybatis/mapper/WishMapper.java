@@ -2,21 +2,23 @@ package com.spring.mugpet.dao.mybatis.mapper;
 
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
+import org.apache.ibatis.annotations.Param;
 
 import com.spring.mugpet.domain.Item;
-import com.spring.mugpet.domain.Wish;
 
 public interface WishMapper {
-		//member의 wish 목록을 리스트 형태로 가져오기
-		List<Wish> getWishList(int u_id) throws DataAccessException;
+	
+	//로그인한 사용자의 위시리스트 가져오기
+	List<Item> getMyWishList(@Param("u_id")int u_id);
+	
+	//위시여부 확인
+	List<Integer> isWish(@Param("u_id")int u_id);
+	
+	//위시리스트에 상품추가
+	void insertWish(@Param("item_id")int item_id, @Param("u_id")int u_id);
+	
+	//위시리스트에서 상품삭제
+	void deleteWish(@Param("item_id")int item_id, @Param("u_id")int u_id);
 
-		//Wish 목록에 있는 하나의 아이템 정보 가져오기
-		Item getWishItemInfo(int item_id) throws DataAccessException;
-		
-		//Wish 목록에 item 추가하기
-		void insertWish(Wish wish) throws DataAccessException; 
-
-		//Wish 목록에 item 삭제하기
-		void deleteWish(int item_id) throws DataAccessException;
+	List<Item> getMyWishListForMyHome(int u_id);
 }

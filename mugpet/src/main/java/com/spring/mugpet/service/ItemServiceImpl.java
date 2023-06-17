@@ -18,54 +18,89 @@ public class ItemServiceImpl implements ItemService {
 	@Autowired
 	private ItemDao itemDao;
 
-	@Override
 	public Item getItem(int item_id) {
 		return itemDao.getItem(item_id);
 	}
 
-	@Override
 	public List<Item> getALLItemList(int spe_id) {
 		return itemDao.getALLItemList(spe_id);
 	}
 
-	@Override
 	public List<Item> getItemList(int spe_id, int category_id) {
 		return itemDao.getItemList(spe_id, category_id);
 	}
-
+	
 	@Override
-	public List<Item> getFilterItemList(int spe_id, int age, String stuff, String feature) {
-		Map<String, Object> param = new HashMap<String, Object>(3);
-		// 수정해야함!!!!!!!!!!
-		param.put("spe_id", spe_id);
-		param.put("stuffList", spe_id);
-		param.put("featureList", spe_id);
-		
+	public List<Item> getFilterItemList(int spe_id, int category_id, String strAge, List<String> stuffs, List<String> features) {
+		Map<String, Object> param = getFilterMap(spe_id, category_id, strAge, stuffs, features);
 		return itemDao.getFilterItemList(param);
 	}
 
 	@Override
-	public List<Item> orderByALLItem(int spe_id, String stand, String od) {
-		return itemDao.orderByALLItem(spe_id, stand, od);
+	public List<Item> orderByFiltering(int spe_id, int category_id, String strAge, List<String> stuffs,
+			List<String> features, String stand, String od) {
+		Map<String, Object> param = getFilterMap(spe_id, category_id, strAge, stuffs, features);
+		param.put("stand", stand);
+		param.put("od", od);
+		return itemDao.orderByFiltering(param);
 	}
 	
-	@Override
-	public List<Item> orderByCategoryItem(int spe_id, int category_id, String stand, String od) {
-		return itemDao.orderByCategoryItem(spe_id, category_id, stand, od);
+	public List<Item> orderByItem(int spe_id, int category_id, String stand, String od) {
+		return itemDao.orderByItem(spe_id, category_id, stand, od);
 	}
 
-	@Override
 	public void insertItem(Item item) {
 		itemDao.insertItem(item);
 	}
-
-	@Override
+	
 	public void updateItem(Item item) {
 		itemDao.updateItem(item);
 	}
 
-	@Override
 	public void deleteItem(int item_id) {
 		itemDao.deleteItem(item_id);
 	}
+
+	public int getAgeId(String strAge) {
+		int age;
+		if (strAge.equals("퍼피")) {
+			age = 1;
+		} else if (strAge.equals("어덜트")) {
+			age = 2;
+		} else if (strAge.equals("시니어")) {
+			age = 3;
+		} else {
+			age = 4;
+		}
+		return age;
+	}
+	
+	public String getOrderByName(String stand, String od) {
+		String standard;
+		if (stand.equals("itemName")) {
+			standard = "이름순";
+		} else {
+			if (od.equals("ASC")) {
+				standard = "가격낮은순";
+			} else {
+				standard = "가격높은순";
+			}
+		}
+		return standard;
+	}
+	
+	 public Map<String, Object> getFilterMap(int spe_id, int category_id, String strAge, List<String> stuffs, List<String> features) {
+		 Map<String, Object> param = new HashMap<String, Object>(5);
+			
+		 int age = getAgeId(strAge);
+			
+		 param.put("spe_id", spe_id);
+		 param.put("category_id", category_id);
+		 param.put("age", age);
+		 param.put("stuffList", stuffs);
+		 param.put("featureList", features);
+			
+		 return param;
+	 }
+
 }

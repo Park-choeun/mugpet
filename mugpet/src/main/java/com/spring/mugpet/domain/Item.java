@@ -1,7 +1,6 @@
 package com.spring.mugpet.domain;
 
-import java.io.Serializable;
-public class Item implements Serializable {
+public class Item {
 
 	private int item_id;				//primary key
 	private int category_id;			//item이 속한 category id
@@ -9,7 +8,7 @@ public class Item implements Serializable {
 	private String itemName;			//상품명
 	private int price;					//가격
 	private String brand;				//브랜드
-	private String imageUrl;				//이미지 경로
+	private String imageUrl;			//이미지 경로
 	private String comments;			//상품 설명글
 
 	public Item() {}
@@ -23,6 +22,7 @@ public class Item implements Serializable {
 		this.price = price;
 		this.brand = brand;
 		this.imageUrl = imageUrl;
+		this.comments = comments;
 	}
 
 	public int getItem_id() {
@@ -85,14 +85,14 @@ public class Item implements Serializable {
 		return comments;
 	}
 
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
 	@Override
 	public String toString() {
 		return "Item [item_id=" + item_id + ", category_id=" + category_id + ", spe_id=" + spe_id + ", itemName="
 				+ itemName + ", price=" + price + ", brand=" + brand + ", imageUrl=" + imageUrl + ", comments="
 				+ comments + "]";
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
 	}
 }

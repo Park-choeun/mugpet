@@ -14,19 +14,18 @@ public interface ItemMapper {
 	
 	//상품 전체목록 가져오기(펫 종에 따라 default 필터링)
 	List<Item> getALLItemList(@Param("spe_id") int spe_id);
-		
+	
 	//각 카테고리에 해당하는 상품목록가져오기
 	List<Item> getItemList(@Param("spe_id") int spe_id, @Param("category_id") int category_id);
-		
-	//필터링(검색)한 상품정보목록 가져오기
-//	List<Item> getFilterItemList(@Param("spe_id")int spe_id, @Param("age")int age, @Param("stuff")String stuff, @Param("feature") String feature);
+	
+	//필터링한 상품목록 가져오기
 	List<Item> getFilterItemList(Map<String, Object> param);
 	
-	//전체상품 정렬하기(메인)
-	List<Item> orderByALLItem(@Param("spe_id")int spe_id, @Param("stand")String stand, @Param("od")String od);
+	//필터링한 상품 정렬하기
+	List<Item> orderByFiltering(Map<String, Object> param);
 	
 	//카테고리별 상품 정렬하기
-	List<Item> orderByCategoryItem(@Param("spe_id")int spe_id, @Param("category_id")int category_id, @Param("stand")String stand, @Param("od")String od);
+	List<Item> orderByItem(@Param("spe_id")int spe_id, @Param("category_id")int category_id, @Param("stand")String stand, @Param("od")String od);
 		
 	//상품 추가하기
 	void insertItem(Item item);
@@ -36,4 +35,6 @@ public interface ItemMapper {
 		
 	//상품 삭제하기
 	void deleteItem(int item_id);
+	
+	
 }
