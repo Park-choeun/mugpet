@@ -100,6 +100,7 @@ td{
 	</form:form>
 	
 	<script>
+		/* 주석 */
 		function closeFilter() {
 			window.opener.name="parentPage";
 			document.filterForm.target="parentPage";
