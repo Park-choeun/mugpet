@@ -15,4 +15,6 @@ public interface WishDao {
 	void insertWish(int item_id, int u_id) throws DataAccessException;
 	
 	void deleteWish(int item_id, int u_id) throws DataAccessException;
+
+	List<Item> getMyWishListForMyHome(int u_id) throws DataAccessException;
 }

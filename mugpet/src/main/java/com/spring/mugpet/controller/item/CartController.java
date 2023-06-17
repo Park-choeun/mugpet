@@ -21,6 +21,7 @@ import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.OrderItem;
 import com.spring.mugpet.domain.Pet;
 import com.spring.mugpet.service.CartService;
+import com.spring.mugpet.service.ItemService;
 import com.spring.mugpet.service.MemberService;
 import com.spring.mugpet.service.OrderItemService;
 import com.spring.mugpet.service.PetService;
@@ -37,6 +38,10 @@ public class CartController {
 	private OrderItemService orderItemService;
 	@Autowired
 	private PetService petService;
+	@Autowired
+	private ItemService itemService;
+	@Autowired
+	private ItemController itemController;
 	
 	private int resetPoints = 0;
 	int applyPoints = 0;
@@ -49,16 +54,44 @@ public class CartController {
 		this.memberService = memberService;
 	}
 	
-	
 	public void setPetService(PetService petService) {
 		this.petService = petService;
 	}
-		
-	public void addCart(Cart cart) throws Exception{
-		cartService.addCart(cart);
+	
+	public void setItemService(ItemService itemService) {
+		this.itemService = itemService;
 	}
 	
 	//장바구니 항목을 누르면 /cart/myCartList로 연결된다.
+	public void setItemController(ItemController itemController) {
+		this.itemController = itemController;
+	}
+	
+	
+	@RequestMapping("/cart/insertCart")
+	   public ModelAndView addCart(@ModelAttribute("userSession") MemberInfo userSession,
+			   						@RequestParam("item_id")int item_id, @RequestParam("qty")int qty,
+			   						@RequestParam("tmp")int tmp) throws Exception {
+		   
+		   System.out.println(">>>>>item_id=" + item_id + ", qty=" + qty);
+		   Item item = itemService.getItem(item_id);
+		   int total = item.getPrice() * qty;
+		   
+		   Cart newCart = new Cart(item_id, total, qty, userSession.getU_id());
+		   cartService.addCart(newCart);
+		   
+		   ModelAndView mav;
+		   if (tmp == 1) {
+			   mav = getCart(userSession);
+		   } else {
+			   mav = itemController.viewItme(userSession, item_id);
+		   }
+		   
+		   return mav;
+	   }
+	
+	
+	//Cart(장바구니)에 담긴 아이템 조회 -> 장바구니 버튼 누르면 /cart/myCartList로 연결되는 방식
 	@RequestMapping(value="/cart/myCartList", method=RequestMethod.GET)
 	public ModelAndView getCart(@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
 	
@@ -87,16 +120,13 @@ public class CartController {
 		List<Item> cartItemsInfo = new ArrayList<Item>();			//Item 객체를 담을 list 생성 (item의 이름 등 정보들을 사용하기 위해서)
 		List<Integer> cartItemsPrice = new ArrayList<Integer>();	//cartItem들의 각 가격을 담은 list 생성
 		List<Integer> cartItemsQty = new ArrayList<Integer>();		//cartItem들의 각 개수를 담은 list 생성
-		int cartItemSize = cartItems.size();						//장바구니에 담긴 아이템의 개수
 		int cartItemQty = 0;
 		int totalPrice = 0;											//총 가격
 		int idx = 0;												
 		for(Cart items : cartItems) {
 			int item_id = items.getItem_id();
-			System.out.println("아이템 아이디: " + item_id);
 			Item info = cartService.getCartItemInfo(item_id);
 			cartItemQty = cartService.getMyCartItemQty(item_id);
-			System.out.println("카트 첫번째 아이템 이름: " + info.getItemName());
 			cartItemsInfo.add(info);
 			cartItemQty = items.getCartQty();
 			cartItemsQty.add(cartItemQty);
@@ -108,9 +138,7 @@ public class CartController {
 		
 		ModelAndView mav = new ModelAndView("tiles/cart/myCartList");
 		
-		System.out.println("카트 아이템 개수" + cartItemSize);
 		mav.addObject("cartItemsInfo", cartItemsInfo);
-		mav.addObject("cartItemSize", cartItemSize);
 		mav.addObject("cartItemsPrice", cartItemsPrice);
 		mav.addObject("cartItemsQty", cartItemsQty);
 		mav.addObject("totalPrice", totalPrice);

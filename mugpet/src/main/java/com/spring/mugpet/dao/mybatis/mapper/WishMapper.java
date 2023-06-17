@@ -19,4 +19,6 @@ public interface WishMapper {
 	
 	//위시리스트에서 상품삭제
 	void deleteWish(@Param("item_id")int item_id, @Param("u_id")int u_id);
+
+	List<Item> getMyWishListForMyHome(int u_id);
 }

@@ -32,6 +32,12 @@
 		ORDER BY enrollDt DESC
 	</select>
 	
+	<select id="getUsedGoodsCntByU_id" resultType="int">
+		SELECT COUNT(*)
+		FROM UsedGoods
+		WHERE u_id=#{u_id}
+	</select>
+	
 	<select id="getU_IdByUsedGoods" resultType="int" parameterType="int">
 		SELECT u_id
 		FROM UsedGoods

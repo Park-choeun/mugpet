@@ -33,6 +33,24 @@
 		WHERE u_id=#{u_id} AND orderTime=#{orderTime}
 	</select>
 	
+	<select id="getOrderItemCnt" parameterType="OrderItem" resultType="int">
+		SELECT COUNT(*)
+		FROM OrderItem
+		WHERE u_id=#{u_id}
+	</select>
+	
+	
+	<select id="isCheckOrderItem" parameterType="java.util.HashMap" resultType="OrderItem">
+		SELECT *
+        FROM (SELECT * 
+        	  FROM ORDERITEM 
+		      WHERE u_id=#{u_id}
+		)
+        WHERE item_id=#{item_id} 
+	
+	</select>
+	
+	
 	<insert id="insertOrderItem" parameterType="OrderItem">
 		<selectKey keyProperty="o_id" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(o_id),0) + 1 FROM ORDERITEM

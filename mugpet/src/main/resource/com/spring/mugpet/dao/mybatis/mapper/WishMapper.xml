@@ -19,6 +19,16 @@
 		WHERE u_id=#{u_id}
 	</select>
 	
+	<select id="getMyWishListForMyHome" parameterType="int" resultType="Item">
+		SELECT *
+		FROM ( SELECT <include refid="getWishCols" />
+			FROM Wish w JOIN Item i ON w.item_id = i.item_id 
+			WHERE u_id=#{u_id} )
+		<![CDATA[
+			WHERE ROWNUM <= 3
+		]]>		
+	</select>
+	
 	<select id="isWish" parameterType="int" resultType="Integer">
 		SELECT item_id
 		FROM Wish
