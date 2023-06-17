@@ -122,7 +122,8 @@ public class CartController {
 		List<Integer> cartItemsQty = new ArrayList<Integer>();		//cartItem들의 각 개수를 담은 list 생성
 		int cartItemQty = 0;
 		int totalPrice = 0;											//총 가격
-		int idx = 0;												
+		int idx = 0;		
+		int cartItemSize = cartItems.size();  						 //장바구니에 담긴 아이템의 개수
 		for(Cart items : cartItems) {
 			int item_id = items.getItem_id();
 			Item info = cartService.getCartItemInfo(item_id);
@@ -139,6 +140,7 @@ public class CartController {
 		ModelAndView mav = new ModelAndView("tiles/cart/myCartList");
 		
 		mav.addObject("cartItemsInfo", cartItemsInfo);
+		mav.addObject("cartItemSize", cartItemSize);
 		mav.addObject("cartItemsPrice", cartItemsPrice);
 		mav.addObject("cartItemsQty", cartItemsQty);
 		mav.addObject("totalPrice", totalPrice);

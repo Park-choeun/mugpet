@@ -14,6 +14,8 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <meta charset="UTF-8">
 <title>필터링</title>
 <style>
@@ -47,6 +49,8 @@
 #btnBox {
 	text-align:center;
 	vertical-align : top;
+	padding-top:10px;
+	border-top:3px solid #FFE593;
 }
 
 #submitBtn {
@@ -56,11 +60,13 @@
 	border-color: #FFE593;
 	color: white;
 	font-weight: bold;
+	margin:0 5px 0 35px;
 }
 
 #resetBtn {
 	width:35px;
 	height:35px;
+	cursor:pointer;
 }
 
 td{
@@ -69,14 +75,13 @@ td{
 </style>
 </head>
 <body>
-	<form:form modelAttribute="filtering" method="post" class="validation-form" action="${contextPath}/item/filter?spe_id=${spe_id}&category_id=${category_id}">
+	<form:form modelAttribute="filtering" name="filterForm" method="post" class="validation-form" action="${contextPath}/item/filter?spe_id=${spe_id}&category_id=${category_id}">
 		<table id="ftable">
 			<tr><th id="filterLabel">필터</th></tr>
   			<tr>
 				<td>
 					<span class="filterName">연령</span><br/>
 					<span class="val"><form:radiobuttons path="age" items="${ageVal}" /></span>
-					<form:errors path="age" />
 				</td>
 			</tr>
 			<tr>
@@ -94,17 +99,23 @@ td{
 			<tr>
 				<th id="btnBox" colspan="3">
 					<input type="submit" value="필터링" id="submitBtn" class="btn btn-primary btn-sm" onclick="closeFilter()"/>
+					<img id="resetBtn" src="${contextPath}/resources/images/reset.png" onclick="resetForm()"/>
 				</th>
 			<tr>
 		</table>
 	</form:form>
 	
 	<script>
-		/* 주석 */
 		function closeFilter() {
 			window.opener.name="parentPage";
 			document.filterForm.target="parentPage";
 			self.close();
+		}
+		
+		function resetForm() {
+			$("input[name='age']").prop("checked", false);
+			$("input[name='stuffs']").prop("checked", false);
+			$("input[name='features']").prop("checked", false);
 		}
 	</script>
 	

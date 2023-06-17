@@ -110,10 +110,6 @@ public class FilterController {
 		}
 		mav.addObject("itemList", itemList);
 		mav.addObject("spe_id", spe_id);
-		
-		//필터 초기화
-		filtering = itemService.resetFilter(filtering);
-		mav.addObject("filtering", filtering);
 
 		return mav;
 	}
