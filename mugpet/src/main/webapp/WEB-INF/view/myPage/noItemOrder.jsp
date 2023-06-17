@@ -4,7 +4,7 @@
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 
 <div class="content">
-	<br/><h5>주문 목록</h5><br/> 
+	<h5>주문 목록</h5>
 	<hr>
 	<div class="bottom">
 		<img src="${contextPath}/resources/images/alert.png" name="alertImg" width="150" height="150" alt="장바구니가 비어있습니다." /> 

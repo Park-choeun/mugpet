@@ -4,7 +4,7 @@
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 
 <div class="content">
-	<br/><h5>주문 목록</h5><br/>
+	<h5>주문 목록</h5>
 	<hr>
 	<div>
 		<c:forEach var="map" items="${orderItemsInfoList}" varStatus="status"> 
@@ -30,12 +30,20 @@
 				</tr>
 				<tr>
 					<td colspan="1" class="separate title">주문 상품</td>
-					<td colspan="3" class="separate">종류: ${itemsSize[status.index]}개</td>
+					<td colspan="3" class="separate">상품 개수: ${itemsSize[status.index]}개</td>
 				</tr>
 					<c:forEach var="row" items="${map.value}" varStatus="rowStatus">
 						<tr>
-							<td> <img src="${row.imageUrl}"  width="50" height="50" alt="상품이미지" class="productImg"/></td>
-							<td>${row.itemName}</td>
+							<td> 
+								<a href="${contextPath}/item/itemDetail?item_id=${item.item_id}">
+									<img src="${row.imageUrl}"  width="50" height="50" alt="상품이미지" class="productImg"/>
+								</a>
+							</td>
+							<td>
+								<a href="${contextPath}/item/itemDetail?item_id=${item.item_id}">
+									${row.itemName}
+								</a>
+							</td>
 							<td>${row.orderQty}개</td>
 							<td><fmt:formatNumber value="${map.value[rowStatus.index].itemPrice}" pattern="#,###"/>원</td>
 							

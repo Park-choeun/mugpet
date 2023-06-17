@@ -58,9 +58,7 @@ public class CartController {
 		cartService.addCart(cart);
 	}
 	
-	
-	
-	//Cart(장바구니)에 담긴 아이템 조회 -> 장바구니 버튼 누르면 /cart/myCartList로 연결되는 방식
+	//장바구니 항목을 누르면 /cart/myCartList로 연결된다.
 	@RequestMapping(value="/cart/myCartList", method=RequestMethod.GET)
 	public ModelAndView getCart(@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
 	
@@ -72,15 +70,6 @@ public class CartController {
 			petName = pet.getName();
 		}
 		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
-		
 		int u_id = userSession.getU_id();
 		System.out.println("u_id: " + u_id);
 		
@@ -89,20 +78,19 @@ public class CartController {
 		if(cartItems.size() == 0) {
 			ModelAndView mav = new ModelAndView("tiles/cart/noItemCart");
 			mav.addObject("spe_id", spe_id);
-			mav.addObject("spe", spe);
+			mav.addObject("spe", petService.getSpeName(spe_id));
 			mav.addObject("petName", petName);
 			
 			return mav;
 		}
 			
-		//System.out.println("카트 정보 : " + cartItems.get(0).getItem_id() +", " + cartItems.get(1).getItem_id() +", " +cartItems.get(2).getItem_id());
-		List<Item> cartItemsInfo = new ArrayList<Item>();		//Item 객체를 담을 list 생성
-		List<Integer> cartItemsPrice = new ArrayList<Integer>();		//cartItem들의 각 가격을 담은 list 생성
+		List<Item> cartItemsInfo = new ArrayList<Item>();			//Item 객체를 담을 list 생성 (item의 이름 등 정보들을 사용하기 위해서)
+		List<Integer> cartItemsPrice = new ArrayList<Integer>();	//cartItem들의 각 가격을 담은 list 생성
 		List<Integer> cartItemsQty = new ArrayList<Integer>();		//cartItem들의 각 개수를 담은 list 생성
-		int cartItemSize = cartItems.size();	//장바구니에 담긴 아이템의 개수
+		int cartItemSize = cartItems.size();						//장바구니에 담긴 아이템의 개수
 		int cartItemQty = 0;
-		int totalPrice = 0;
-		int idx = 0;
+		int totalPrice = 0;											//총 가격
+		int idx = 0;												
 		for(Cart items : cartItems) {
 			int item_id = items.getItem_id();
 			System.out.println("아이템 아이디: " + item_id);
@@ -127,26 +115,20 @@ public class CartController {
 		mav.addObject("cartItemsQty", cartItemsQty);
 		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("spe_id", spe_id);
-		mav.addObject("spe", spe);
+		mav.addObject("spe", petService.getSpeName(spe_id));
 		mav.addObject("petName", petName);
 		
 		return mav;
 	}
 	
-	//카트에 있는 아이템 하나 클릭 시 그 아이템 상세페이지로 이동하는 url을 반환하는 메소드
-	@RequestMapping("/myCartList/{item_id}")
-	public String cartItemDetail(int item_id) {
-		return "item/itemDetail";
-	}
-	
-	//각 물품의 개수를 수정할 수 있는 메소드
+	//각 장바구니 상품의 개수를 수정할 수 있는 메소드
 	@RequestMapping(value="/cart/updateCartQuantities", method=RequestMethod.POST)
 	public ModelAndView cartItemUpdate(HttpServletRequest request,@ModelAttribute("userSession") MemberInfo userSession) throws Exception{
 		
 		List<Cart> cartItems = cartService.getMyCartList(userSession.getU_id()); 
 		int num = 0;
 		for(Cart cartItem : cartItems){
-			int item_id = cartItem.getItem_id(); //아이템의 item_id를 가지고 옴
+			int item_id = cartItem.getItem_id(); //각 아이템의 item_id를 가지고 옴
 			try {
 					int quantity = Integer.parseInt(request.getParameter(Integer.toString(num))); //각 아이템의 변경된 값을 가지고 옴
 					cartItem.setCartQty(quantity); //cart의 개수 필드 변경 cartItem은 가져온 각 아이템
@@ -184,20 +166,11 @@ public class CartController {
 			petName = pet.getName();
 		}
 		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
-		
 		List<Cart> cartItems = cartService.getMyCartList(userSession.getU_id());	//장바구니에 담긴 아이템 조회
-		List<Item> cartItemsInfo = new ArrayList<Item>();		//Item 객체를 담을 list 생성
-		List<Integer> cartItemsPrice = new ArrayList<Integer>();		//cartItem들의 각 가격을 담은 list 생성
-		List<Integer> cartItemsQty = new ArrayList<Integer>();		//cartItem들의 각 개수를 담은 list 생성
-		int cartItemSize = cartItems.size();	//장바구니에 담긴 아이템의 개수
+		List<Item> cartItemsInfo = new ArrayList<Item>();							//Item 객체를 담을 list 생성
+		List<Integer> cartItemsPrice = new ArrayList<Integer>();					//cartItem들의 각 가격을 담은 list 생성
+		List<Integer> cartItemsQty = new ArrayList<Integer>();						//cartItem들의 각 개수를 담은 list 생성
+		int cartItemSize = cartItems.size();										//장바구니에 담긴 아이템의 개수
 		int cartItemQty = 0;
 		int totalPrice = 0;
 		applyPoints = 0;
@@ -220,18 +193,15 @@ public class CartController {
 		
 		ModelAndView mav = new ModelAndView("tiles/cart/order");
 		
-		System.out.println("카트 아이템 개수" + cartItemSize);
 		mav.addObject("cartItemsInfo", cartItemsInfo);
-		mav.addObject("cartItemSize", cartItemSize);
 		mav.addObject("cartItemsPrice", cartItemsPrice);
 		mav.addObject("cartItemsQty", cartItemsQty);
 		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("memberInfo", memberInfo);
 		mav.addObject("applyPoints", applyPoints);
-
 		mav.addObject("resetPoints", resetPoints);
 		mav.addObject("spe_id", spe_id);
-		mav.addObject("spe", spe);
+		mav.addObject("spe", petService.getSpeName(spe_id));
 		mav.addObject("petName", petName);
 		
 		return mav;
@@ -248,6 +218,7 @@ public class CartController {
 	
 			if(request.getParameter("point") == "" || request.getParameter("point") == "0") { 
 				applyPoints = 0;
+				
 				mav.addObject(applyPoints);
 				return mav;
 			}
@@ -265,8 +236,8 @@ public class CartController {
 					
 				}
 				
-				mav.addObject("applyPoints", applyPoints);
-				mav.addObject("resetPoints", resetPoints);
+				mav.addObject("applyPoints", applyPoints);			//적용된 적립금
+				mav.addObject("resetPoints", resetPoints);			//적용된 후 사용자의 적립금
 				
 			}
 			return mav;
@@ -283,24 +254,16 @@ public class CartController {
 				petName = pet.getName();
 			}
 			
-			String spe;
-			if (spe_id == 1) {
-				spe = "강아지";
-			} else if (spe_id == 2) {
-				spe = "고양이";
-			} else {
-				spe = "소동물";
-			}
-			
 			int u_id = userSession.getU_id();
 			ModelAndView mav = new ModelAndView("tiles/cart/orderCompleted");
 			MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd(userSession.getEmail(), userSession.getPwd());
-			//			멤버의 전화번호, 주소 얻어옴
+			
 			String phoneNum = memberInfo.getPhoneNum();
 			String address = memberInfo.getAddress() + " " + request.getParameter("addrDetail");
 			String req = request.getParameter("req");
 			if(req =="")
 				req = "없음";
+			//결제를 했으므로 사용자의 적립금 정보를 업데이트 해준다.(100원 적립)
 			memberService.updatePoints(resetPoints + 100, userSession.getEmail(), userSession.getPwd());	
 
 			//orderItem에 cartItems들을 넣음
@@ -324,7 +287,7 @@ public class CartController {
 				orderItemQty = items.getCartQty();		//주문한 상품 하나 당 개수 I
 				orderItemsQtyList.add(orderItemQty);	//주문한 상품의 개수들을 담은 리스트
 				itemPrice = orderItemQty * info.getPrice();
-				orderItemsPrice.add(itemPrice); //주문한 상품들의 가격들을 담은 리스트 : 상품 당 개수와 아이템 X 테이블로 얻어진 상품 가격 의 리스트
+				orderItemsPrice.add(itemPrice); 		//주문한 상품들의 가격들을 담은 리스트 : 상품 당 개수와 아이템 X 테이블로 얻어진 상품 가격 의 리스트
 				totalPrice += orderItemsPrice.get(idx); //총 가격
 				
 				OrderItem orderItem = new OrderItem(orderItemQty, address, phoneNum, item_id, itemPrice, applyPoints, req, u_id);
@@ -344,18 +307,16 @@ public class CartController {
 			mav.addObject("orderQty", orderQty);
 			mav.addObject("totalPrice", totalPrice);
 			mav.addObject("orderItemsPrice", orderItemsPrice);
-			mav.addObject("totalPrice", totalPrice);
 			mav.addObject("orderItemsInfo", orderItemsInfo);
 			mav.addObject("applyPoints", applyPoints);
 			mav.addObject("spe_id", spe_id);
-			mav.addObject("spe", spe);
+			mav.addObject("spe", petService.getSpeName(spe_id));
 			mav.addObject("petName", petName);
 			
-			//cartService.removeCartAll(u_id);
+			cartService.removeCartAll(u_id);
 
 			return mav;
 			
-			//주석
 		}
 
 }

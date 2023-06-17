@@ -10,19 +10,10 @@
 			return true;
 		} 
 		else{
-			alert('정보 동의 항목을 체크해주세요.\n 확인을 누르면 결제페이지로 이동합니다.');
-			return false;
+			alert('주문상품 및 결제대행 이용약관에 모두 동의하십니까?');
+			document.querySelector('input[name="allowPermission"]').checked = true;
 		}
-	}
-	
-	function goLocation() {
-	      var point = document.getElementsByName("point").value;
-	      if(point == ""){
-	    	  alert("비어 있음");
-	    	  location.href = contextPath + "/cart/ordering?point=0";
-	      }
-	    	  
-	  }
+	}	  
 </script>
 <!------------------------주문 결제 창-------------------->  
 <form name="orderForm" action='<c:url value="/cart/ordering"/>' method="post" >
@@ -33,7 +24,7 @@
 		<hr>
 		<p class="semiTitle">배송지</p>
 		${memberInfo.address} <br /><%-- memberService에서 전달받아 사용 --%>
-		<input type="text" placeholder=" 상세주소 입력란" value="${command.addrDetail}" class="userInfo" name="addrDetail" style="margin-Top:10px; width:300px;" /> <%--왜 width 속성이 안먹는가 --%>
+		<input type="text" placeholder=" 상세주소 입력란" value="${command.addrDetail}" class="userInfo" name="addrDetail" style="margin-Top:10px; width:300px;" />
 		<br/>
 		<br/>
 		<hr>
@@ -49,10 +40,14 @@
 			<c:forEach var="item" items="${cartItemsInfo}" varStatus="status"> 
 				<tr>
 					<td>
-						<img src="${item.imageUrl}"  width="90" height="90" alt="상품이미지" class="productImg"/>
+						<a href="${contextPath}/item/itemDetail?item_id=${item.item_id}">
+							<img src="${item.imageUrl}"  width="90" height="90" alt="상품이미지" class="productImg"/>
+						</a>
 					</td>
 					<td>
+						<a href="${contextPath}/item/itemDetail?item_id=${item.item_id}">
 						${item.itemName}
+						</a>
 					</td>
 					<td>
 						수량 : ${cartItemsQty[status.index]}개
@@ -65,20 +60,19 @@
 		</table>
 		<br/>		
 		<p class="semiTitle">적립금 적용</p>
-			<input type="text" name="point" placeholder="직접 입력" class="userInfo" value="${applyPoints}" style="width:200px"/>
+			<input type="text" id="point" name="point" placeholder="직접 입력" class="userInfo" value="${applyPoints}" required oninvalid="this.setCustomValidity('적립금 적용을 안할 시엔 0을 입력해주세요.')" oninput="this.setCustomValidity('')" style="width:200px"/> 원
 				<button type="submit" formaction="order" name="apply" style="margin-Left:30px" class="btn btn-light order updateBtn">적용</button>
-			<span class="userInfo detail">총 적립금: <fmt:formatNumber value="${memberInfo.point}" pattern="#,###"/>원</span> <%-- memberService에서 전달받아 사용 --%>
+			<span class="userInfo detail">총 적립금: <fmt:formatNumber value="${memberInfo.point}" pattern="#,###"/>원</span>
 			<br/>
 			<span class="userInfo detail">
 				적용 후 남은 적립금: <fmt:formatNumber value="${resetPoints}" pattern="#,###"/>원
 			</span> 
-			 <%--button 클릭하면 모든 적립금이 text에 나타나도록 --%>
 		<br/>
 		<hr>
 		<p class="semiTitle">결제 금액</p>
 		<span class="userInfo">총 상품액</span><span class="userInfo detail"><fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원</span><br/>
 		<span class="userInfo">배송비</span><span class="userInfo detail">0원 </span><br/>
-		<span class="userInfo">적립금 적용</span><span class="userInfo detail">-<fmt:formatNumber value="${applyPoints}" pattern="#,###"/>원 </span><br/> <%-- memberService에서 전달받아 사용 --%>
+		<span class="userInfo">적립금 적용</span><span class="userInfo detail">-<fmt:formatNumber value="${applyPoints}" pattern="#,###"/>원 </span><br/>
 		<br/>
 		<hr>
 		<span class="userInfo">총 결제 금액</span><span class="userInfo detail"><fmt:formatNumber value="${totalPrice - applyPoints}" pattern="#,###"/>원</span><br/>
@@ -86,7 +80,7 @@
 		<br/>
 		<br/>
 		<input type="checkbox" name="allowPermission"/>주문상품 및 결제대행 이용약관에 모두 동의합니다.<br/><br/>
-		<button class="btnSubmit btn btn-light order orderBtn" onclick="javascript:check() goLocation()">결제하기</button>
+		<button class="btnSubmit btn btn-light order orderBtn" onclick="check()">결제하기</button>
 	</form>
 		<br/><br/>
 </div>
