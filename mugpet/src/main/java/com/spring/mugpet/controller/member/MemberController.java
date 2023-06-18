@@ -66,7 +66,7 @@ public class MemberController {
 			}
 			else {
 				if (item_id != 0) {
-					ModelAndView mav = itemController.viewItme(userSession, item_id);
+					ModelAndView mav = itemController.viewItem(userSession, item_id);
 					return mav;
 				} else {
 					return new ModelAndView("redirect:/main");
