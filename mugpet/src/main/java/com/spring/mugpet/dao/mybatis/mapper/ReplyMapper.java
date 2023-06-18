@@ -39,4 +39,7 @@ public interface ReplyMapper {
 	//중고거래 글의 댓글 작성자 u_id 가져오기
 	int getU_IdByUsedGoodsReply(@Param("g_id") int g_id, @Param("rp_id") int rp_id);
 	
+	//member가 작성한 댓글목록 가져오기
+	public List<Reply> getMyReplyList(int u_id);
+	
 }

@@ -107,7 +107,7 @@ public class CommunityController {
 		model.addAttribute("spe", petService.getSpeName(spe_id));
 		model.addAttribute("spe_id", spe_id);
 		
-		return "tile/community/view";
+		return "tiless/community/view";
 	}
 	
 	@RequestMapping("/community/communityList")
@@ -149,7 +149,7 @@ public class CommunityController {
 		model.addAttribute("nicknameList", nicknameList);
 		model.addAttribute("spe_id", spe_id);
 		
-		return "tile/community/communityList";
+		return "tiless/community/communityList";
 	}
 	
 	@RequestMapping("/myPage/myCommunityList")

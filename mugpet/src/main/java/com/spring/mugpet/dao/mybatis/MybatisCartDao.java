@@ -26,17 +26,17 @@ public class MybatisCartDao implements CartDao{
 	public List<Cart> getMyCartList(int u_id) throws DataAccessException{
 		return cartMapper.getMyCartList(u_id);
 	}
-
+	
 	@Override
 	public int getMyCartItemQty(int item_id, int u_id) throws DataAccessException{
 		return cartMapper.getMyCartItemQty(item_id, u_id);
 	}
-
+	
 	@Override
 	public Item getCartItemInfo(int item_id) throws DataAccessException{
 		return cartMapper.getCartItemInfo(item_id);
 	}
-
+	
 	@Override
 	public Cart getMyCartItemCartType(int item_id, int u_id) throws DataAccessException{
 		return cartMapper.getMyCartItemCartType(item_id, u_id);

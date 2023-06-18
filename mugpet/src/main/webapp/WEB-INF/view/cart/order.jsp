@@ -16,7 +16,7 @@
 	}	  
 </script>
 <!------------------------주문 결제 창-------------------->  
-<form name="orderForm" action='<c:url value="/cart/ordering"/>' method="post" >
+<form name="orderForm" action="${contextPath}/cart/ordering?oneItem=${oneItem}&item_id=${item_id}&qty=${qty}" method="post" >
 	<div class="content">
 		<p class="title">주문 결제</p>
 		<p class="semiTitle">주문 고객 정보</p>
@@ -81,6 +81,6 @@
 		<br/>
 		<input type="checkbox" name="allowPermission"/>주문상품 및 결제대행 이용약관에 모두 동의합니다.<br/><br/>
 		<button class="btnSubmit btn btn-light order orderBtn" onclick="check()">결제하기</button>
-	</form>
+</form>
 		<br/><br/>
 </div>

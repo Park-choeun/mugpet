@@ -10,7 +10,7 @@ public interface WishService {
 	
 	List<Item> getMyWishListForMyHome(int u_id);
 	
-	int isWish(int u_id, int item_id);
+	int isWish(int item_id, int u_id);
 	
 	void insertWish(int item_id, int u_id);
 	

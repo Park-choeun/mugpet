@@ -99,7 +99,7 @@
 			if (want) {
 				location.href = contextPath + "/cart/insertCart?item_id=" + item_id + "&qty=" + qty + "&tmp=1";	
 			} else {
-				location.href = contextPath + "/cart/insertCart?item_id=" + item_id + "&qty=" + qty + "&tmp=0";
+				history.go(0);
 			}
 		} else {
 			location.href = contextPath + "/order/orderItem?item_id=" + item_id + "&qty=" + qty;

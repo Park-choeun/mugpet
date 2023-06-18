@@ -95,7 +95,7 @@ public class UsedGoodsController {
 		model.addAttribute("spe", petService.getSpeName(spe_id));
 		model.addAttribute("spe_id", spe_id);
 		
-		return "tile/usedGoods/view";
+		return "tiless/usedGoods/view";
 	}
 	
 	@RequestMapping("/usedGoods/usedGoodsList")
@@ -137,7 +137,7 @@ public class UsedGoodsController {
 		model.addAttribute("spe_id", spe_id);
 		model.addAttribute("nicknameList", nicknameList);
 		
-		return "tile/usedGoods/usedGoodsList";
+		return "tiless/usedGoods/usedGoodsList";
 	}
 	
 	@RequestMapping("/myPage/myUsedGoodsList")
