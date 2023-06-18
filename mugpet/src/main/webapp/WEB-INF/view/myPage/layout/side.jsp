@@ -24,9 +24,9 @@
                <li>내 활동 </li>
                <ul class="small_menu">
                    <li><a href="${contextPath }/wish/myWishList">마이 위시 리스트</a></li>
-                   <li><a href="${contextPath }/community/communityList">마이 작성글 리스트</a></li>
-                   <li><a href="${contextPath }/usedGoods/usedGoodsList">마이 중고상품 리스트</a></li>
-                   <li><a href="${contextPath }/myPage/replyList">마이 댓글 리스트</a></li>
+                   <li><a href="${contextPath }/myPage/myCommunityList">마이 작성글 리스트</a></li>
+                   <li><a href="${contextPath }/myPage/myUsedGoodsList">마이 중고상품 리스트</a></li>
+                   <li><a href="${contextPath }/myPage/myReplyList">마이 댓글 리스트</a></li>
                </ul>
            </ul>
            <ul class="big_menu">

@@ -1,8 +1,5 @@
 package com.spring.mugpet.controller.item;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 public class OrderItemCommand {
 	
 	private int orderQty;		//구매하는 개수

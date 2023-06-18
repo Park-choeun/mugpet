@@ -10,13 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.mugpet.domain.Item;
 import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.OrderItem;
 import com.spring.mugpet.domain.OrderItemInfos;
 import com.spring.mugpet.domain.Pet;
+import com.spring.mugpet.service.ItemService;
 import com.spring.mugpet.service.MemberService;
 import com.spring.mugpet.service.OrderItemService;
 import com.spring.mugpet.service.PetService;
@@ -34,6 +37,12 @@ public class OrderItemController {
 	@Autowired
 	private PetService petService;
 	
+	@Autowired
+	private ItemService itemService;
+	
+	@Autowired
+	private CartController cartController;
+	
 	public void setOrderItemService(OrderItemService orderItemService) {
 		this.orderItemService = orderItemService;
 	}
@@ -44,6 +53,40 @@ public class OrderItemController {
 	
 	public void setPetService(PetService petService) {
 		this.petService = petService;
+	}
+	
+	public void setItemService(ItemService itemService) {
+		this.itemService = itemService;
+	}
+	
+	public void setCartController(CartController cartController) {
+		this.cartController = cartController;
+	}
+	
+	
+	//아이템상세페이지에서 바로 구매하기
+	@RequestMapping("/order/orderItem")
+	public ModelAndView orderItem(@ModelAttribute("userSession") MemberInfo userSession,
+									@RequestParam("item_id")int item_id, @RequestParam("qty")int qty) throws Exception {
+		Item i = itemService.getItem(item_id);
+		List<Item> item = new ArrayList<Item>();
+		item.add(i);
+		
+		List<Integer> price = new ArrayList<Integer>();
+		price.add(i.getPrice() * qty);
+		
+		List<Integer> qtys = new ArrayList<Integer>();
+		qtys.add(qty);
+		
+		ModelAndView mav = cartController.cartToOrder(userSession);
+		mav.addObject("cartItemsInfo", item);
+		mav.addObject("cartItemsPrice", price);
+		mav.addObject("cartItemsQty", qtys);
+		mav.addObject("totalPrice", qty * i.getPrice());
+		mav.addObject("oneItem", 1);
+		mav.addObject("item_id", item_id);
+		mav.addObject("qty", qty);
+		return mav;
 	}
 	
 
@@ -98,4 +141,3 @@ public class OrderItemController {
 		return mav;
 	}
 }
-

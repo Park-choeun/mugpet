@@ -18,6 +18,17 @@
 		<li><a class="dropdown-item" href="${contextPath}/item/orderByItem?spe_id=${spe_id}&category_id=${category_id}&stand=price&od=DESC&isFiltering=${isFiltering}">가격높은순</a></li>
 	</ul>
 </div>
+
+<c:if test="${itemList.size() eq 0}">
+	<div class="content">
+		<div class="bottom">
+			<img src="${contextPath}/resources/images/alert.png" name="alertImg" width="150" height="150" /> 
+		</div>
+		<div class="message">
+			해당되는 상품이 없습니다!
+		</div>
+	</div>
+</c:if>
 		
 <div id="itemList">
 	<div id="itemCards">

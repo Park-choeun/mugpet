@@ -48,17 +48,12 @@ public class WishController {
 									@RequestParam("item_id") int item_id,
 									@RequestParam("isWish") int isWish) {
 		
-		int u_id = 0;
-		if(userSession.getU_id() != 0) {
-			u_id = userSession.getU_id();
-		}
-		
 		if (isWish == 0) {
-			wishService.insertWish(item_id, u_id);
+			wishService.insertWish(item_id, userSession.getU_id());
 		} else {
-			wishService.deleteWish(item_id, u_id);
+			wishService.deleteWish(item_id, userSession.getU_id());
 		}
-		isWish = wishService.isWish(u_id, item_id);
+		isWish = wishService.isWish(item_id, userSession.getU_id());
 		
 		ModelAndView mav = itemController.viewItem(userSession, item_id);
 		mav.addObject("isWish", isWish);
@@ -76,7 +71,7 @@ public class WishController {
 		List<Item> wishItemsInfo = wishService.getMyWishList(userSession.getU_id());
 		System.out.println("위시 아이템 개수" + wishItemsInfo.size());
 	    
-	    ModelAndView mav = itemController.viewItemListByCategory(userSession, spe_id, 1);
+	    ModelAndView mav = itemController.viewItemListByCategory(userSession, spe_id, 1, 0);
 	    mav.setViewName("tile/myPage/myWishList");
 	    
 	    mav.addObject("spe_id", spe_id);

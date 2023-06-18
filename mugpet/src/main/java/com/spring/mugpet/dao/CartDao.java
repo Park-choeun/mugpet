@@ -19,11 +19,11 @@ public interface CartDao {
 	
 	public Cart getMyCartItemCartType(int item_id, int u_id) throws DataAccessException;
 	
-	public void addCart(Cart cart) throws DataAccessException; 
+	public void addCart(Cart cart) throws DataAccessException;
 
-	public void updateCart(int cartQty, int item_id, int u_id) throws DataAccessException; 
+	public void updateCart(int cartQty, int item_id, int u_id) throws DataAccessException;
 
-	public void removeCart(int item_id, int u_id) throws DataAccessException; 	
+	public void removeCart(int item_id, int u_id) throws DataAccessException;
 	
 	public void removeCartAll(int u_id) throws DataAccessException;
 }

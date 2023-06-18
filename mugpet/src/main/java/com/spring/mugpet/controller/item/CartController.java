@@ -42,6 +42,8 @@ public class CartController {
 	private ItemService itemService;
 	@Autowired
 	private ItemController itemController;
+	@Autowired
+	private OrderItemController orderItemController;
 	
 	private int resetPoints = 0;
 	int applyPoints = 0;
@@ -94,8 +96,8 @@ public class CartController {
 		}
 		mav.addObject("isCart", isCart);
 		   
-		   return mav;
-     }
+		return mav;
+	}
 	
 	
 	//Cart(장바구니)에 담긴 아이템 조회 -> 장바구니 버튼 누르면 /cart/myCartList로 연결되는 방식
@@ -110,9 +112,7 @@ public class CartController {
 			petName = pet.getName();
 		}
 		
-		int u_id = userSession.getU_id();
-		System.out.println("u_id: " + u_id);
-		
+		int u_id = userSession.getU_id();		
 		
 		List<Cart> cartItems = cartService.getMyCartList(u_id);	//장바구니에 담긴 아이템 조회
 		if(cartItems.size() == 0) {
@@ -134,7 +134,6 @@ public class CartController {
 		for(Cart items : cartItems) {
 			int item_id = items.getItem_id();
 			Item info = cartService.getCartItemInfo(item_id);
-			cartItemQty = cartService.getMyCartItemQty(item_id);
 			cartItemsInfo.add(info);
 			cartItemQty = items.getCartQty();
 			cartItemsQty.add(cartItemQty);
@@ -169,10 +168,10 @@ public class CartController {
 			try {
 					int quantity = Integer.parseInt(request.getParameter(Integer.toString(num))); //각 아이템의 변경된 값을 가지고 옴
 					cartItem.setCartQty(quantity); //cart의 개수 필드 변경 cartItem은 가져온 각 아이템
-					cartService.updateCart(quantity, item_id);
+					cartService.updateCart(quantity, item_id, userSession.getU_id());
 				
 					if(quantity < 1) {
-						cartService.removeCart(item_id);
+						cartService.removeCart(item_id, userSession.getU_id());
 					}
 			}catch(NumberFormatException ex) {
 				ex.printStackTrace();
@@ -185,8 +184,8 @@ public class CartController {
 	
 	//각각의 물품 삭제할 수 있는 메소드 =>-버튼 클릭시 사라짐
 	@RequestMapping(value="/cart/removeItemFromCart", method=RequestMethod.GET)
-	public ModelAndView handleRequest(@RequestParam("item_id") int item_id) throws Exception{
-		cartService.removeCart(item_id);
+	public ModelAndView handleRequest(@RequestParam("item_id") int item_id, @ModelAttribute("userSession") MemberInfo userSession) throws Exception{
+		cartService.removeCart(item_id, userSession.getU_id());
 		
 		return new ModelAndView("redirect:/cart/myCartList");
 	}
@@ -215,7 +214,6 @@ public class CartController {
 		for(Cart items : cartItems) {
 			int item_id = items.getItem_id();
 			Item info = cartService.getCartItemInfo(item_id);
-			cartItemQty = cartService.getMyCartItemQty(item_id);
 			System.out.println("카트 첫번째 아이템 이름: " + info.getItemName());
 			cartItemsInfo.add(info);
 			cartItemQty = items.getCartQty();
@@ -240,6 +238,9 @@ public class CartController {
 		mav.addObject("spe_id", spe_id);
 		mav.addObject("spe", petService.getSpeName(spe_id));
 		mav.addObject("petName", petName);
+		mav.addObject("oneItem", 0);
+		mav.addObject("item_id", 0);
+		mav.addObject("qty", 0);
 		
 		return mav;
 	}
@@ -281,44 +282,60 @@ public class CartController {
 	}
 
 	@RequestMapping(value="/cart/ordering", method=RequestMethod.POST)
-	public ModelAndView submit(HttpServletRequest request, @ModelAttribute("userSession") MemberInfo userSession, @ModelAttribute("orderItemCommand") OrderItemCommand command) throws Exception{ //매개변수 설정해야 함
-			
-			int spe_id = 1;
-			String petName = null;
-			if(userSession.getU_id() != 0) {
-				Pet pet = petService.getPetByU_id(userSession.getU_id());
-				spe_id = pet.getSpe_id();
-				petName = pet.getName();
-			}
-			
-			int u_id = userSession.getU_id();
-			ModelAndView mav = new ModelAndView("tiles/cart/orderCompleted");
-			MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd(userSession.getEmail(), userSession.getPwd());
-			
-			String phoneNum = memberInfo.getPhoneNum();
-			String address = memberInfo.getAddress() + " " + request.getParameter("addrDetail");
-			String req = request.getParameter("req");
-			if(req =="")
-				req = "없음";
-			//결제를 했으므로 사용자의 적립금 정보를 업데이트 해준다.(100원 적립)
-			memberService.updatePoints(resetPoints + 100, userSession.getEmail(), userSession.getPwd());	
+	public ModelAndView submit(HttpServletRequest request, @ModelAttribute("userSession") MemberInfo userSession, 
+							@ModelAttribute("orderItemCommand") OrderItemCommand command,
+							@RequestParam("oneItem")int oneItem, @RequestParam(value="item_id", defaultValue="0")int item_id,
+							@RequestParam(value="qty", defaultValue="0")int qty) throws Exception{ //매개변수 설정해야 함
+		System.out.println(">>>>>>item_id=" + item_id + ",qty=" + qty);
+		int spe_id = 1;
+		String petName = null;
+		if(userSession.getU_id() != 0) {
+			Pet pet = petService.getPetByU_id(userSession.getU_id());
+			spe_id = pet.getSpe_id();
+			petName = pet.getName();
+		}
+		
+		int u_id = userSession.getU_id();
+		ModelAndView mav = new ModelAndView("tiles/cart/orderCompleted");
+		MemberInfo memberInfo = memberService.getMemberInfoByEmailandPwd(userSession.getEmail(), userSession.getPwd());
+		
+		String phoneNum = memberInfo.getPhoneNum();
+		String address = memberInfo.getAddress() + " " + request.getParameter("addrDetail");
+		String req = request.getParameter("req");
+		if(req =="")
+			req = "없음";	
 
+		List<Cart> orderItemList = new ArrayList<Cart>();
+		List<Item> orderItemsInfo = new ArrayList<Item>();
+		List<Integer> orderItemsPrice = new ArrayList<Integer>();
+		
+		int orderQty;					  //주문한 상품 종류 수
+		List<Integer> orderItemsQtyList = new ArrayList<Integer>();//주문한 상품 하나 당 개수를 모은 리스트
+		int orderItemQty = 0; 	//주문한 상품 하나 당 개수
+		int totalPrice = 0;		//모든 상품 더한 총가격
+		int itemPrice = 0;		//상품 하나 당 개수를 고려한 가격
+		int idx = 0;
+		Item info = new Item();
+		
+		if (oneItem == 1) {
+				info = itemService.getItem(item_id);
+				orderItemsInfo.add(info);
+				orderItemsQtyList.add(qty);
+				orderItemsPrice.add(info.getPrice() * qty);
+				totalPrice = info.getPrice() * qty;
+				orderQty = 1;
+				
+				OrderItem orderItem = new OrderItem(orderItemQty, address, phoneNum, item_id, itemPrice, applyPoints, req, u_id);
+				orderItemService.insertOrderItem(orderItem);
+				
+		} else {
 			//orderItem에 cartItems들을 넣음
-			List<Cart> orderItemList = cartService.getMyCartList(userSession.getU_id());
-			List<Item> orderItemsInfo = new ArrayList<Item>();
-			List<Integer> orderItemsPrice = new ArrayList<Integer>();
-			
-			int orderQty = orderItemList.size();					  //주문한 상품 종류 수
-			List<Integer> orderItemsQtyList = new ArrayList<Integer>();//주문한 상품 하나 당 개수를 모은 리스트
-			int orderItemQty = 0; 	//주문한 상품 하나 당 개수
-			int totalPrice = 0;		//모든 상품 더한 총가격
-			int itemPrice = 0;		//상품 하나 당 개수를 고려한 가격
-			int idx = 0;
-			
+			orderItemList = cartService.getMyCartList(userSession.getU_id());
+			orderQty = orderItemList.size();
 			for(Cart items : orderItemList) {
-				int item_id = items.getItem_id();
+				item_id = items.getItem_id();
 				System.out.println("아이템 아이디: " + item_id);
-				Item info = cartService.getCartItemInfo(item_id);	//카트에 담긴 상품의 자세한 아이템 정보
+				info = cartService.getCartItemInfo(item_id);	//카트에 담긴 상품의 자세한 아이템 정보
 				System.out.println("카트 첫번째 아이템 이름: " + info.getItemName());
 				orderItemsInfo.add(info);
 				orderItemQty = items.getCartQty();		//주문한 상품 하나 당 개수 I
@@ -328,32 +345,35 @@ public class CartController {
 				totalPrice += orderItemsPrice.get(idx); //총 가격
 				
 				OrderItem orderItem = new OrderItem(orderItemQty, address, phoneNum, item_id, itemPrice, applyPoints, req, u_id);
-				orderItem.setOrderItemList(orderItemList); 
-			
 				orderItemService.insertOrderItem(orderItem);
 				
 				idx++;
 			}
-			totalPrice = totalPrice - applyPoints;
-			Date date = new Date();
-			mav.addObject("memberInfo", memberInfo); //주문자, 전화번호
-			mav.addObject("address", address);
-			mav.addObject("req", req);
-			mav.addObject("currentTime", date);
-			mav.addObject("orderItemQtyList", orderItemsQtyList);
-			mav.addObject("orderQty", orderQty);
-			mav.addObject("totalPrice", totalPrice);
-			mav.addObject("orderItemsPrice", orderItemsPrice);
-			mav.addObject("orderItemsInfo", orderItemsInfo);
-			mav.addObject("applyPoints", applyPoints);
-			mav.addObject("spe_id", spe_id);
-			mav.addObject("spe", petService.getSpeName(spe_id));
-			mav.addObject("petName", petName);
-			
-			cartService.removeCartAll(u_id);
-
-			return mav;
-			
 		}
+		
+		//결제를 했으므로 사용자의 적립금 정보를 업데이트 해준다.(100원 적립)
+		memberService.updatePoints(resetPoints + 100, userSession.getEmail(), userSession.getPwd());
+		
+		totalPrice = totalPrice - applyPoints;
+		Date date = new Date();
+		mav.addObject("memberInfo", memberInfo); //주문자, 전화번호
+		mav.addObject("address", address);
+		mav.addObject("req", req);
+		mav.addObject("currentTime", date);
+		mav.addObject("orderItemQtyList", orderItemsQtyList);
+		mav.addObject("orderQty", orderQty);
+		mav.addObject("totalPrice", totalPrice);
+		mav.addObject("orderItemsPrice", orderItemsPrice);
+		mav.addObject("orderItemsInfo", orderItemsInfo);
+		mav.addObject("applyPoints", applyPoints);
+		mav.addObject("spe_id", spe_id);
+		mav.addObject("spe", petService.getSpeName(spe_id));
+		mav.addObject("petName", petName);
+		
+		cartService.removeCartAll(u_id);
+
+		return mav;
+	
+	}
 
 }

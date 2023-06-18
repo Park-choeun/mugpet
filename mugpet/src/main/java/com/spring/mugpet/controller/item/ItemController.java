@@ -83,7 +83,7 @@ public class ItemController {
 		if(userSession.getU_id() != 0) {
 			//wish에 해당 아이템이 있으면 1 반환, 없으면 0 반환
 			isWish = wishService.isWish(item_id, userSession.getU_id());
-			System.out.println(">>>>>isWish=" + isWish + ",item_id=" + item_id);
+			System.out.println(">>>>isWish=" + isWish);
 		}
 		Item item = itemService.getItem(item_id);
 		
@@ -94,7 +94,6 @@ public class ItemController {
 		mav.addObject("isWish", isWish);
 		mav.addObject("filterTmp", null);
 		mav.addObject("isCart", null);
-		//review불러오기
 		
 		return mav;
 	}
