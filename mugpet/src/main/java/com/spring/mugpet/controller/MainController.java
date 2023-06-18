@@ -49,7 +49,9 @@ public class MainController {
 	
 	@ModelAttribute("filtering")
 	public FilterCommand setFiltering() {
-		return new FilterCommand();
+		FilterCommand filtering = new FilterCommand();
+		filtering.setAge("퍼피");
+		return filtering;
 	}
 
 	//main view

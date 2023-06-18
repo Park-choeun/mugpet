@@ -94,6 +94,7 @@ public class ItemController {
 		mav.addObject("isWish", isWish);
 		mav.addObject("filterTmp", null);
 		mav.addObject("isCart", null);
+		//review불러오기
 		
 		return mav;
 	}
