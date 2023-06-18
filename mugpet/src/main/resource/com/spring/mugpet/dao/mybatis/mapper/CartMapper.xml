@@ -3,7 +3,7 @@
 <!-- 주석 -->
 <mapper namespace="com.spring.mugpet.dao.mybatis.mapper.CartMapper">
 	<sql id="cartCols">
-		item_id, total,
+		cart_id, item_id, total,
 		cartQty, u_id
 	</sql>
 	
