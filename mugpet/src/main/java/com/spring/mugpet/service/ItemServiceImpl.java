@@ -25,13 +25,12 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<Item> getFilterItemList(int spe_id, int category_id, String strAge, List<String> stuffs, List<String> features) {
 		Map<String, Object> param = getFilterMap(spe_id, category_id, strAge, stuffs, features);
-		param.put("spe_id", spe_id);
-		param.put("category_id", category_id);
 		return itemDao.getFilterItemList(param);
 	}
 
 	@Override
-	public List<Item> orderByFiltering(int spe_id, int category_id, String strAge, List<String> stuffs, List<String> features, String stand, String od) {
+	public List<Item> orderByFiltering(int spe_id, int category_id, String strAge, List<String> stuffs,
+			List<String> features, String stand, String od) {
 		Map<String, Object> param = getFilterMap(spe_id, category_id, strAge, stuffs, features);
 		param.put("stand", stand);
 		param.put("od", od);
@@ -60,9 +59,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public String getOrderByName(String stand, String od) {
 		String standard;
-		if (stand.equals("item_id")) {
-			standard = "기본순";
-		} else if (stand.equals("itemName")) {
+		if (stand.equals("itemName")) {
 			standard = "이름순";
 		} else {
 			if (od.equals("ASC")) {
@@ -78,7 +75,7 @@ public class ItemServiceImpl implements ItemService {
 		 Map<String, Object> param = new HashMap<String, Object>(5);
 			
 		 int age = getAgeId(strAge);
-		 
+			
 		 param.put("spe_id", spe_id);
 		 param.put("category_id", category_id);
 		 param.put("age", age);

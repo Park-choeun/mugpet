@@ -22,8 +22,8 @@ public class MybatisWishDao implements WishDao{
 	}
 	
 	@Override
-	public Integer isWish(int item_id, int u_id) throws DataAccessException {
-		return wishMapper.isWish(item_id, u_id);
+	public List<Integer> isWish(int u_id) throws DataAccessException {
+		return wishMapper.isWish(u_id);
 	}
 	
 	@Override

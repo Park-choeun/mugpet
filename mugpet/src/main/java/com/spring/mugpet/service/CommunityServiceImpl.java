@@ -25,6 +25,8 @@ public class CommunityServiceImpl implements CommunityService{
 	//각자 path에서 맞게 수정
 	private final String CURR_IMAGE_REPO_PATH = "C:\\upload/";
 	
+	File dir = new File("C:\\\\upload/");
+	
 	@Override
 	public List<Community> getComList(){
 		return communityDAO.getComList();
@@ -42,6 +44,9 @@ public class CommunityServiceImpl implements CommunityService{
 	
 	@Override
 	public void insertCom(NewCommunityCommand comCommand, MultipartFile file) throws Exception{
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
 		String imgFileName = file.getOriginalFilename();
 		
 		//들어왔는지 체크

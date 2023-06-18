@@ -29,12 +29,6 @@ function usedGoodsCreate() {
 		return false;
 	}
 	
-	if(price == 0){
-		alert("1원 이상 반드시 입력해야 합니다.");
-		frm["price"].focus();
-		return false;
-	}
-	
 	write.submit();
 }
 

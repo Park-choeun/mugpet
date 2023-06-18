@@ -77,6 +77,11 @@ public class FilterController {
 		return featureVal;
 	}
 	
+	@ModelAttribute("filtering")
+	public FilterCommand setFiltering() {
+		return new FilterCommand();
+	}
+	
 	//필터창 띄우기
 	@RequestMapping(value="/filter", method=RequestMethod.GET)
 	public String viewFilter(@RequestParam("spe_id") int spe_id, 
@@ -99,9 +104,9 @@ public class FilterController {
 		//category_id=0(메인에서 필터링 -> 메인view 출력)
 		ModelAndView mav = new ModelAndView();
 		if (category_id == 0) {
-			mav = mainController.viewMain(userSession, spe_id, 1);
+			mav = mainController.viewMain(userSession, spe_id);
 		} else {
-			mav = itemController.viewItemListByCategory(userSession, spe_id, category_id, 1);
+			mav = itemController.viewItemListByCategory(userSession, spe_id, category_id);
 		}
 		mav.addObject("itemList", itemList);
 		mav.addObject("spe_id", spe_id);
