@@ -72,23 +72,30 @@ public class CartController {
 	   public ModelAndView addCart(@ModelAttribute("userSession") MemberInfo userSession,
 			   						@RequestParam("item_id")int item_id, @RequestParam("qty")int qty,
 			   						@RequestParam("tmp")int tmp) throws Exception {
-		   
-		   System.out.println(">>>>>item_id=" + item_id + ", qty=" + qty);
-		   Item item = itemService.getItem(item_id);
-		   int total = item.getPrice() * qty;
-		   
-		   Cart newCart = new Cart(item_id, total, qty, userSession.getU_id());
-		   cartService.addCart(newCart);
-		   
-		   ModelAndView mav;
-		   if (tmp == 1) {
-			   mav = getCart(userSession);
-		   } else {
-			   mav = itemController.viewItme(userSession, item_id);
-		   }
+		
+		System.out.println(">>>>>item_id=" + item_id + ", qty=" + qty);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		//isCart=1 (이미 카트에 존재하는 상품)
+		int isCart = cartService.isCart(item_id, userSession.getU_id());
+		if (isCart == 0) {
+			Item item = itemService.getItem(item_id);
+			int total = item.getPrice() * qty;
+			   
+			Cart newCart = new Cart(item_id, total, qty, userSession.getU_id());
+			cartService.addCart(newCart);
+		}
+		
+		if (tmp == 1) {
+			mav = getCart(userSession);
+		} else {
+			mav = itemController.viewItem(userSession, item_id);
+		}
+		mav.addObject("isCart", isCart);
 		   
 		   return mav;
-	   }
+     }
 	
 	
 	//Cart(장바구니)에 담긴 아이템 조회 -> 장바구니 버튼 누르면 /cart/myCartList로 연결되는 방식
