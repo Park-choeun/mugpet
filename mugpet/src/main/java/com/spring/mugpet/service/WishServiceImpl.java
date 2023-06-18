@@ -20,18 +20,23 @@ public class WishServiceImpl implements WishService {
 		return wishDao.getMyWishList(u_id);
 	}
 	
-	public int isWish(int item_id, int u_id) {
-		Integer iswish = wishDao.isWish(item_id, u_id);
-		if (iswish != null) {
-			return 1;
+	public int isWish(int u_id, int item_id) {
+		List<Integer> isWishList = wishDao.isWish(u_id);
+		if (!isWishList.isEmpty()) {
+			for (int i = 0; i < isWishList.size(); i++) {
+				if (isWishList.get(i) == item_id) {
+					return 1;
+				}
+			}
+			return 0;
 		} else {
 			return 0;
 		}
 	}
 
 	public void insertWish(int item_id, int u_id) {
-		int iswish = isWish(item_id, u_id);
-		if (iswish == 0) {
+		int isWish = isWish(u_id, item_id);
+		if (isWish == 0) {
 			wishDao.insertWish(item_id, u_id);
 		}
 	}

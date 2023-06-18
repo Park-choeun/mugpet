@@ -20,6 +20,8 @@ public class UsedGoodsServiceImpl implements UsedGoodsService{
 	
 	private final String CURR_IMAGE_REPO_PATH = "C:\\upload/";
 	
+	File dir = new File("C:\\upload/");
+	
 	@Override
 	public List<UsedGoods> getUsedGoodsList() {
 		return usedgoodsDAO.getUsedGoodsList();
@@ -37,6 +39,10 @@ public class UsedGoodsServiceImpl implements UsedGoodsService{
 
 	@Override
 	public void insertUsedGoods(NewUsedGoodsCommand goodsCommand, MultipartFile file) throws Exception {
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
+		
 		String imgFileName = file.getOriginalFilename();
 		
 		//들어왔는지 체크

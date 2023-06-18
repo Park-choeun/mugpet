@@ -107,8 +107,7 @@ public class CommunityController {
 		model.addAttribute("spe", petService.getSpeName(spe_id));
 		model.addAttribute("spe_id", spe_id);
 		
-		
-		return "tiles/community/view";
+		return "tile/community/view";
 	}
 	
 	@RequestMapping("/community/communityList")
@@ -150,10 +149,10 @@ public class CommunityController {
 		model.addAttribute("nicknameList", nicknameList);
 		model.addAttribute("spe_id", spe_id);
 		
-		return "tiles/community/communityList";
+		return "tile/community/communityList";
 	}
 	
-	@RequestMapping("/community/myCommunityList")
+	@RequestMapping("/myPage/myCommunityList")
 	public String getMemberComList(Model model, @ModelAttribute("userSession") MemberInfo userSession) {
 		//본인이 쓴 게시글 목록 보기
 		int u_id = userSession.getU_id();
@@ -179,7 +178,7 @@ public class CommunityController {
 		model.addAttribute("spe", petService.getSpeName(spe_id));
 		model.addAttribute("spe_id", spe_id);
 	
-		return "tiles/community/myCommunityList";
+		return "tile/myPage/myCommunityList";
 	}
 	
 	//해당 게시글에 작성된 모든 댓글을 삭제 후 게시글 삭제
@@ -235,11 +234,6 @@ public class CommunityController {
 	//글 작성 버튼 누르면 폼으로 이동
 	@RequestMapping(value = "/community/writeForm", method = RequestMethod.GET)
 	public String form(@ModelAttribute("userSession") MemberInfo userSession) {
-		//비로그인 상태시, 로그인 폼으로 이동
-		if(userSession.getU_id() == 0) {
-			return "/member/loginForm";
-		}
-		
 		return "/community/writeForm";
 	}
 	

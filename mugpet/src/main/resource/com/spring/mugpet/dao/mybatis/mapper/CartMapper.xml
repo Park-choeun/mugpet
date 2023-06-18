@@ -3,15 +3,9 @@
 <!-- 주석 -->
 <mapper namespace="com.spring.mugpet.dao.mybatis.mapper.CartMapper">
 	<sql id="cartCols">
-		cart_id, item_id, total,
+		item_id, total,
 		cartQty, u_id
 	</sql>
-	
-	<select id="isCart" parameterType="int" resultType="Integer">
-		SELECT cart_id
-		FROM Cart
-		WHERE item_id=${item_id} AND u_id=${u_id}
-	</select>
 	
 	<select id="getMyCartList" parameterType="int" resultType="Cart">
 		SELECT <include refid="cartCols" />
@@ -22,7 +16,7 @@
 	<select id="getMyCartItemQty" parameterType="int" resultType="int">
 		SELECT cartQty
 		FROM Cart
-		WHERE item_id=#{item_id} And u_id=#{u_id}
+		WHERE item_id=#{item_id}
 	</select>
 	
 	<select id="getCartItemInfo" parameterType="int" resultType="Item">
@@ -34,26 +28,23 @@
 	<select id="getMyCartItemCartType" parameterType="int" resultType="Cart">
 		SELECT <include refid="cartCols" />
 		FROM Cart
-		WHERE item_id=#{item_id} And u_id=#{u_id}
+		WHERE item_id=#{item_id}
 	</select>
 	
 	<insert id="addCart" parameterType="Cart">
-		<selectKey keyProperty="cart_id" resultType="int" order="BEFORE">
-			SELECT NVL(MAX(cart_id),0) + 1 FROM Cart
-		</selectKey>
 		INSERT INTO Cart (<include refid="cartCols" />)
-		VALUES (#{cart_id}, #{item_id}, #{total}, #{cartQty}, #{u_id})
+		VALUES (#{item_id}, #{total}, #{cartQty}, #{u_id})
 	</insert>
 	
 	<update id="updateCart" parameterType="int">
 		UPDATE Cart
 		SET cartQty=#{cartQty}
-		WHERE item_id=#{item_id} And u_id=#{u_id}
+		WHERE item_id=#{item_id}
 	</update>
 	
 	<delete id="removeCart" parameterType="Cart">
 		DELETE FROM Cart
-		WHERE item_id=#{item_id} And u_id=#{u_id}
+		WHERE item_id=#{item_id}
 	</delete>
 	
 	<delete id="removeCartAll" parameterType="int">

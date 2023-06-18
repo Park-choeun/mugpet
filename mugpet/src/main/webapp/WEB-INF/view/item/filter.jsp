@@ -114,7 +114,6 @@ td{
 		
 		function resetForm() {
 			$("input[name='age']").prop("checked", false);
-			$("input:radio[name='age']:input[value='퍼피']").prop("checked", true);
 			$("input[name='stuffs']").prop("checked", false);
 			$("input[name='features']").prop("checked", false);
 		}

@@ -39,17 +39,17 @@
 	</definition>
 	
 	<!-- community -->
-	<definition name="tiles/community/*" extends="default">
+	<definition name="tile/community/*" extends="default">
 		<put-attribute name="dynamic_css" value="/resources/css/{1}.css"/>  								
 		<put-attribute name="side" value="/WEB-INF/view/common/mainSide.jsp" />
-		<put-attribute name="body" value="/WEB-INF/view/main/{1}.jsp" />												
+		<put-attribute name="body" value="/WEB-INF/view/community/{1}.jsp" />												
 	</definition>
 	
 	<!-- usedGoods -->
-	<definition name="tiles/usedGoods/*" extends="default">
+	<definition name="tile/usedGoods/*" extends="default">
 		<put-attribute name="dynamic_css" value="/resources/css/{1}.css"/>  								
 		<put-attribute name="side" value="/WEB-INF/view/common/mainSide.jsp" />
-		<put-attribute name="body" value="/WEB-INF/view/main/{1}.jsp" />												
+		<put-attribute name="body" value="/WEB-INF/view/usedGoods/{1}.jsp" />												
 	</definition>
 	
 </tiles-definitions>

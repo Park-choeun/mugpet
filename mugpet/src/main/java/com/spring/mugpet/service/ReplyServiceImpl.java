@@ -76,4 +76,9 @@ public class ReplyServiceImpl implements ReplyService{
 	public int getU_IdByUsedGoodsReply(int g_id, int rp_id) {
 		return replyDAO.getU_IdByUsedGoodsReply(g_id, rp_id);
 	}
+
+	@Override
+	public List<Reply> getMyReplyList(int u_id) {
+		return replyDAO.getMyReplyList(u_id);
+	}
 }
