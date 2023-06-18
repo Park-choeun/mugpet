@@ -18,11 +18,5 @@ public interface ItemService {
 	
 	List<Item> orderByItem(int spe_id, int category_id, String stand, String od);
 	
-	void insertItem(Item item);
-	
-	void updateItem(Item item);
-	
-	void deleteItem(int item_id);
-	
 	String getOrderByName(String standard, String od);
 }

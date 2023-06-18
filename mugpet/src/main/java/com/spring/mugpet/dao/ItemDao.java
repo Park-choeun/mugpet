@@ -20,10 +20,4 @@ public interface ItemDao {
 	List<Item> orderByFiltering(Map<String, Object> param) throws DataAccessException;
 	
 	List<Item> orderByItem(int spe_id, int category_id, String stand, String od) throws DataAccessException;
-	
-	void insertItem(Item item) throws DataAccessException;
-	
-	void updateItem(Item item) throws DataAccessException;
-	
-	void deleteItem(int item_id) throws DataAccessException;
 }

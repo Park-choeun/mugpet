@@ -26,15 +26,4 @@ public interface ItemMapper {
 	
 	//카테고리별 상품 정렬하기
 	List<Item> orderByItem(@Param("spe_id")int spe_id, @Param("category_id")int category_id, @Param("stand")String stand, @Param("od")String od);
-		
-	//상품 추가하기
-	void insertItem(Item item);
-		
-	//상품정보 수정하기
-	void updateItem(Item item);
-		
-	//상품 삭제하기
-	void deleteItem(int item_id);
-	
-	
 }

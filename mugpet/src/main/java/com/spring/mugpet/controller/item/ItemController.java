@@ -100,7 +100,7 @@ public class ItemController {
 	}
 	
 	//아이템 정렬
-	@RequestMapping("/orderItem")
+	@RequestMapping("/orderByItem")
 	public ModelAndView orderItem(@ModelAttribute("userSession") MemberInfo userSession,
 									@ModelAttribute("filtering") FilterCommand filtering,
 									@RequestParam("spe_id") int spe_id, @RequestParam("category_id") int category_id, 

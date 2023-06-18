@@ -21,10 +21,10 @@
  	</button>
  		
  	<ul class="dropdown-menu" style="font-size:14px;">
- 		<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&stand=item_id&od=ASC&isFiltering=${isFiltering}">기본순</a></li>
-		<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&stand=itemName&od=ASC&isFiltering=${isFiltering}">이름순</a></li>
-		<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&stand=price&od=ASC&isFiltering=${isFiltering}">가격낮은순</a></li>
-		<li><a class="dropdown-item" href="${contextPath}/main/orderItem?spe_id=${spe_id}&stand=price&od=DESC&isFiltering=${isFiltering}">가격높은순</a></li>
+ 		<li><a class="dropdown-item" href="${contextPath}/main/orderByItem?spe_id=${spe_id}&stand=item_id&od=ASC&isFiltering=${isFiltering}">기본순</a></li>
+		<li><a class="dropdown-item" href="${contextPath}/main/orderByItem?spe_id=${spe_id}&stand=itemName&od=ASC&isFiltering=${isFiltering}">이름순</a></li>
+		<li><a class="dropdown-item" href="${contextPath}/main/orderByItem?spe_id=${spe_id}&stand=price&od=ASC&isFiltering=${isFiltering}">가격낮은순</a></li>
+		<li><a class="dropdown-item" href="${contextPath}/main/orderByItem?spe_id=${spe_id}&stand=price&od=DESC&isFiltering=${isFiltering}">가격높은순</a></li>
 	</ul>
 </div>
 			

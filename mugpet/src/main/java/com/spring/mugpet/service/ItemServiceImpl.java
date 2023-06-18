@@ -50,18 +50,6 @@ public class ItemServiceImpl implements ItemService {
 		return itemDao.orderByItem(spe_id, category_id, stand, od);
 	}
 
-	public void insertItem(Item item) {
-		itemDao.insertItem(item);
-	}
-	
-	public void updateItem(Item item) {
-		itemDao.updateItem(item);
-	}
-
-	public void deleteItem(int item_id) {
-		itemDao.deleteItem(item_id);
-	}
-
 	public int getAgeId(String strAge) {
 		int age;
 		if (strAge.equals("퍼피")) {

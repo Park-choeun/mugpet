@@ -47,19 +47,4 @@ public class MybatisItemDao implements ItemDao {
 			throws DataAccessException {
 		return itemMapper.orderByItem(spe_id, category_id, stand, od);
 	}
-
-	@Override
-	public void insertItem(Item item) throws DataAccessException {
-		itemMapper.insertItem(item);
-	}
-
-	@Override
-	public void updateItem(Item item) throws DataAccessException {
-		itemMapper.updateItem(item);
-	}
-
-	@Override
-	public void deleteItem(int item_id) throws DataAccessException {
-		itemMapper.deleteItem(item_id);
-	}
 }

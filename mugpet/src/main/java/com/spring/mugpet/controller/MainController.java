@@ -94,7 +94,7 @@ public class MainController {
 								@RequestParam(value="isFiltering", defaultValue="0")int isFiltering) {
 		
 		List<Item> itemList = new ArrayList<Item>();
-		itemList = itemService.getALLItemList(spe_id);	
+		itemList = itemService.orderByItem(spe_id, 0, "item_id", "ASC");
 		
 		ModelAndView mav = viewMain(userSession, spe_id, isFiltering);
 		mav.addObject("itemList", itemList);
@@ -106,7 +106,7 @@ public class MainController {
   
 	
 	//main에서 아이템 정렬
-	@RequestMapping("/main/orderItem")
+	@RequestMapping("/main/orderByItem")
 	public ModelAndView orderByItem(@ModelAttribute("userSession") MemberInfo userSession,
 								@ModelAttribute("filtering") FilterCommand filtering,
 								@RequestParam("spe_id") int spe_id,
