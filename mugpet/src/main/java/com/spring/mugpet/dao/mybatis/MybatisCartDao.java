@@ -17,7 +17,7 @@ public class MybatisCartDao implements CartDao{
 	@Autowired
 	private CartMapper cartMapper;
 	
-	@Override
+	//Cart가 존재하는지 확인
 	public Integer isCart(int item_id, int u_id) throws DataAccessException {
 		return cartMapper.isCart(item_id, u_id);
 	}
@@ -27,16 +27,16 @@ public class MybatisCartDao implements CartDao{
 		return cartMapper.getMyCartList(u_id);
 	}
 	//Cart 목록에 있는 카트 필드 정보 가져오기
-	public int getMyCartItemQty(int item_id) throws DataAccessException{
-		return cartMapper.getMyCartItemQty(item_id);
+	public int getMyCartItemQty(int item_id, int u_id) throws DataAccessException{
+		return cartMapper.getMyCartItemQty(item_id, u_id);
 	}
 	//Cart 목록에 있는 하나의 아이템 정보 가져오기
 	public Item getCartItemInfo(int item_id) throws DataAccessException{
 		return cartMapper.getCartItemInfo(item_id);
 	}
 	//Cart 목록에 있는 하나의 아이템 정보를 Cart 타입으로 가져오기
-	public Cart getMyCartItemCartType(int item_id) throws DataAccessException{
-		return cartMapper.getMyCartItemCartType(item_id);
+	public Cart getMyCartItemCartType(int item_id, int u_id) throws DataAccessException{
+		return cartMapper.getMyCartItemCartType(item_id, u_id);
 	}
 	
 	//Cart 목록에 item 추가하기
@@ -45,13 +45,13 @@ public class MybatisCartDao implements CartDao{
 	}
 
 	//Cart 목록에 item 정보 수정하기
-	public void updateCart(int cartQty, int item_id) throws DataAccessException{
-		cartMapper.updateCart(cartQty, item_id);
+	public void updateCart(int cartQty, int item_id, int u_id) throws DataAccessException{
+		cartMapper.updateCart(cartQty, item_id, u_id);
 	}
 
 	//Cart 목록에 item 삭제하기
-	public void removeCart(int item_id) throws DataAccessException{
-		cartMapper.removeCart(item_id);
+	public void removeCart(int item_id, int u_id) throws DataAccessException{
+		cartMapper.removeCart(item_id, u_id);
 	}
 	
 	//Cart 목록의 모든 아이템 삭제하기

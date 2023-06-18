@@ -110,9 +110,7 @@ public class CartController {
 			petName = pet.getName();
 		}
 		
-		int u_id = userSession.getU_id();
-		System.out.println("u_id: " + u_id);
-		
+		int u_id = userSession.getU_id();		
 		
 		List<Cart> cartItems = cartService.getMyCartList(u_id);	//장바구니에 담긴 아이템 조회
 		if(cartItems.size() == 0) {
@@ -134,7 +132,7 @@ public class CartController {
 		for(Cart items : cartItems) {
 			int item_id = items.getItem_id();
 			Item info = cartService.getCartItemInfo(item_id);
-			cartItemQty = cartService.getMyCartItemQty(item_id);
+			cartItemQty = cartService.getMyCartItemQty(item_id, u_id);
 			cartItemsInfo.add(info);
 			cartItemQty = items.getCartQty();
 			cartItemsQty.add(cartItemQty);
@@ -169,10 +167,10 @@ public class CartController {
 			try {
 					int quantity = Integer.parseInt(request.getParameter(Integer.toString(num))); //각 아이템의 변경된 값을 가지고 옴
 					cartItem.setCartQty(quantity); //cart의 개수 필드 변경 cartItem은 가져온 각 아이템
-					cartService.updateCart(quantity, item_id);
+					cartService.updateCart(quantity, item_id, userSession.getU_id());
 				
 					if(quantity < 1) {
-						cartService.removeCart(item_id);
+						cartService.removeCart(item_id, userSession.getU_id());
 					}
 			}catch(NumberFormatException ex) {
 				ex.printStackTrace();
@@ -185,8 +183,8 @@ public class CartController {
 	
 	//각각의 물품 삭제할 수 있는 메소드 =>-버튼 클릭시 사라짐
 	@RequestMapping(value="/cart/removeItemFromCart", method=RequestMethod.GET)
-	public ModelAndView handleRequest(@RequestParam("item_id") int item_id) throws Exception{
-		cartService.removeCart(item_id);
+	public ModelAndView handleRequest(@RequestParam("item_id") int item_id, @ModelAttribute("userSession") MemberInfo userSession) throws Exception{
+		cartService.removeCart(item_id, userSession.getU_id());
 		
 		return new ModelAndView("redirect:/cart/myCartList");
 	}
@@ -215,7 +213,7 @@ public class CartController {
 		for(Cart items : cartItems) {
 			int item_id = items.getItem_id();
 			Item info = cartService.getCartItemInfo(item_id);
-			cartItemQty = cartService.getMyCartItemQty(item_id);
+			cartItemQty = cartService.getMyCartItemQty(item_id, userSession.getU_id());
 			System.out.println("카트 첫번째 아이템 이름: " + info.getItemName());
 			cartItemsInfo.add(info);
 			cartItemQty = items.getCartQty();
@@ -299,9 +297,7 @@ public class CartController {
 			String address = memberInfo.getAddress() + " " + request.getParameter("addrDetail");
 			String req = request.getParameter("req");
 			if(req =="")
-				req = "없음";
-			//결제를 했으므로 사용자의 적립금 정보를 업데이트 해준다.(100원 적립)
-			memberService.updatePoints(resetPoints + 100, userSession.getEmail(), userSession.getPwd());	
+				req = "없음";	
 
 			//orderItem에 cartItems들을 넣음
 			List<Cart> orderItemList = cartService.getMyCartList(userSession.getU_id());
@@ -334,6 +330,9 @@ public class CartController {
 				
 				idx++;
 			}
+			//결제를 했으므로 사용자의 적립금 정보를 업데이트 해준다.(100원 적립)
+			memberService.updatePoints(resetPoints + 100, userSession.getEmail(), userSession.getPwd());
+			
 			totalPrice = totalPrice - applyPoints;
 			Date date = new Date();
 			mav.addObject("memberInfo", memberInfo); //주문자, 전화번호

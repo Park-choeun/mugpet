@@ -2,6 +2,7 @@ package com.spring.mugpet.domain;
 
 public class Cart {
 	
+	private int cart_id;	//Primary key
 	private int item_id;	//카트에 담은 item의 id
 	private int total;		//총 가격(상품 가격 * 개수)
 	private int cartQty;	//개수
@@ -9,11 +10,28 @@ public class Cart {
 	
 	public Cart() {}
 
+	public Cart(int cart_id, int item_id, int total, int cartQty, int u_id) {
+		this.cart_id = cart_id;
+		this.item_id = item_id;
+		this.total = total;
+		this.cartQty = cartQty;
+		this.u_id = u_id;
+	}
+	
 	public Cart(int item_id, int total, int cartQty, int u_id) {
 		this.item_id = item_id;
 		this.total = total;
 		this.cartQty = cartQty;
 		this.u_id = u_id;
+	}
+
+	
+	public int getCart_id() {
+		return cart_id;
+	}
+
+	public void setCart_id(int cart_id) {
+		this.cart_id = cart_id;
 	}
 
 	public int getItem_id() {
