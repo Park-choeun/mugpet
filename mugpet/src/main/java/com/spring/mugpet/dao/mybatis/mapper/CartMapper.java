@@ -11,6 +11,9 @@ import com.spring.mugpet.domain.Item;
 @Mapper
 public interface CartMapper {
 	
+		//cart에 존재하는지 확인
+		Integer isCart(@Param("item_id")int item_id, @Param("u_id")int u_id);
+	
 		//Cart 목록 리스트 형태로 가져오기 (장바구니는 하나)
 		List<Cart> getMyCartList(int u_id) throws DataAccessException;
 		

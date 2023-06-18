@@ -72,3 +72,21 @@
 		<br /><br />
 	</div>
 </div>
+<div>
+	<c:choose>
+		<c:when test="${isCart eq null}">
+			<span id="hidden">-1</span>
+		</c:when>
+		<c:otherwise>
+			<span id="hidden">${isCart}</span>
+		</c:otherwise>
+	</c:choose>
+</div>
+<script>
+window.onload = function(){
+	var isCart = document.getElementById("hidden").innerHTML;
+	if (isCart === "1") {
+		alert("이미 장바구니에 추가된 상품입니다.");
+	}
+}
+</script>
