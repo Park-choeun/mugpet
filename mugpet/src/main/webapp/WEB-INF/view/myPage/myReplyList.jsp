@@ -15,7 +15,8 @@
 	<thead>
 		<tr>
 			<th>번호</th>
-			<th>제목</th>
+			<th>작성자</th>
+			<th>댓글 내용</th>
 			<th>작성일</th>
 		</tr>
 	</thead>
@@ -28,12 +29,12 @@
 				<td>${nickname }</td>
 				<td>
 				<c:choose>
-					<c:when test="${reply.com_id ne null }">
-						<a href="${contextPath }/community/view?com_id=${reply.com_id}">${reply.content}</a>
+					<c:when test="${reply.com_id ne 0 }">
+						<a href="${contextPath }/community/view?com_id=${reply.com_id }">${reply.content }</a>
 					</c:when>
-					<c:otherwise>
+					<c:when test="${reply.g_id ne 0 }">
 						<a href="${contextPath }/usedGoods/view?g_id=${reply.g_id }">${reply.content }</a>
-					</c:otherwise>
+					</c:when>
 				</c:choose>
 				</td>
 				<td>

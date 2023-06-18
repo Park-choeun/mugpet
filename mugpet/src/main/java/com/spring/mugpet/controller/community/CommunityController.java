@@ -107,7 +107,7 @@ public class CommunityController {
 		model.addAttribute("spe", petService.getSpeName(spe_id));
 		model.addAttribute("spe_id", spe_id);
 		
-		return "tiles/community/view";
+		return "tile/community/view";
 	}
 	
 	@RequestMapping("/community/communityList")
@@ -149,10 +149,10 @@ public class CommunityController {
 		model.addAttribute("nicknameList", nicknameList);
 		model.addAttribute("spe_id", spe_id);
 		
-		return "tiles/community/communityList";
+		return "tile/community/communityList";
 	}
 	
-	@RequestMapping("/community/myCommunityList")
+	@RequestMapping("/myPage/myCommunityList")
 	public String getMemberComList(Model model, @ModelAttribute("userSession") MemberInfo userSession) {
 		//본인이 쓴 게시글 목록 보기
 		int u_id = userSession.getU_id();

@@ -95,7 +95,7 @@ public class UsedGoodsController {
 		model.addAttribute("spe", petService.getSpeName(spe_id));
 		model.addAttribute("spe_id", spe_id);
 		
-		return "tiles/usedGoods/view";
+		return "tile/usedGoods/view";
 	}
 	
 	@RequestMapping("/usedGoods/usedGoodsList")
@@ -137,10 +137,10 @@ public class UsedGoodsController {
 		model.addAttribute("spe_id", spe_id);
 		model.addAttribute("nicknameList", nicknameList);
 		
-		return "tiles/usedGoods/usedGoodsList";
+		return "tile/usedGoods/usedGoodsList";
 	}
 	
-	@RequestMapping("/usedGoods/myUsedGoodsList")
+	@RequestMapping("/myPage/myUsedGoodsList")
 	public String getMemberUsedGoodsList(Model model, @ModelAttribute("userSession") MemberInfo userSession) {
 		//본인이 쓴 게시글 목록 보기
 		int u_id = userSession.getU_id();
