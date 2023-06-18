@@ -28,4 +28,6 @@ public interface ReplyDao {
 	public int getU_IdByCommunityReply(int com_id, int rp_id) throws DataAccessException;
 	
 	public int getU_IdByUsedGoodsReply(int g_id, int rp_id) throws DataAccessException;
+	
+	public List<Reply> getMyReplyList(int u_id) throws DataAccessException;
 }

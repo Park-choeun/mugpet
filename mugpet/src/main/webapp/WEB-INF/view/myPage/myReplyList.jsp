@@ -25,8 +25,16 @@
 		<c:forEach items="${replyList}" var="reply">
 			<tr>
 				<td>${reply.rp_id}</td>
+				<td>${nickname }</td>
 				<td>
-					<a href="/board/view?bno=${reply.rp_id}">${reply.content}</a>
+				<c:choose>
+					<c:when test="${reply.com_id ne null }">
+						<a href="${contextPath }/community/view?com_id=${reply.com_id}">${reply.content}</a>
+					</c:when>
+					<c:otherwise>
+						<a href="${contextPath }/usedGoods/view?g_id=${reply.g_id }">${reply.content }</a>
+					</c:otherwise>
+				</c:choose>
 				</td>
 				<td>
 					<fmt:formatDate value="${reply.enrollDt}" pattern="yyyy-MM-dd" />				

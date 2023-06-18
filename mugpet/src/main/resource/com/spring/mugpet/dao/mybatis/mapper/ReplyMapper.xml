@@ -77,4 +77,11 @@
 		DELETE FROM Reply
 		WHERE g_id=#{g_id}
 	</delete>
+	
+	<!-- 내가 쓴 댓글 목록 -->
+	<select id="getMyReplyList" parameterType="int" resultType="Reply">
+		SELECT *
+		FROM Reply
+		WHERE u_id=#{u_id}
+	</select>
 </mapper>
