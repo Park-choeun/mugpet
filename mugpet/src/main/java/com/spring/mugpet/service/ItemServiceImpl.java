@@ -21,14 +21,6 @@ public class ItemServiceImpl implements ItemService {
 	public Item getItem(int item_id) {
 		return itemDao.getItem(item_id);
 	}
-
-	public List<Item> getALLItemList(int spe_id) {
-		return itemDao.getALLItemList(spe_id);
-	}
-
-	public List<Item> getItemList(int spe_id, int category_id) {
-		return itemDao.getItemList(spe_id, category_id);
-	}
 	
 	@Override
 	public List<Item> getFilterItemList(int spe_id, int category_id, String strAge, List<String> stuffs, List<String> features) {
@@ -45,20 +37,9 @@ public class ItemServiceImpl implements ItemService {
 		return itemDao.orderByFiltering(param);
 	}
 	
+	@Override
 	public List<Item> orderByItem(int spe_id, int category_id, String stand, String od) {
 		return itemDao.orderByItem(spe_id, category_id, stand, od);
-	}
-
-	public void insertItem(Item item) {
-		itemDao.insertItem(item);
-	}
-	
-	public void updateItem(Item item) {
-		itemDao.updateItem(item);
-	}
-
-	public void deleteItem(int item_id) {
-		itemDao.deleteItem(item_id);
 	}
 
 	public int getAgeId(String strAge) {
@@ -75,6 +56,7 @@ public class ItemServiceImpl implements ItemService {
 		return age;
 	}
 	
+	@Override
 	public String getOrderByName(String stand, String od) {
 		String standard;
 		if (stand.equals("itemName")) {

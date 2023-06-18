@@ -8,25 +8,35 @@ import com.spring.mugpet.controller.community.NewReplyCommand;
 import com.spring.mugpet.domain.Reply;
 
 public interface ReplyMapper {
-	public List<Reply> getCommunityReplyList(int com_id); /*각 커뮤니티 글에 대한 댓글 목록*/
 	
-	public List<Reply> getUsedGoodsReplyList(int g_id);
+	//각 커뮤니티 글에 대한 댓글 목록
+	List<Reply> getCommunityReplyList(int com_id);
 	
-	public void insertComReply(NewReplyCommand replyCommand); /*댓글 작성*/
+	//각 중고거래 글에 대한 댓글 목록
+	List<Reply> getUsedGoodsReplyList(int g_id);
 	
-	public void insertGoodsReply(NewReplyCommand replyCommand);
+	//커뮤니티 글에 댓글 작성
+	void insertComReply(NewReplyCommand replyCommand);
 	
-	public void deleteComReply(@Param("rp_id") int rp_id, @Param("com_id") int com_id); /*댓글 삭제*/
+	//중고거래 글에 댓글 작성
+	void insertGoodsReply(NewReplyCommand replyCommand);
 	
-	public void deleteGoodsReply(@Param("rp_id") int rp_id, @Param("g_id") int g_id);
+	//커뮤니티 글에서 댓글 삭제 - 해당 member만 가능
+	void deleteComReply(@Param("rp_id") int rp_id, @Param("com_id") int com_id);
 	
-	public void deleteComAllReply(int com_id);
+	//중고거래 글에서 댓글 삭제 - 해당 member만 가능
+	void deleteGoodsReply(@Param("rp_id") int rp_id, @Param("g_id") int g_id);
 	
-	public void deleteGoodsAllReply(int g_id);
+	//커뮤니티 글 삭제 시 해당 댓글 전체 삭제
+	void deleteComAllReply(int com_id);
 	
-	public int getU_IdByCommunityReply(@Param("com_id") int com_id, @Param("rp_id") int rp_id);
+	//중고거래 글 삭제 시 해당 댓글 전체 삭제
+	void deleteGoodsAllReply(int g_id);
 	
-	public int getU_IdByUsedGoodsReply(@Param("g_id") int g_id, @Param("rp_id") int rp_id);
+	//커뮤니티 글의 댓글 작성자 u_id 가져오기
+	int getU_IdByCommunityReply(@Param("com_id") int com_id, @Param("rp_id") int rp_id);
 	
-	public List<Reply> getMyReplyList(int u_id);
+	//중고거래 글의 댓글 작성자 u_id 가져오기
+	int getU_IdByUsedGoodsReply(@Param("g_id") int g_id, @Param("rp_id") int rp_id);
+	
 }

@@ -23,16 +23,6 @@ public class MybatisItemDao implements ItemDao {
 	}
 
 	@Override
-	public List<Item> getALLItemList(int spe_id) throws DataAccessException {
-		return itemMapper.getALLItemList(spe_id);
-	}
-
-	@Override
-	public List<Item> getItemList(int spe_id, int category_id) throws DataAccessException {
-		return itemMapper.getItemList(spe_id, category_id);
-	}
-
-	@Override
 	public List<Item> getFilterItemList(Map<String, Object> param) throws DataAccessException {
 		return itemMapper.getFilterItemList(param);
 	}
@@ -46,20 +36,5 @@ public class MybatisItemDao implements ItemDao {
 	public List<Item> orderByItem(int spe_id, int category_id, String stand, String od)
 			throws DataAccessException {
 		return itemMapper.orderByItem(spe_id, category_id, stand, od);
-	}
-
-	@Override
-	public void insertItem(Item item) throws DataAccessException {
-		itemMapper.insertItem(item);
-	}
-
-	@Override
-	public void updateItem(Item item) throws DataAccessException {
-		itemMapper.updateItem(item);
-	}
-
-	@Override
-	public void deleteItem(int item_id) throws DataAccessException {
-		itemMapper.deleteItem(item_id);
 	}
 }

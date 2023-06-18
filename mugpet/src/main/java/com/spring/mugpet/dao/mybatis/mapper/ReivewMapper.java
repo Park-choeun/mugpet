@@ -12,7 +12,7 @@ public interface ReivewMapper {
 	//각 아이템의 리뷰목록 불러오기
 	List<Review> getItemReivewList(int item_id);
 	
-	//본인이 작성한 리뷰목록 불러오기
+	//member가 작성한 리뷰목록 불러오기
 	List<Review> getMyReviewList(int u_id);
 	
 	//리뷰 추가(작성)하기

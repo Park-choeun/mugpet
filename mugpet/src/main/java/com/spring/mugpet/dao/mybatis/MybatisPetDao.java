@@ -11,22 +11,17 @@ import com.spring.mugpet.domain.Pet;
 @Repository
 public class MybatisPetDao implements PetDao{
 
-	
 	@Autowired
 	private PetMapper petMapper;
 
 	@Override
 	public void insertPet(Pet pet) throws DataAccessException{
 		petMapper.insertPet(pet);
-		
 	}
 
 	@Override
 	public Pet getPetByU_id(int u_id) throws DataAccessException {
 		return petMapper.getPetByU_id(u_id);
-		
 	}
-	
-	
 	
 }

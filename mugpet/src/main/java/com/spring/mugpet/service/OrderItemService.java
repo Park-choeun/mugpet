@@ -1,9 +1,6 @@
 package com.spring.mugpet.service;
 
-import java.util.Date;
 import java.util.List;
-
-import org.springframework.dao.DataAccessException;
 
 import com.spring.mugpet.domain.Item;
 import com.spring.mugpet.domain.OrderItem;
@@ -24,12 +21,6 @@ public interface OrderItemService {
 	//주문 목록에 상품 추가하기	
 	void insertOrderItem(OrderItem orderItem);
 	
-	//주문 목록 삭제하기
-	void deleteOrderItem(int u_id, String orderTime);
-	
-	
-	
-	//member 의 모든 주문 아이템 개수 가져오기
 	int getOrderItemCnt(int u_id);
 	
 	//member가 주문한 아이템인지 확인하는 메소드

@@ -19,48 +19,37 @@ public class MybatisCommunityDao implements CommunityDao{
 	
 	@Override
 	public List<Community> getComList() throws DataAccessException{
-		//게시글 목록 보기
 		return comMapper.getComList();
 	}
 
 	@Override
 	public List<Community> getMemberComList(int u_id) throws DataAccessException{
-		//본인이 쓴 게시글 목록 보기
 		return comMapper.getMemberComList(u_id);
 	}
 
 	@Override
 	public Community getCom(int com_id) throws DataAccessException{
-		//게시글 상세보기
 		return comMapper.getCom(com_id);
 	}
 
 	@Override
 	public void insertCom(NewCommunityCommand comCommand) throws DataAccessException{
-		//게시글 작성
 		comMapper.insertCom(comCommand);
-		
 	}
 
 	@Override
 	public void updateCom(NewCommunityCommand comCommand) throws DataAccessException{
-		//게시글 수정
 		comMapper.updateCom(comCommand);
-		
 	}
 
 	@Override
 	public void deleteCom(int com_id) throws DataAccessException{
-		//게시글 삭제
 		comMapper.deleteCom(com_id);
-		
 	}
 
 	@Override
 	public void updateReplyCnt(int com_id, int amount) {
-		//댓글 수
 		comMapper.updateReplyCnt(com_id, amount);
-		
 	}
 
 	@Override
@@ -70,7 +59,6 @@ public class MybatisCommunityDao implements CommunityDao{
 
 	@Override
 	public void updateComLikesCnt(int com_id, int amount) {
-		//좋아요 수
 		comMapper.updateComLikesCnt(com_id, amount);
 	}	
 
