@@ -75,7 +75,7 @@ td{
 </style>
 </head>
 <body>
-	<form:form modelAttribute="filtering" name="filterForm" method="post" action="${contextPath}/item/filter?spe_id=${spe_id}&category_id=${category_id}&isFiltering=1">
+	<form:form modelAttribute="filtering" name="filterForm" method="post" class="validation-form" action="${contextPath}/item/filter?spe_id=${spe_id}&category_id=${category_id}">
 		<table id="ftable">
 			<tr><th id="filterLabel">필터</th></tr>
   			<tr>
@@ -114,6 +114,7 @@ td{
 		
 		function resetForm() {
 			$("input[name='age']").prop("checked", false);
+			$("input:radio[name='age']:input[value='퍼피']").prop("checked", true);
 			$("input[name='stuffs']").prop("checked", false);
 			$("input[name='features']").prop("checked", false);
 		}
