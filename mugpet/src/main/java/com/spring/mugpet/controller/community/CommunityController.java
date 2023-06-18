@@ -17,7 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +35,7 @@ import com.spring.mugpet.domain.Community;
 import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.Pet;
 import com.spring.mugpet.domain.Reply;
+import com.spring.mugpet.service.CommunityFormValidator;
 import com.spring.mugpet.service.CommunityServiceImpl;
 import com.spring.mugpet.service.MemberServiceImpl;
 import com.spring.mugpet.service.PetService;
@@ -52,6 +58,9 @@ public class CommunityController {
 	@Autowired
 	private PetService petService;
 	
+	@Autowired
+	private CommunityFormValidator comValidator;
+	
 	@RequestMapping("/community/view")
 	public String getCom(@RequestParam(value = "com_id") int com_id, @ModelAttribute("userSession")MemberInfo userSession, Model model) {
 		//게시글 상세보기
@@ -62,6 +71,7 @@ public class CommunityController {
 		Community com = null;
 		com = comService.getCom(com_id);
 		
+		//해당 게시글에 작성된 댓글 목록 가져오기
 		List<Reply> replyList = replyService.getCommunityReplyList(com_id);
 		ArrayList<String> rp_nicknameList = new ArrayList<String>();
 		
@@ -77,15 +87,7 @@ public class CommunityController {
 			System.out.println(">>>>>>>petName : " + petName);
 		}
 		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
-		
+		//댓글을 작성한 사용자 닉네임 가져오기
 		for(Reply reply : replyList) {
 			int rp_id = reply.getRp_id();
 			int rp_u_id = replyService.getU_IdByCommunityReply(com_id, rp_id);
@@ -102,7 +104,8 @@ public class CommunityController {
 		model.addAttribute("rp_nicknameList", rp_nicknameList);
 		model.addAttribute("userSession", userSession);
 		model.addAttribute("petName", petName);
-		model.addAttribute("spe", spe);
+		model.addAttribute("spe", petService.getSpeName(spe_id));
+		model.addAttribute("spe_id", spe_id);
 		
 		
 		return "tiles/community/view";
@@ -128,23 +131,14 @@ public class CommunityController {
 		
 		ArrayList<String> nicknameList = new ArrayList<String>();
 		
+		//게시글을 작성한 사용자 닉네임 가져오기
 		for(Community coms : comList) {
 			int com_id = coms.getCom_id();
 			int u_id = comService.getU_IdByCommunity(com_id);
 			String nickname = memberService.getNickNameByU_Id(u_id);
 			nicknameList.add(nickname);
 		}
-	
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
 		
-		//title, com_id 확인
 		for(Community com : comList) {
 			System.out.println(com.getTitle());
 			System.out.println(com.getCom_id());
@@ -152,8 +146,9 @@ public class CommunityController {
 		
 		model.addAttribute("comList", comList);
 		model.addAttribute("petName", petName);
-		model.addAttribute("spe", spe);
+		model.addAttribute("spe", petService.getSpeName(spe_id));
 		model.addAttribute("nicknameList", nicknameList);
+		model.addAttribute("spe_id", spe_id);
 		
 		return "tiles/community/communityList";
 	}
@@ -178,29 +173,23 @@ public class CommunityController {
 		
 		}
 		
-		String spe;
-		if (spe_id == 1) {
-			spe = "강아지";
-		} else if (spe_id == 2) {
-			spe = "고양이";
-		} else {
-			spe = "소동물";
-		}
-		
 		model.addAttribute("myComList", myComList);
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("petName", petName);
-		model.addAttribute("spe", spe);
+		model.addAttribute("spe", petService.getSpeName(spe_id));
+		model.addAttribute("spe_id", spe_id);
 	
 		return "tiles/community/myCommunityList";
 	}
 	
+	//해당 게시글에 작성된 모든 댓글을 삭제 후 게시글 삭제
 	@RequestMapping("/community/delete")
 	public String deleteCom(@RequestParam(value = "com_id") int com_id) {
 		//게시글 삭제
 		replyService.deleteComAllReply(com_id);
 		comService.deleteCom(com_id);
 		
+		//게시글 목록 view로 이동
 		return "redirect:/community/communityList";
 	}
 	
@@ -217,8 +206,17 @@ public class CommunityController {
 	
 	//수정 폼에서 수정 완료 버튼 클릭시, 해당 글과 관련된 내용을 db에 수정해 저장 후 상세보기 페이지로 이동
 	@RequestMapping(value = "/community/update", method = RequestMethod.POST)
-	public String updateSubmit(NewCommunityCommand comCommand, BindingResult result, HttpServletRequest request,
-								@RequestPart(value="imgFile", required=false) MultipartFile file, @ModelAttribute("userSession") MemberInfo userSession) throws Exception {
+	public String updateSubmit(@Validated NewCommunityCommand comCommand, BindingResult result, HttpServletRequest request,
+								@RequestPart(value="imgFile", required=false) MultipartFile file, Model model, @ModelAttribute("userSession") MemberInfo userSession) throws Exception {
+		comValidator.validate(comCommand, result);
+		
+		if(result.hasErrors()) {
+			Community com = comService.getCom(comCommand.getCom_id());
+			model.addAttribute("community", com);
+			
+			return "/community/updateForm";
+		}
+		
 		comCommand.setU_id(userSession.getU_id());
 		
 		if(file != null){
@@ -227,21 +225,33 @@ public class CommunityController {
 			comService.updateComWithoutImgFile(comCommand);
 		}
 		
+		//에러 확인
+		showErrors(result);
+		
 		//수정된 view로 이동
 		return "redirect:/community/view?com_id=" + comCommand.getCom_id();
 	}
 	
 	//글 작성 버튼 누르면 폼으로 이동
 	@RequestMapping(value = "/community/writeForm", method = RequestMethod.GET)
-	public String form(@ModelAttribute NewCommunityCommand comCommand) {
-
+	public String form(@ModelAttribute("userSession") MemberInfo userSession) {
+		//비로그인 상태시, 로그인 폼으로 이동
+		if(userSession.getU_id() == 0) {
+			return "/member/loginForm";
+		}
+		
 		return "/community/writeForm";
 	}
 	
 	//폼에서 작성 완료 버튼을 누르면 해당 글과 관련된 내용을 db에 저장 후 s상세보기 페이지로 이동
 	@RequestMapping(value = "/community/write", method = RequestMethod.POST)
-	public String submit(NewCommunityCommand comCommand, BindingResult result, HttpServletRequest request,
+	public String submit(@Validated NewCommunityCommand comCommand, BindingResult result, HttpServletRequest request,
 						@RequestPart(value="imgFile", required=false) MultipartFile file, @ModelAttribute("userSession") MemberInfo userSession) throws Exception {
+		comValidator.validate(comCommand, result);
+		
+		if(result.hasErrors()) {
+			return "/community/writeForm";
+		}
 		
 		comCommand.setU_id(userSession.getU_id());
 		
@@ -250,6 +260,9 @@ public class CommunityController {
 		}else {
 			comService.insertComWithoutImgFile(comCommand);
 		}
+		
+		//에러 확인
+		showErrors(result);
 	
 		//작성된 view로 이동
 		return "redirect:/community/view?com_id=" + comCommand.getCom_id();		
@@ -257,8 +270,24 @@ public class CommunityController {
 	
 	@RequestMapping(value = "/community/likes")
 	public String updateComLikesCnt(@RequestParam("com_id") int com_id, Model model) {
+		//좋아요 수
 		comService.updateComLikesCnt(com_id, 1);
 		
+		//기존 view로 이동
 		return "redirect:/community/view?com_id=" + com_id;
+	}
+	
+	public void showErrors(Errors errors) {
+		if(errors.hasErrors()) {
+			System.out.println("에러 개수: " + errors.getErrorCount());
+			System.out.println("\t[filed]\t[code]");
+			List<FieldError> errList = errors.getFieldErrors();
+			
+			for(FieldError err : errList) {
+				System.out.println("\t " + err.getField() + "\t|" + err.getCode());
+			}
+		}else {
+			System.out.println("에러 없음");
+		}
 	}
 }
