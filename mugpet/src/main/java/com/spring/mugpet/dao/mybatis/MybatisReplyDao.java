@@ -83,4 +83,9 @@ public class MybatisReplyDao implements ReplyDao{
 	public int getU_IdByUsedGoodsReply(int g_id, int rp_id) throws DataAccessException {
 		return replyMapper.getU_IdByUsedGoodsReply(g_id, rp_id);
 	}
+
+	@Override
+	public List<Reply> getMyReplyList(int u_id) throws DataAccessException {
+		return replyMapper.getMyReplyList(u_id);
+	}
 }

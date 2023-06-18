@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
-import com.spring.mugpet.controller.item.FilterCommand;
 import com.spring.mugpet.domain.Item;
 import com.spring.mugpet.domain.MemberInfo;
 import com.spring.mugpet.domain.Pet;
@@ -23,7 +22,7 @@ import com.spring.mugpet.service.ItemService;
 import com.spring.mugpet.service.PetService;
 
 @Controller
-@SessionAttributes({"userSession", "filtering"})
+@SessionAttributes("userSession")
 public class MainController {
 	
 	@Autowired
@@ -46,19 +45,11 @@ public class MainController {
 		}
 		return userSession;
 	}
-	
-	@ModelAttribute("filtering")
-	public FilterCommand setFiltering() {
-		FilterCommand filtering = new FilterCommand();
-		filtering.setAge("퍼피");
-		return filtering;
-	}
 
 	//main view
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public ModelAndView viewMain(@ModelAttribute("userSession") MemberInfo userSession,
-								@RequestParam(value="spe_id", defaultValue="1") int spe_id,
-								@RequestParam(value="isFiltering", defaultValue="0")int isFiltering) {
+								@RequestParam(value="spe_id", defaultValue="1") int spe_id) {
 	
 		String petName = null;
 		if(userSession.getU_id() != 0) {
@@ -68,7 +59,7 @@ public class MainController {
 		}
 		
 		List<Item> itemList = new ArrayList<Item>();
-		itemList = itemService.orderByItem(spe_id, 0, "item_id", "ASC");	
+		itemList = itemService.getALLItemList(spe_id);	
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("tiles/main");
@@ -81,7 +72,6 @@ public class MainController {
 		mav.addObject("standard", "기본순");
 		mav.addObject("petName", petName);
 		mav.addObject("userSession", userSession);
-		mav.addObject("isFiltering", isFiltering);
 		
 		return mav;
 	}
@@ -90,13 +80,12 @@ public class MainController {
 	//종 선택 시 아이템 변경(session의 spe_id와는 무관하게)
 	@RequestMapping(value="/main/speId", method=RequestMethod.GET)
 	public ModelAndView viewSpeMain(@ModelAttribute("userSession") MemberInfo userSession,
-								@RequestParam("spe_id") int spe_id,
-								@RequestParam(value="isFiltering", defaultValue="0")int isFiltering) {
+								@RequestParam("spe_id") int spe_id) {
 		
 		List<Item> itemList = new ArrayList<Item>();
 		itemList = itemService.getALLItemList(spe_id);	
 		
-		ModelAndView mav = viewMain(userSession, spe_id, isFiltering);
+		ModelAndView mav = viewMain(userSession, spe_id);
 		mav.addObject("itemList", itemList);
 		mav.addObject("spe_id", spe_id);
 		mav.addObject("spe", petService.getSpeName(spe_id));
@@ -107,27 +96,21 @@ public class MainController {
 	
 	//main에서 아이템 정렬
 	@RequestMapping("/main/orderItem")
-	public ModelAndView orderByItem(@ModelAttribute("userSession") MemberInfo userSession,
-								@ModelAttribute("filtering") FilterCommand filtering,
+	public ModelAndView orderByItem(@ModelAttribute("userSession") MemberInfo userSession, 
 								@RequestParam("spe_id") int spe_id,
 								@RequestParam("stand") String stand, 
 								@RequestParam("od") String od,
-								@RequestParam("isFiltering")int isFiltering) {
+								@RequestParam(value="tmp", defaultValue="0") int tmp) {
 		
-		//isFiltering=1(필터링한 결과), isFiltering=0(필터링 안함)
+		//tmp=1(필터링 결과화면),tmp=0(기본메인)
 		List<Item> itemList = new ArrayList<Item>();
-		if (isFiltering == 1) {
-			itemList = itemService.orderByFiltering(spe_id, 0, filtering.getAge(), filtering.getStuffs(), filtering.getFeatures(), stand, od);
-		} else {
-			itemList = itemService.orderByItem(spe_id, 0, stand, od);
-		}
+		itemList = itemService.orderByItem(spe_id, 0, stand, od);
 		
-		ModelAndView mav = viewMain(userSession, spe_id, isFiltering);
+		ModelAndView mav = viewMain(userSession, spe_id);
 		mav.addObject("itemList", itemList);
 		mav.addObject("spe_id", spe_id);
 		mav.addObject("spe", petService.getSpeName(spe_id));
 		mav.addObject("standard", itemService.getOrderByName(stand, od));
-		mav.addObject("isFiltering", isFiltering);
 		
 		return mav;
 	}

@@ -10,7 +10,7 @@ public interface WishDao {
 
 	List<Item> getMyWishList(int u_id) throws DataAccessException;
 	
-	Integer isWish(int item_id, int u_id) throws DataAccessException;
+	List<Integer> isWish(int u_id) throws DataAccessException;
 
 	void insertWish(int item_id, int u_id) throws DataAccessException;
 	

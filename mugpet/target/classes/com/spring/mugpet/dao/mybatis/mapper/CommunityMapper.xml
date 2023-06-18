@@ -77,6 +77,5 @@
 		UPDATE Community
 		SET likes=likes+#{amount}
 		WHERE com_id=#{com_id}
->>>>>>> branch 'main' of https://github.com/Park-choeun/mugpet.git
 	</update>
 </mapper>

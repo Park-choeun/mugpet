@@ -52,7 +52,7 @@ function communityUpdate() {
 				<br>
   			  <input name="imgFile" class="form-control form-control-sm" type="file" style="width: 90%;" multiple="multiple" accept=".jpg, .jpeg, .png"/>
   		<br>
-  		<button type="submit" class="btn btn-danger" style="background-color: #FFD1FF; border-color: #FFD1FF; color:white;" type="submit" onClick="CommunityUpdate()">등록</button>&nbsp;
+  		<button type="submit" class="btn btn-danger" style="background-color: #FFD1FF; border-color: #FFD1FF; color:white;" type="submit" onClick="communityUpdate()">등록</button>&nbsp;
   		<button type="button" class="btn btn-outline-danger" style="background-color: #FFD1FF; border-color: #FFD1FF;" onclick="javascript:history.back()">취소</button>
 				</div>
 	</form>		

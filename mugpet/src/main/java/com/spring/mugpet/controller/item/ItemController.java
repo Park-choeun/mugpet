@@ -19,8 +19,8 @@ import com.spring.mugpet.service.PetService;
 import com.spring.mugpet.service.WishService;
 
 @Controller
+@SessionAttributes("userSession")
 @RequestMapping("/item")
-@SessionAttributes({"userSession", "filtering"})
 public class ItemController {
 	
 	@Autowired
@@ -45,8 +45,7 @@ public class ItemController {
 	@RequestMapping("/itemList")
 	public ModelAndView viewItemListByCategory(@ModelAttribute("userSession") MemberInfo userSession,
 										@RequestParam("spe_id") int spe_id, 
-										@RequestParam("category_id") int category_id,
-										@RequestParam(value="isFiltering", defaultValue="0")int isFiltering) {
+										@RequestParam("category_id") int category_id) {
 		
 		String petName = null;
 		if(userSession.getU_id() != 0) {
@@ -55,7 +54,7 @@ public class ItemController {
 		}
 		
 		List<Item> itemList = new ArrayList<Item>();
-		itemList = itemService.orderByItem(spe_id, category_id, "item_id", "ASC");
+		itemList = itemService.getItemList(spe_id, category_id);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("tiles/item/itemList");
@@ -68,7 +67,6 @@ public class ItemController {
 		mav.addObject("category_id", category_id);
 		mav.addObject("petName", petName);
 		mav.addObject("userSession", userSession);
-		mav.addObject("isFiltering", isFiltering);
 		
 		return mav;
 	}
@@ -82,42 +80,44 @@ public class ItemController {
 		int isWish = 0; 
 		if(userSession.getU_id() != 0) {
 			//wish에 해당 아이템이 있으면 1 반환, 없으면 0 반환
-			isWish = wishService.isWish(item_id, userSession.getU_id());
-			System.out.println(">>>>>isWish=" + isWish + ",item_id=" + item_id);
+			isWish = wishService.isWish(userSession.getU_id(), item_id);
 		}
 		Item item = itemService.getItem(item_id);
 		
-		ModelAndView mav = viewItemListByCategory(userSession, item.getSpe_id(), item.getCategory_id(), 0);
+		ModelAndView mav = viewItemListByCategory(userSession, item.getSpe_id(), item.getCategory_id());
 		mav.setViewName("tiles/item/itemDetail");
 		
 		mav.addObject("item", item);
 		mav.addObject("isWish", isWish);
 		mav.addObject("filterTmp", null);
-		mav.addObject("isCart", null);
-		//review불러오기
 		
 		return mav;
 	}
 	
 	//아이템 정렬
 	@RequestMapping("/orderItem")
-	public ModelAndView orderItem(@ModelAttribute("userSession") MemberInfo userSession,
-									@ModelAttribute("filtering") FilterCommand filtering,
-									@RequestParam("spe_id") int spe_id, @RequestParam("category_id") int category_id, 
-									@RequestParam("stand") String stand, @RequestParam("od") String od, 
-									@RequestParam("isFiltering") int isFiltering) {
+	public ModelAndView orderItem(@ModelAttribute("userSession") MemberInfo userSession, @RequestParam("spe_id") int spe_id, 
+									@RequestParam("category_id") int category_id, @RequestParam("stand") String stand, 
+									@RequestParam("od") String od) {
 		
-		//isFiltering=1(필터링한 결과), isFiltering=0(필터링 안함)
 		List<Item> itemList = new ArrayList<Item>();
-		if (isFiltering == 1) {
-			itemList = itemService.orderByFiltering(spe_id, category_id, filtering.getAge(), filtering.getStuffs(), filtering.getFeatures(), stand, od);
-		} else {
-			itemList = itemService.orderByItem(spe_id, category_id, stand, od);
-		}
+		itemList = itemService.orderByItem(spe_id, category_id, stand, od);
 		
-		ModelAndView mav = viewItemListByCategory(userSession, spe_id, category_id, isFiltering);
+		ModelAndView mav = viewItemListByCategory(userSession, spe_id, category_id);
 		mav.addObject("itemList", itemList);
 		mav.addObject("standard", itemService.getOrderByName(stand, od));
+		//잉
+		return mav;
+	}
+	
+	
+	//itemDetail에서 장바구니 or 구매하기 클릭 시 개수 선택 창
+	@RequestMapping("/choiceQty")
+	public ModelAndView choiceItemQty(@ModelAttribute("userSession") MemberInfo userSession,
+										@RequestParam("item_id") int item_id) {
+		
+		ModelAndView mav = viewItme(userSession, item_id);
+		mav.setViewName("/item/choiceQty");
 		
 		return mav;
 	}

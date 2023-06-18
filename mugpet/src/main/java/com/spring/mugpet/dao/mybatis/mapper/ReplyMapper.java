@@ -27,4 +27,6 @@ public interface ReplyMapper {
 	public int getU_IdByCommunityReply(@Param("com_id") int com_id, @Param("rp_id") int rp_id);
 	
 	public int getU_IdByUsedGoodsReply(@Param("g_id") int g_id, @Param("rp_id") int rp_id);
+	
+	public List<Reply> getMyReplyList(int u_id);
 }

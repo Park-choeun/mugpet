@@ -15,7 +15,8 @@
 	<thead>
 		<tr>
 			<th>번호</th>
-			<th>제목</th>
+			<th>작성자</th>
+			<th>댓글 내용</th>
 			<th>작성일</th>
 		</tr>
 	</thead>
@@ -25,8 +26,16 @@
 		<c:forEach items="${replyList}" var="reply">
 			<tr>
 				<td>${reply.rp_id}</td>
+				<td>${nickname }</td>
 				<td>
-					<a href="/board/view?bno=${reply.rp_id}">${reply.content}</a>
+				<c:choose>
+					<c:when test="${reply.com_id ne 0 }">
+						<a href="${contextPath }/community/view?com_id=${reply.com_id }">${reply.content }</a>
+					</c:when>
+					<c:when test="${reply.g_id ne 0 }">
+						<a href="${contextPath }/usedGoods/view?g_id=${reply.g_id }">${reply.content }</a>
+					</c:when>
+				</c:choose>
 				</td>
 				<td>
 					<fmt:formatDate value="${reply.enrollDt}" pattern="yyyy-MM-dd" />				

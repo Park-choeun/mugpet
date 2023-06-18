@@ -12,7 +12,7 @@ public interface WishMapper {
 	List<Item> getMyWishList(@Param("u_id")int u_id);
 	
 	//위시여부 확인
-	Integer isWish(@Param("item_id")int item_id, @Param("u_id")int u_id);
+	List<Integer> isWish(@Param("u_id")int u_id);
 	
 	//위시리스트에 상품추가
 	void insertWish(@Param("item_id")int item_id, @Param("u_id")int u_id);

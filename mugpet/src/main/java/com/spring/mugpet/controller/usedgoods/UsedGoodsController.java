@@ -95,7 +95,7 @@ public class UsedGoodsController {
 		model.addAttribute("spe", petService.getSpeName(spe_id));
 		model.addAttribute("spe_id", spe_id);
 		
-		return "tiles/usedGoods/view";
+		return "tile/usedGoods/view";
 	}
 	
 	@RequestMapping("/usedGoods/usedGoodsList")
@@ -137,10 +137,10 @@ public class UsedGoodsController {
 		model.addAttribute("spe_id", spe_id);
 		model.addAttribute("nicknameList", nicknameList);
 		
-		return "tiles/usedGoods/usedGoodsList";
+		return "tile/usedGoods/usedGoodsList";
 	}
 	
-	@RequestMapping("/usedGoods/myUsedGoodsList")
+	@RequestMapping("/myPage/myUsedGoodsList")
 	public String getMemberUsedGoodsList(Model model, @ModelAttribute("userSession") MemberInfo userSession) {
 		//본인이 쓴 게시글 목록 보기
 		int u_id = userSession.getU_id();
@@ -166,7 +166,7 @@ public class UsedGoodsController {
 		model.addAttribute("spe", petService.getSpeName(spe_id));
 		model.addAttribute("spe_id", spe_id);
 		
-		return "tiles/usedGoods/myUsedGoodsList";
+		return "tile/myPage/myUsedGoodsList";
 	}
 	
 	//해당 게시글에 작성된 모든 댓글을 삭제 후 게시글 삭제
@@ -222,11 +222,6 @@ public class UsedGoodsController {
 	
 	@RequestMapping(value = "/usedGoods/writeForm", method = RequestMethod.GET)
 	public String form(@ModelAttribute("userSession") MemberInfo userSession) {
-		//비로그인 상태시, 로그인 폼으로 이동
-		if(userSession.getU_id() == 0) {
-			return "/member/loginForm";
-		}
-		
 		//게시글 작성 폼으로 이동
 		return "/usedGoods/writeForm";
 	}
