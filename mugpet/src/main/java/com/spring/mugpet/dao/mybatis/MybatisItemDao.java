@@ -23,16 +23,6 @@ public class MybatisItemDao implements ItemDao {
 	}
 
 	@Override
-	public List<Item> getALLItemList(int spe_id) throws DataAccessException {
-		return itemMapper.getALLItemList(spe_id);
-	}
-
-	@Override
-	public List<Item> getItemList(int spe_id, int category_id) throws DataAccessException {
-		return itemMapper.getItemList(spe_id, category_id);
-	}
-
-	@Override
 	public List<Item> getFilterItemList(Map<String, Object> param) throws DataAccessException {
 		return itemMapper.getFilterItemList(param);
 	}

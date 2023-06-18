@@ -13,48 +13,42 @@ import com.spring.mugpet.domain.UsedGoods;
 
 @Repository
 public class MybatisUsedGoodsDao implements UsedGoodsDao{
+	
 	@Autowired
 	private UsedGoodsMapper goodsMapper;
 	
 	@Override
 	public List<UsedGoods> getUsedGoodsList() throws DataAccessException{
-		//게시글 목록 보기
 		return goodsMapper.getUsedGoodsList();
 	}
 
 	@Override
 	public List<UsedGoods> getMemberUsedGoodsList(int u_id) throws DataAccessException{
-		//본인이 쓴 게시글 목록 보기
 		return goodsMapper.getMemberUsedGoodsList(u_id);
 	}
 
 	@Override
 	public UsedGoods getUsedGoods(int g_id) throws DataAccessException{
-		//게시글 상세보기
 		return goodsMapper.getUsedGoods(g_id);
 	}
 
 	@Override
 	public void insertUsedGoods(NewUsedGoodsCommand goodsCommand) throws DataAccessException{
-		//게시글 작성
 		goodsMapper.insertUsedGoods(goodsCommand);
 	}
 
 	@Override
 	public void updateUsedGoods(NewUsedGoodsCommand goodsCommand) throws DataAccessException{
-		//게시글 수정
 		goodsMapper.updateUsedGoods(goodsCommand);
 	}
 
 	@Override
 	public void deleteUsedGoods(int g_id) throws DataAccessException{
-		//게시글 삭제
 		goodsMapper.deleteUsedGoods(g_id);
 	}
 
 	@Override
 	public void updateGoodsReplyCnt(int g_id, int amount) {
-		//댓글수
 		goodsMapper.updateGoodsReplyCnt(g_id, amount);
 	}
 
@@ -65,7 +59,6 @@ public class MybatisUsedGoodsDao implements UsedGoodsDao{
 
 	@Override
 	public void updateGoodsLikesCnt(int g_id, int amount) {
-		//좋아요 수
 		goodsMapper.updateGoodsLikesCnt(g_id, amount);
 	}
 

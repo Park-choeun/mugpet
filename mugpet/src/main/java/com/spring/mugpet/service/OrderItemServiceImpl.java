@@ -1,10 +1,8 @@
 package com.spring.mugpet.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.spring.mugpet.dao.OrderItemDao;
@@ -39,12 +37,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 	public void insertOrderItem(OrderItem orderItem) {
 		orderItemDao.insertOrderItem(orderItem);
 	}
-		
-	//주문 목록 삭제하기
-	public void deleteOrderItem(int u_id, String orderTime) {
-		orderItemDao.deleteOrderItem(u_id, orderTime);
-	}
-
+	
 	@Override
 	public int getOrderItemCnt(int u_id) {
 		return orderItemDao.getOrderItemCnt(u_id);
@@ -56,4 +49,5 @@ public class OrderItemServiceImpl implements OrderItemService {
 			return true; 
 		else return false;
 	}
+
 }

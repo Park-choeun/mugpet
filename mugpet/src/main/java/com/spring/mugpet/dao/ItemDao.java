@@ -9,15 +9,11 @@ import com.spring.mugpet.domain.Item;
 
 public interface ItemDao {
 	
-	Item getItem(int item_id) throws DataAccessException;
+	public Item getItem(int item_id) throws DataAccessException;
 	
-	List<Item> getALLItemList(int spe_id) throws DataAccessException;
+	public List<Item> getFilterItemList(Map<String, Object> param) throws DataAccessException;
 	
-	List<Item> getItemList(int spe_id, int category_id) throws DataAccessException;
+	public List<Item> orderByFiltering(Map<String, Object> param) throws DataAccessException;
 	
-	List<Item> getFilterItemList(Map<String, Object> param) throws DataAccessException;
-	
-	List<Item> orderByFiltering(Map<String, Object> param) throws DataAccessException;
-	
-	List<Item> orderByItem(int spe_id, int category_id, String stand, String od) throws DataAccessException;
+	public List<Item> orderByItem(int spe_id, int category_id, String stand, String od) throws DataAccessException;
 }

@@ -45,4 +45,5 @@ public class MybatisReviewDao implements ReviewDao {
 	public void deleteReview(int r_id) throws DataAccessException {
 		reviewMapper.deleteReview(r_id);
 	}
+	
 }
