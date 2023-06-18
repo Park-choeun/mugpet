@@ -90,7 +90,7 @@ public class CartController {
 		if (tmp == 1) {
 			mav = getCart(userSession);
 		} else {
-			mav = itemController.viewItme(userSession, item_id);
+			mav = itemController.viewItem(userSession, item_id);
 		}
 		mav.addObject("isCart", isCart);
 		   

@@ -75,7 +75,7 @@ public class ItemController {
 	
 	//아이템 상세 정보 출력
 	@RequestMapping("/itemDetail")
-	public ModelAndView viewItme(@ModelAttribute("userSession") MemberInfo userSession, 
+	public ModelAndView viewItem(@ModelAttribute("userSession") MemberInfo userSession, 
 									@RequestParam("item_id") int item_id) {
 		
 		//비로그인 상태이면 wish=0

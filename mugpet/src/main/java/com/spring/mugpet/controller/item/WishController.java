@@ -55,7 +55,7 @@ public class WishController {
 		}
 		isWish = wishService.isWish(item_id, userSession.getU_id());
 		
-		ModelAndView mav = itemController.viewItme(userSession, item_id);
+		ModelAndView mav = itemController.viewItem(userSession, item_id);
 		mav.addObject("isWish", isWish);
 		
 		return mav;
