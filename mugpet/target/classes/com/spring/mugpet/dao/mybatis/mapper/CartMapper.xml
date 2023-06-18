@@ -7,6 +7,12 @@
 		cartQty, u_id
 	</sql>
 	
+	<select id="isCart" parameterType="int" resultType="Integer">
+		SELECT item_id
+		FROM Cart
+		WHERE item_id=${item_id} AND u_id=${u_id}
+	</select>
+	
 	<select id="getMyCartList" parameterType="int" resultType="Cart">
 		SELECT <include refid="cartCols" />
 		FROM Cart

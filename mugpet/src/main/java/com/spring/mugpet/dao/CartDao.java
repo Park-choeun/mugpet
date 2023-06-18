@@ -2,12 +2,15 @@ package com.spring.mugpet.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import com.spring.mugpet.domain.Cart;
 import com.spring.mugpet.domain.Item;
 
 public interface CartDao {
+	
+	Integer isCart(@Param("item_id")int item_id, @Param("u_id")int u_id) throws DataAccessException;
 	
 	//Cart 목록 리스트 형태로 가져오기 (장바구니는 하나)
 	List<Cart> getMyCartList(int u_id) throws DataAccessException;

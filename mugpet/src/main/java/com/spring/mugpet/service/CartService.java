@@ -6,6 +6,9 @@ import com.spring.mugpet.domain.Cart;
 import com.spring.mugpet.domain.Item;
 
 public interface CartService {
+	
+	Integer isCart(int item_id, int u_id);
+	
 	//Cart 목록 리스트 형태로 가져오기 (장바구니는 하나)
 	List<Cart> getMyCartList(int u_id);
 	

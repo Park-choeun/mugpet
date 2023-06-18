@@ -101,7 +101,12 @@
 				location.href = contextPath + "/cart/insertCart?item_id=" + item_id + "&qty=" + qty + "&tmp=0";
 			}
 		} else {
-			location.href = contextPath + "/order/orderItem?item_id=" + item_id + "&qty=" + qty;
+			let want = confirm("해당 상품을 구매하시겠습니까?");
+			if (want) {
+				location.href = contextPath + "/order/orderItem?item_id=" + item_id + "&qty=" + qty;
+			} else {
+				history.go(0);
+			}
 		}
 	}
 	
