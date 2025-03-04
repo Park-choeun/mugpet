@@ -16,7 +16,7 @@
 </div>
 
 
-## 🐾Mugpet 소개
+## 🐾MugPet 소개
 
 
 + 개발 기간: 2023/03/02 ~ 2023/06/18
@@ -50,5 +50,5 @@
 
 
 <div align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1wG0Fg-EY1-4Me23gQQpnLEsLvHDdA5Ik" alt="DB구조" width="700px" />
+  <img src="https://drive.google.com/uc?export=view&id=1wG0Fg-EY1-4Me23gQQpnLEsLvHDdA5Ik" alt="DB구조" width="750px" />
 </div><p/>
