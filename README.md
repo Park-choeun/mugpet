@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://drive.google.com/uc?export=view&id=1IoGi2kRMk6JGm0E6CUskuEcPEOzK-FYl" alt="MugPet" width="500px" />
+<img src="https://drive.google.com/uc?export=view&id=1IoGi2kRMk6JGm0E6CUskuEcPEOzK-FYl" alt="MugPet" width="550px" />
 
 
 사료·간식, 장난감·리드줄 등 반려동물 용품 쇼핑 및 커뮤니티·중고거래로 반려인끼리 소통하는 웹 서비스
