@@ -37,7 +37,7 @@
 + 시연 영상 : https://drive.google.com/file/d/14zIpSe6eRD_I-0sYITjxFX8b4A6x8-9d/view?usp=sharing
 
 
-# ⚙ 개발 환경
+## ⚙ 개발 환경
 
 
 + Languages: Java, JS, HTML5, CSS
@@ -49,3 +49,9 @@
 + Tools: Eclipse IDE(+ ERMaster), SQL Developer
 
   
+## 🗃 데이터베이스 구조
+
+
+<div align="center">
+  <img src="https://drive.google.com/uc?export=view&id=1wG0Fg-EY1-4Me23gQQpnLEsLvHDdA5Ik" alt="DB구조" width="800px" />
+</div><p/>
