@@ -53,5 +53,5 @@
 
 
 <div align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1wG0Fg-EY1-4Me23gQQpnLEsLvHDdA5Ik" alt="DB구조" width="750px" />
+  <img src="https://drive.google.com/uc?export=view&id=1wG0Fg-EY1-4Me23gQQpnLEsLvHDdA5Ik" alt="DB" width="750px" />
 </div><p/>
