@@ -37,7 +37,7 @@
 ## ⚙ 개발 환경
 
 
-+ Languages: Java, JS, HTML5, CSS
++ Languages: Java, JavaScript, HTML5, CSS
 + Framework: SpringFramework
 + Library: MyBatis, Tiles
 + Server: Apache Tomcat
