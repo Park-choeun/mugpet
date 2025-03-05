@@ -3,7 +3,7 @@
 <img src="https://drive.google.com/uc?export=view&id=1IoGi2kRMk6JGm0E6CUskuEcPEOzK-FYl" alt="MugPet" width="550px" />
 
 
-반려동물 관련 제품 및 용품 쇼핑과 펫 커뮤니티 · 중고거래를 제공하는 웹 서비스
+반려동물 관련 제품 및 용품을 쇼핑, 펫 커뮤니티 · 중고거래를 제공하는 웹 서비스
 
 <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=java&logoColor=white" />  
 <img src="https://img.shields.io/badge/SpringFramework-6DB33F?style=flat&logo=spring&logoColor=white" /> 
