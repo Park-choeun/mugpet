@@ -41,7 +41,7 @@
 
 + Languages: Java, JavaScript, HTML5, CSS
 + Framework: SpringFramework, MyBatis
-+ Library: MyBatis, Tiles, JSTL, jQuery, JDBC 드라이버
++ Library: MyBatis, Tiles, JSP, JSTL, jQuery, JDBC 드라이버
 + API: JDBC
 + Server: Apache Tomcat
 + DB: Oracle
